@@ -1,0 +1,17 @@
+{% extends 'base2.html.twig' %}
+
+{% block title %}Duplicado de Lotjuridica{% endblock %}
+
+{% block body %}
+    <h1 class="alert alert-success"><i class="far fa-clone"></i> Duplicado de Lotjuridica</h1>
+    {{ include('lotjuridicas/_formDuplicado.html.twig') }}
+{% endblock %}
+{% block jsadicional %}
+<script>
+    $(function () {
+        $('.datetimepicker4').datetimepicker({
+            format: 'L',
+            locale: 'es' });
+    });
+</script>
+{% endblock %}

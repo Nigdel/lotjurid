@@ -1,0 +1,34 @@
+{% extends 'base2.html.twig' %}
+{% block body %}
+    <h1>Tarifa index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Concepto</th>
+                <th>Valor</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for tarifa in tarifas %}
+            <tr>
+                <td>{{ tarifa.id }}</td>
+                <td>{{ tarifa.concepto }}</td>
+                <td>{{ tarifa.valor }}</td>
+                <td>
+                    <a href="{{ path('tarifa_show', {'id': tarifa.id}) }}">show</a>
+                    <a href="{{ path('tarifa_edit', {'id': tarifa.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="4">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('tarifa_new') }}">Create new</a>
+{% endblock %}

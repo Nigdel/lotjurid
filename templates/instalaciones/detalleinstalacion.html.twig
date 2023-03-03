@@ -1,0 +1,46 @@
+<h1 class="alert alert-warning"> Detalles de la Instalacion</h1>
+<table class="table table-striped table-dark table-sm">
+    <tbody>
+    {#<tr>#}
+        {#<th>Id</th>#}
+        {#<td>{{ instalacione.id }}</td>#}
+    {#</tr>#}
+    <tr>
+        <th>Nombre</th>
+        <td>{{ instalacione.nombre }}</td>
+    </tr>
+    <tr>
+        <th>Direccion</th>
+        <td>{{ instalacione.direccion }}</td>
+    </tr>
+    <tr>
+        <th>Aseguramiento</th>
+        <td>{{ instalacione.aseguramiento ? 'Si' : 'No' }}</td>
+    </tr>
+    <tr>
+        <th rowspan="{{ instalacione.Servicios1 | length }}">Servicio{{  instalacione.Servicios1 | length > 1 ? 's' :'' }} Prestado{{  instalacione.Servicios1 | length > 1 ? 's' :'' }}</th>
+         {% for serv in instalacione.Servicios1 %}
+            {% if not loop.first %}
+                <tr><td>
+                    {% for servicio in servicios%}
+                        {%  if servicio.id == serv  %}
+                            {{ servicio }}
+                        {% endif %}
+                    {% endfor %}
+                </td></tr>
+            {% else %}
+               <td>{% for servicio in servicios%}
+                            {%  if servicio.id == serv  %}
+                                {{ servicio }}
+                            {% endif %}
+                        {% endfor %}
+                    </td>
+            {% endif %}
+         {% endfor %}
+    </tr>
+    <tr>
+        <th>Comprobante Actual</th>
+        <td>{{ instalacione.compActual }}</td>
+    </tr>
+    </tbody>
+</table>

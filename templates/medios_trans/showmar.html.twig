@@ -1,0 +1,112 @@
+{% extends 'base2.html.twig' %}
+
+{% block title %}MediosTrans{% endblock %}
+
+{% block body %}
+    <h1>Medio de Transporte</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ medios_tran.id }}</td>
+            </tr>
+            <tr>
+                <th>Nombre</th>
+                <td>{{ medios_tran.nombre }}</td>
+            </tr>
+            <tr>
+                <th>Basificacion</th>
+                <td>{{ medios_tran.basificacion }}</td>
+            </tr>
+            <tr>
+                <th>TipoMedio</th>
+                <td>{{ medios_tran.tipoMedio }}</td>
+            </tr>
+            <tr>
+                <th>YearFab</th>
+                <td>{{ medios_tran.yearFab }}</td>
+            </tr>
+            <tr>
+                <th>Cap</th>
+                <td>{{ medios_tran.cap }}</td>
+            </tr>
+            <tr>
+                <th>Umcap</th>
+                <td>{{ medios_tran.umcap }}</td>
+            </tr>
+            <tr>
+                <th>Aseguramiento</th>
+                <td>{{ medios_tran.aseguramiento ? 'Yes' : 'No' }}</td>
+            </tr>
+            <tr>
+                <th>Marca</th>
+                <td>{{ medios_tran.marca }}</td>
+            </tr>
+            <tr>
+                <th>Modelo</th>
+                <td>{{ medios_tran.modelo }}</td>
+            </tr>
+            <tr>
+                <th>EstadoMedio</th>
+                <td>{{ medios_tran.estadoMedio }}</td>
+            </tr>
+            <tr>
+                <th>ServiciosEspeciales</th>
+                <td>{{ medios_tran.serviciosEspeciales }}</td>
+            </tr>
+            <tr>
+                <th>TipoCombustible</th>
+                <td>{{ medios_tran.tipoCombustible }}</td>
+            </tr>
+            <tr>
+                <th>IndConsumo</th>
+                <td>{{ medios_tran.indConsumo }}</td>
+            </tr>
+            <tr>
+                <th>Potencia</th>
+                <td>{{ medios_tran.potencia }}</td>
+            </tr>
+            <tr>
+                <th>TipoPropiedad</th>
+                <td>{{ medios_tran.tipoPropiedad }}</td>
+            </tr>
+            <tr>
+                <th>Rama</th>
+                <td>{{ medios_tran.rama }}</td>
+            </tr>
+            <tr>
+                <th>NumRevTecnica</th>
+                <td>{{ medios_tran.numRevTecnica }}</td>
+            </tr>
+            <tr>
+                <th>VencRevTecnica</th>
+                <td>{{ medios_tran.vencRevTecnica ? medios_tran.vencRevTecnica|date('Y-m-d') : '' }}</td>
+            </tr>
+            <tr>
+                <th>PaisAbanderamiento</th>
+                <td>{{ medios_tran.paisAbanderamiento }}</td>
+            </tr>
+            <tr>
+                <th>IdTipo</th>
+                <td>{{ medios_tran.idTipo }}</td>
+            </tr>
+            <tr>
+                <th>Comprobantes</th>
+                <td>{{ medios_tran.comprobantes | length }}</td>
+            </tr>
+            {% for comp in medios_tran.comprobantes %}
+            <tr>
+                <th>folio</th>
+                <td>{{ comp.folio }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('medios_trans_index') }}">back to list</a>
+
+    <a href="{{ path('medios_trans_edit', {'id': medios_tran.id}) }}">edit</a>
+
+    {{ include('medios_trans/_delete_form.html.twig') }}
+{% endblock %}

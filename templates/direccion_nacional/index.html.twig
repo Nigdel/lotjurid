@@ -1,0 +1,115 @@
+{% extends 'base2.html.twig' %}
+
+{% block body %}
+
+    {% if is_granted("ROLE_ADMIN") %}
+        <h3>Direcci&oacute;n Nacional Uet</h3>
+
+        <table class="table">
+            <thead>
+            <tr>
+                <th>Id</th>
+                <th>Direccion</th>
+                <th>Telefonos</th>
+                <th>actions</th>
+            </tr>
+            </thead>
+            <tbody>
+
+                <tr>
+                    <td>{{ dir.id }}</td>
+                    <td>{{ dir.direccion }}</td>
+                    <td>{{ dir.telefonos }}</td>
+                    <td>
+                        <a href="{{ path('direccion_nacional_show', {'id': dir.id}) }}">show</a>
+                        <a href="{{ path('direccion_nacional_edit', {'id': dir.id}) }}">edit</a>
+                    </td>
+                </tr>
+
+            </tbody>
+        </table>
+
+        <a href="{{ path('direccion_nacional_new') }}">Create new</a>
+        <hr/>
+    {% endif %}
+
+        <div class="jumbotron p-2">
+            <div class="container">
+                <h3 class="alert alert-success">
+                    <img src="{{ asset('Images/uetLogo.jpg') }}" class="img-thumbnail rounded-pill" alt="logo" style="max-height: 4rem;" />
+                    Direcci&oacute;n Nacional</h3>
+
+                <p>Ud puede encontrarnos en: <strong> {{ dir.direccion }} </strong> <br>
+                   O llamarnos por los tel&eacute;fonos : <strong> {{ dir.telefonos }} </strong>
+                </p>
+                <p>
+                    Director Nacional: <strong> {{ dir.director }}</strong>
+                </p>
+                <p>
+                    SubDirector Nacional Lot: <strong> {{ dir.subdirlot }}</strong>
+                </p>
+            </div>
+        </div>
+
+        <div class="container">
+            <!-- Example row of columns -->
+            <div class="row">
+                <div class="col-md-4">
+                    <h2 class="alert alert-success">Direcciones Provinciales</h2>
+                    <p>Acceda a informacion relacionada con las direcciones provinciales</p>
+                    {% for prov in provs %}
+                       <a class="badge badge-primary badge-pill" href="{{ path('direccion_provincial_show',{'id':prov.id}) }}">{{ prov }}</a>
+                    {% endfor %}
+                </div>
+                <div class="col-md-4">
+                    <h2 class="alert alert-dark">Estad&iacute;sticas</h2>
+                    <p>Informaci&oacute;n estad&iacute;stica en tiempo real. Reportes personalizados y an&aacute;lisis de series hist&oacute;ricas </p>
+                    <ul>
+                        <li><a href="{{ path('estadistica_SNL', {'id': '0701'}) }}">SNL-7-01 </a></li>
+                        <li><a href="{{ path('estadistica_SNL', {'id': '0702'}) }}">SNL-7-02 </a></li>
+                        <li><a href="{{ path('estadistica_SNL', {'id': '0703'}) }}">SNL-7-03 </a></li>
+                        <li><a href="{{ path('estadistica_SNL', {'id': '0722'}) }}">SNL-7-22 </a></li>
+                        <li><a class="text-warning text-decoration-none" id="upload" role="button" onclick="downloadFile('{{ path('estadistica_mediosnac') }}')">Medios.xls(demora)</a></li>
+                        {#<li><a class="text-warning text-decoration-none" href="{{ path('estadistica_mediosnac') }}">Medios.xls</a></li>#}
+                        {#<li><a class="text-warning text-decoration-none" href="{{ path('estadistica_datosinstanac') }}">Instalaciones.xls</a></li>#}
+                        <li><a class="text-warning text-decoration-none" id="upload" role="button" onclick="downloadFile('{{ path('estadistica_datosinstanac') }}')">Instalaciones.xls</a></li>
+                        <li><a class="text-warning text-decoration-none" id="upload" role="button" onclick="downloadFile('{{ path('estadistica_modelo1nac') }}')">Modelo1.xls</a></li>
+                        <li><a class="text-warning text-decoration-none" id="upload" role="button" onclick="downloadFile('{{ path('estadistica_modelo2nac') }}')">Modelo2.xls</a></li>
+                        {#<li><a class="text-warning text-decoration-none" href="{{ path('estadistica_modelo1nac') }}">Modelo1.xls</a></li>#}
+                        {#<li><a class="text-warning text-decoration-none" href="{{ path('estadistica_modelo2nac') }}">Modelo2.xls</a></li>#}
+
+                    </ul>
+                </div>
+                <div class="col-md-4">
+                    <h2 class="alert alert-primary">Funcionarios</h2>
+                    <p>Quienes somos los funcionarios que trabajamos en la direcci&oacute;n nacional</p>
+
+                </div>
+            </div>
+
+        </div> <!-- /container -->
+
+{% endblock %}
+{% block jsadicional %}
+    <script type="text/javascript">
+            function downloadFile(urlToSend) {
+                $(".loader").fadeIn("slow");
+                // alert(urlToSend);
+                var req = new XMLHttpRequest();
+                req.open("GET", urlToSend, true);
+                req.responseType = "blob";
+                req.onload = function (event) {
+                    var blob = req.response;
+                    var filenameinrequest = req.getResponseHeader("Content-Disposition");
+                    var splitString = filenameinrequest.split(";");
+                    var fileName = splitString[1].slice(10);
+                    var link=document.createElement('a');
+                    link.href=window.URL.createObjectURL(blob);
+                    link.download=fileName;
+                    $(".loader").fadeOut("slow");
+                    link.click();
+                };
+                req.send();
+            }
+    </script>
+{% endblock %}

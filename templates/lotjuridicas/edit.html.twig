@@ -1,0 +1,26 @@
+{% extends 'base2.html.twig' %}
+
+{% block title %}Edit Lotjuridicas{% endblock %}
+
+{% block body %}
+    <h1 class="alert alert-success">Modificar Lot <span class="badge badge-warning badge-pill">{{ lotjuridica.id }}</span></h1>
+    {% if (lotjuridica.comprobantes | length) > 0 %}
+    <h2 class="alert alert-danger"><i class="fa fa-code"></i> Atencion. Algunos cambios provocaran que los comprobantes hijos sean cancelados</h2>
+    {% endif %}
+
+    {{ include('lotjuridicas/_form.html.twig', {'button_label': 'Modificar','modo':'edit'}) }}
+
+{% endblock %}
+{% block topnavlink %}
+    <li class="nav-item">
+        <a class="nav-link text-primary" href="{{ path('lotjuridicas_index') }}"><i class="fa fa-list"></i> Listar Todas</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link text-light" href="{{ path('lotjuridicas_show', {'id': lotjuridica.id }) }}"><i class="fa fa-eye"></i> Ver</a>
+    </li>
+
+    <li class="nav-item">
+        {{ include('lotjuridicas/_delete_form.html.twig') }}
+    </li>
+
+{% endblock %}

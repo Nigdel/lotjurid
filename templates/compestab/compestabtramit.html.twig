@@ -1,0 +1,78 @@
+{% macro fila(comp,loop) %}
+<div class="btn-group">
+{% if comp.estadoComp.id == 1 %}
+    <a href="#solicitar" class="badge badge-pill badge-warning">Solicitar</a>
+{% endif %}
+{#{% if comp.estadoComp.id == 2 %}#}
+    {#<a href="#imprimir" class="badge badge-pill badge-primary"><i class="fa fa-print"></i>Imprimir</a>#}
+{#{% endif %}#}
+{% if comp.estadoComp.id == 3 %}
+    <a href="#Entregar" class="badge badge-pill badge-primary"><i class="fa fa-history"></i> Entregar</a>
+{% endif %}
+{% if comp.estadoComp.id == 4 or comp.estadoComp.id == 7  %}
+    <a href="#cancelar" class="badge badge-pill badge-danger"><i class="fa fa-times"></i> Cancelar</a>
+    <a href="#suspender" class="badge badge-pill badge-info"><i class="fa fa-times"></i> Suspender </a>
+    <a href="#duplicar" class="badge badge-pill badge-primary"><i class="fa fa-copy"></i> Duplicar </a>
+{% endif %}
+{% if comp.estadoComp.id == 6 %}
+    <a href="#cancelar" class="badge badge-pill badge-danger"><i class="fa fa-times"></i> Cancelar</a>
+    <a href="#finSusp" class="badge badge-pill badge-success"><i class="fab fa-ubuntu"></i>Fin Susp</a>
+{% endif %}
+{% if comp.estadoComp.id == 5 %}
+    <a href="#renovar" class="badge badge-pill badge-success"><i class="fab fa-ubuntu"></i> Renovar </a>
+{% endif %}
+{% if comp.estadoComp.id == 7 %}
+    <a href="#renovar" class="badge badge-pill badge-success"><i class="fab fa-ubuntu"></i> Renovar </a>
+{% endif %}
+{% if comp.estadoComp.id == 2 %}
+    {#<a href="#imprimir" class="badge badge-pill badge-primary"><i class="fa fa-print"></i> Imprimir </a>#}
+    <a href="#imprimir"  class="badge badge-pill badge-primary" data-toggle="modal" data-target="#impresslotModal{{ loop }}">
+        <i class="fa fa-print"></i> Imprimir
+    </a>
+    <!-- Modal -->
+    <div class="modal fade" id="impresslotModal{{ loop }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content lotmodal-dialog">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Impresion del comprobante {{ comp }}</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form id="form{{ loop }}" method="post" action="#ptesdeimpress">
+                        <div class="form-group">
+                            <label for="recipient-name" class="col-form-label">Folio:</label>
+                            <input type="text" class="form-control" id="foliovalor" name="foliovalor" {% if comp.folio is not null %} value="{{ comp.folio }} {% endif %}">
+                        </div>
+                        <input type="hidden" name="lot" value="{{ comp }}">
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                    <button type="button" class="btn btn-primary" onclick="
+                   $('#form{{ loop }}').submit();$('.modal').modal('hide');
+                            ">Imprimir</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <a href="#Marcarcomoimpreso" class="badge badge-pill badge-warning"><i class="fa fa-check"></i> Impreso </a>
+{% endif %}
+</div>
+{% endmacro %}
+{% macro showcompFila(comp,loop) %}
+    <td><a class="badge badge-light badge-pill" href="{{ path('instalaciones_show', {'id': comp.instalacion.id }) }}">{{ comp.instalacion.nombre }}</a></td>
+    <td>{{ comp.folio }}</td>
+    <td>{{ comp.estadocomp }}</td>
+    <td>{{ comp.femitido ? comp.femitido|date('d/m/Y') : '' }}</td>
+    <td>{{ comp.fimpreso ? comp.fimpreso|date('d/m/Y') : '' }}</td>
+    <td>{{ comp.fentrega ? comp.fentrega|date('d/m/Y') : '' }}</td>
+    <td>
+        <a href="{{ path('compestab_show', {'id': comp.id}) }}">show</a>
+        <a href="{{ path('compestab_edit', {'id': comp.id}) }}">edit</a>
+    </td>
+    <td>
+        {{ _self.fila(comp,loop.index) }}
+    </td>
+{% endmacro %}

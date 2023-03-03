@@ -1,0 +1,43 @@
+{% extends 'lot.html.twig' %}
+{% block title %}Lojurid{% endblock %}
+{% block main %}
+{% if  pagina is defined%}
+    {% if not pagina =="" %}
+        {% include pagina %}
+    {% endif %}
+{% else %}
+<div class="album py-5 bg-light">
+    <div class="container">
+
+        <div class="row">
+            <div class="col-md-3">
+                <div class="card mb-4 shadow-sm">
+                    <img class="card-img-top" data-src="holder.js/100px225?theme=thumb&bg=55595c&fg=eceeef&text=Thumbnail" alt="Card image cap">
+                    <div class="card-body">
+                        <p>Personas Jurídicas</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card mb-4 shadow-sm">
+                    <img class="card-img-top" data-src="holder.js/100px225?theme=thumb&bg=55595c&fg=eceeef&text=Thumbnail" alt="Card image cap">
+                    <div class="card-body">
+                        <p>Lots</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card mb-4 shadow-sm">
+                    <img class="card-img-top" data-src="holder.js/100px225?theme=thumb&bg=55595c&fg=eceeef&text=Thumbnail" alt="Card image cap">
+                    <div class="card-body">
+                        <p>Comprobantes</p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+{% endif %}
+
+{% endblock main %}

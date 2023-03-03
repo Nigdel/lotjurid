@@ -1,0 +1,51 @@
+{% extends 'base2.html.twig' %}
+{% block title %}Aprobar o Denegar Lotjuridica{% endblock %}
+{% block body %}
+    <h6 class="alert alert-info">Suspension de la lot <a href="#" class="badge badge-pill badge-warning" data-toggle="modal" data-target="#lot">{{ lot }}</a></h6>
+    <div class="modal fade" id="lot" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="lotmodal-dialog modal-content ">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel"> {{ lot.id }} {% if lot.idestado is not none %} <span class="badge badge-pill badge-{% if lot.idestado.id == 8  %}{{ 'danger' }} {% else %}{{ 'primary' }}{% endif %}">{{ lot.idestado }}</span>{% endif %}</h5>
+                    <button type="button" class="close danger" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                        {% include "lotjuridicas/_formMin.html.twig" %}
+                </div>
+            </div>
+        </div>
+    </div>
+    <form onsubmit="return confirm('Presione Aceptar para Suspender esta licencia?');" method="post">
+        <div class="form-row col-3 pl-0">
+            <label for="fechasusp">Fecha de Suspension</label>
+            <input type="text" name="fechasusp" id="fechasusp" class="form-control datetimepicker4" required>
+        </div>
+        <div class="form-row">
+            <label for="causasuspencion">Causa de Suspension</label>
+            <select class="form-control mi-selector" id="causasuspencion" name="causasuspencion" required>
+                {% for causa in causas %}
+                <option value="{{ causa.id }}">{{ causa.Causa }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="form-row mt-2">
+            <input type="submit" class="btn btn-sm btn-danger" value="Suspender LOT" />
+            <a href="{{ path('lotjuridicas_index') }}" class="btn btn-sm btn-info mx-3 px-2">Descartar</a>
+        </div>
+    </form>
+
+
+{% endblock %}
+{% block jsadicional %}
+    <script src="{{ asset('js/es.js') }}" type="text/javascript"></script>
+    <script type="text/javascript">
+        $(function () {
+            $('.datetimepicker4').datetimepicker({
+                format: 'L',
+                locale: 'es' });
+        });
+    </script>
+
+{% endblock %}

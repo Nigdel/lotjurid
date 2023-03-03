@@ -1,0 +1,17 @@
+{% extends '::base2.html.twig' %}
+{% block stylesheets %}
+    <link href="{{ asset('css/perfil.css') }}" rel="stylesheet">
+{% endblock %}
+{% block title %}Reg&iacute;strate gratis como usuario{% endblock %}
+{% block contenido %}
+    {% block article %}
+        <form action="{{ path('usuario_registro') }}" method="post" {{ form_enctype(formulario) }}>
+            {{ form_widget(formulario) }}
+            <p>
+                <button type="submit">Create</button>
+            </p>
+        </form>
+    {% endblock %}
+{% endblock %}
+{% block aside %}{% endblock %}
+{% block footer %}{% endblock %}

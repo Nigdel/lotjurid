@@ -1,0 +1,5 @@
+<form method="post" action="{{ path('basificacion_delete', {'idlbasiam': basificacion.idlbasiam}) }}" onsubmit="return confirm('Esta seguro que desea eliminar esta basificacion?');">
+    <input type="hidden" name="_method" value="DELETE">
+    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ basificacion.idlbasiam) }}">
+    <button class="nav-link btn-sm btn"> <i class="fa fa-trash text-danger"></i> Eliminar</button>
+</form>

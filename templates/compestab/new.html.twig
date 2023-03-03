@@ -1,0 +1,8 @@
+{% extends 'lot.html.twig' %}
+{% block body %}
+    <h1>Create new Compestab</h1>
+
+    {{ include('compestab/_form.html.twig') }}
+
+    <a href="{{ path('compestab_index') }}">back to list</a>
+{% endblock %}

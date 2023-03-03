@@ -1,0 +1,9 @@
+{% extends 'base2.html.twig' %}
+
+{% block title %}Nuevo Mensaje{% endblock %}
+
+{% block body %}
+    <h1 class="alert alert-success">Nuevo Mensaje</h1>
+    {{ include('mensaje/_form.html.twig') }}
+    {#<a href="{{ path('mensaje_index') }}">back to list</a>#}
+{% endblock %}

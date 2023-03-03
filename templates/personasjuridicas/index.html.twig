@@ -1,0 +1,81 @@
+{% extends 'base2.html.twig' %}
+
+{% block title %}Personasjuridicas index{% endblock %}
+
+{% block body %}
+    <h3 class="px-4">Personas Jur&iacute;dicas <span class="badge badge-pill badge-info">{{ pagination.getTotalItemCount }}</span>  <a class="badge badge-pill badge-success" href="{{ path('personasjuridicas_new') }}">
+            <i class="fas fa-plus-circle"></i>
+            Nueva</a></h3>
+
+    <form class="form-inline">
+        <label for="exp" class="mx-2">Expediente</label>
+        <input id="exp" type="text" class="form-control-dark form-control " name="exp" value="{{ exp ? exp : ''  }}" />
+        <label for="nombre" class="mx-2">Nombre</label>
+        <input id="nombre" type="text" class="form-control-dark form-control " name="nombre" value="{{ nombre ? nombre : ''  }}"/>
+        <button class="btn btn-sm btn-primary ml-2"><i class="fas fa-search"></i> Buscar</button><a class="btn btn-sm btn-primary ml-2" href="{{ path('personasjuridicas_index') }}">Todos</a>
+        <div class="d-inline px-1 py-0">
+            <span >Listado:</span> <a class="my-0 text-decoration-none text-light" href="{{ path('personasjuridicas_export_myprov') }}">Prov <img class="export-file" src="{{ asset('Images/excel_lrg.gif') }}"></a>
+            <a class="my-0 text-decoration-none text-light" href="{{ path('personasjuridicas_export') }}">Nac <img class="export-file" src="{{ asset('Images/excel_lrg.gif') }}"></a>
+        </div>
+    </form>
+
+    <table class="table table-striped table-dark">
+        <thead>
+            <tr>
+                <th>Lot</th>
+                <th>Reeup</th>
+                <th>Nombre</th>
+                {#<th>Tel&eacute;fono</th>#}
+                {#<th>Email</th>#}
+                <th>Municipio</th>
+                {#<th>Actividad</th>#}
+                {#<th>Rama</th>#}
+                {#<th>Subrama</th>#}
+                {#<th>Nocontribuyente</th>#}
+                {#<th>Representante</th>#}
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for personasjuridica in pagination %}
+            <tr>
+                <td >{% if  personasjuridica.currentlot is not empty %}
+                        <a href="{{ path('lotjuridicas_show', {'id': personasjuridica.currentlot }) }}"><span class="badge badge-pill badge-warning">{{ personasjuridica.currentlot  }}</span></a>
+                    {% else %}
+                        <a href="{{ path('lotjuridicas_newbypj', {'pj': personasjuridica.id}) }}">
+                            <span class="badge badge-pill badge-success"><i class="fa fa-plus-circle"></i> Nueva</span>
+                        </a>
+                    {% endif %}
+                    </td>
+                <td>{{ personasjuridica.codreeup }}</td>
+                <td>{{ personasjuridica.nomentidad }}</td>
+                {#<td>{{ personasjuridica.telefono }}</td>#}
+                {#<td>{{ personasjuridica.email }}</td>#}
+                <td>{{ personasjuridica.idmunicipio }}</td>
+                {#<td>{{ personasjuridica.actividad }}</td>#}
+                {#<td>{{ personasjuridica.rama }}</td>#}
+                {#<td>{{ personasjuridica.subrama }}</td>#}
+                {#<td>{{ personasjuridica.nocontribuyente }}</td>#}
+                {#<td>{{ personasjuridica.representante }}</td>#}
+                <td>
+                    <div class="btn-group mr-2">
+                    <a href="{{ path('personasjuridicas_show', {'id': personasjuridica.id}) }}" class="badge badge-pill badge-primary"><i class="fas fa-eye"></i>Ver</a>
+                   {% if personasjuridica.idmunicipio.provinciaid.id == app.user.municipio.provinciaid.id   %}
+                    <a href="{{ path('personasjuridicas_edit', {'id': personasjuridica.id}) }}" class="badge badge-pill badge-warning"><i class="fas fa-edit"></i>Editar</a>
+                   {% endif %}
+                    </div>
+
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="12">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    <div class="navigation">
+        {{ knp_pagination_render(pagination, 'utiles/twitter_bootstrap_v4_pagination.html.twig') }}
+    </div>
+
+{% endblock %}

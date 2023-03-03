@@ -1,0 +1,99 @@
+<div id="section-to-print">
+    <div id="izq">
+        <article style="font-size: 12pt; margin-top: 2cm; margin-left: 3.4cm;">
+            <b >{{ comp.lot }}</b>
+        </article>
+        <div>
+            <br/>
+            <article>
+                A Favor de: <b>{{ comp.lot.identidad }}</b>
+            </article>
+            <br/>
+            <article>
+                Con Dirección: {{ comp.lot.identidad.direccion }}
+            </article>
+            <br/>
+            <article style="margin-top: 1.5cm;">
+                Servicio Autorizado:<br/>
+                {{ comp.servicio ~ comp.extension }}
+            </article>
+        </div>
+    </div>
+    <div id="der">
+        <table   width="100%" style="margin-top: 0.3cm;">
+            <tr >
+                <td colspan="2">{% if comp.medio.rama.id != 1%}
+                        {{ comp.medio.rama.id == 2 ? "Nombre:" : "Identificador:"  }}
+                    {% else %}
+                        Chapa
+                    {% endif %}</td>
+
+            </tr>
+            <tr>
+                <td colspan="2"><b>{{ comp.medio.nombre }}</b></td>
+            </tr>
+            {% if comp.medio.rama.id == 2 or comp.medio.rama.id==4 %}
+                <tr>
+                    <td>Potencia</td>
+                    <td style="text-align: center">Folio</td>
+                </tr>
+                <tr>
+                    <td><b>{{ comp.medio.potencia }}</b></td>
+                    <td style="text-align: center"><b>{{ comp.folio }}</b></td>
+                </tr>
+            {% endif %}
+            {% if comp.medio.rama.id == 1 %}
+                <tr>
+                    {#<td colspan="2" style="line-break: auto;">Cap.{{ comp.medio.cap == 0 ? '( '~ comp.medio.umcap | capitalize ~' )'  : '( Pasajeros )' }}</td>#}
+                    <td style="line-break: auto;">Cap.({{ comp.lot.idServicio }})</td>
+                    <td style="text-align: center">Folio</td>
+                </tr>
+                <tr> {% if comp.medio.cap > 0 %}
+                        <td ><b>{{ comp.medio.cap }}</b> {{ comp.medio.umcap }}</td>
+                    {% else %}
+                        <td>{{ comp.medio.CapPDepie }} de Pie. {{ comp.medio.CapPSentados }} sentados</td>
+                    {% endif %}
+                    <td style="text-align: center"><b>{{ comp.folio }}</b></td>
+                </tr>
+            {% endif %}
+        </table>
+        <table width="100%">
+            <tr>
+                <td>
+                    Tipo
+                </td>
+                <td>Marca/Modelo</td>
+            </tr>
+            <tr>
+                <td><b>{{ comp.medio.tipoMedio }}</b></td>
+                <td><b>{{ comp.medio.marca }} / {{ comp.medio.modelo }}</b></td>
+            </tr>
+        </table>
+        <br/>
+        <table >
+            <tr>
+                <td >
+                    <div style="overflow: hidden; max-width: 100%;">
+                        Basificacion: {{ comp.medio.basificacionObj }}
+                    </div>
+                </td>
+            </tr>
+        </table>
+        <br/>
+        <table width="100%">
+            <tr>
+                <td>Vigente desde</td>
+                <td>Vence</td>
+            </tr>
+            <tr>
+                <td><b>{{ comp.femitido| date('d/m/Y') }}</b></td>
+                <td><b>{{ comp.fvencimiento | date('d/m/Y') }}</b></td>
+            </tr>
+        </table>
+        <br/>
+        <article>
+            {{ comp.firma | default("") }}<br/>
+            {{ comp.firmacargo }}
+        </article>
+    </div>
+</div>

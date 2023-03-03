@@ -1,0 +1,9 @@
+{% extends 'base2.html.twig' %}
+
+{% block body %}
+    <h1>Create new Tarifa</h1>
+
+    {{ include('tarifa/_form.html.twig') }}
+
+    <a href="{{ path('tarifa_index') }}">back to list</a>
+{% endblock %}

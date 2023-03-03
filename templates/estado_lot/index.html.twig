@@ -1,0 +1,35 @@
+{% extends 'base2.html.twig' %}
+
+{% block title %}EstadoLot index{% endblock %}
+
+{% block body %}
+    <h1>EstadoLot index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>NombreEstado</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for estado_lot in estado_lots %}
+            <tr>
+                <td>{{ estado_lot.id }}</td>
+                <td>{{ estado_lot.nombreEstado }}</td>
+                <td>
+                    <a href="{{ path('estado_lot_show', {'id': estado_lot.id}) }}">show</a>
+                    <a href="{{ path('estado_lot_edit', {'id': estado_lot.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="3">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('estado_lot_new') }}">Create new</a>
+{% endblock %}

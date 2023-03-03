@@ -1,0 +1,9 @@
+{% extends 'base2.html.twig' %}
+
+{% block body %}
+    <h1>Create new DireccionNacional</h1>
+
+    {{ include('direccion_nacional/_form.html.twig') }}
+
+    <a href="{{ path('direccion_nacional_index') }}">back to list</a>
+{% endblock %}

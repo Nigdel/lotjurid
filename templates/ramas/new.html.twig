@@ -1,0 +1,11 @@
+{% extends 'base2.html.twig' %}
+
+{% block title %}New Ramas{% endblock %}
+
+{% block body %}
+    <h1>Create new Ramas</h1>
+
+    {{ include('ramas/_form.html.twig') }}
+
+    <a href="{{ path('ramas_index') }}">back to list</a>
+{% endblock %}

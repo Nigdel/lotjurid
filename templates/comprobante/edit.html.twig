@@ -1,0 +1,158 @@
+{% extends 'base2.html.twig' %}
+{% block title %}Modificar{% endblock %}
+{% block body %}
+    <h1>Editar Comprobante</h1>
+    {% use "form_div_layout.html.twig" %}
+    {% from 'Sitio/utilidades.html.twig' import campoForm %}
+    {{ form_start(form) }}
+    <div class="form-group">
+        {{ form_errors(form) }}
+        <div class="form-row">
+            <div class="form-group col-md-2">
+                {{ form_row(form.femitido) }}
+            </div>
+            <div class="form-group col-md-2" id="ext">
+                {{ form_row(form.extension) }}
+            </div>
+            <div class="form-group col-md-2 text-warning">
+                <span>Importe</span>
+                <span id="valorimporte" class="form-control mt-2 overflow-auto bg-dark text-warning">0</span>
+            </div>
+        </div>
+        <div class="form-group">
+            <span>Servicio a Imprimir ( Tomado del Medio de Transporte o la LOT)</span>
+            <span id="comp_serv" class="form-control mt-2 overflow-auto">{{ comprobante.servicio }}</span>
+
+        </div>
+        <div class="form-group col-md-2">
+            {{ form_row(form.sincostp) }}
+        </div>
+        <div class="d-none">
+            {{ form_widget(form) }}
+        </div>
+    </div>
+    <div class="mb-3">
+        <button class="btn btn-sm btn-success">{{ button_label|default('Guardar') }}</button>
+        <a class="btn btn-sm btn-info" href="{{ path('comprobante_index') }}">Ignorar</a>
+        {{ form_end(form) }}
+    </div>
+    <div class="container">
+        <!-- Example row of columns -->
+        <div class="row">
+            <div class="col-md-5">
+                <h2 class="alert alert-success">Datos del medio {{ comprobante.medio }}</h2>
+                {% if comprobante.medio.rama.id == 1 %}
+                    {% include "medios_trans/cfautomotor.html.twig" with { 'medios_trans': comprobante.medio }  %}
+                {% endif %}
+                {% if comprobante.medio.rama.id == 2 %}
+                    {% include "medios_trans/cfmaritimo.html.twig" with { 'medios_trans': comprobante.medio }  %}
+                {% endif %}
+                {% if comprobante.medio.rama.id == 3 %}
+                    {% include "medios_trans/cfTAH.html.twig" with { 'medios_trans': comprobante.medio }  %}
+                {% endif %}
+                {% if comprobante.medio.rama.id == 4 %}
+                    {% include "medios_trans/cfferroviario.html.twig" with { 'medios_trans': comprobante.medio }  %}
+                {% endif %}
+                {% if comprobante.medio.rama.id == 5 %}
+                    {% include "medios_trans/cfMD.html.twig" with { 'medios_trans': comprobante.medio }  %}
+                {% endif %}
+            </div>
+            <div class="col">
+                <h2 class="alert alert-dark">Detalles del Comprobante</h2>
+                <table class="table">
+                    <tbody>
+                    <tr>
+                        <th>Folio</th>
+                        <td>{{ comprobante.folio }}</td>
+                    </tr>
+                    <tr>
+                        <th>Estado</th>
+                        <td>{{ comprobante.estadoComp }}</td>
+                    </tr>
+                    <tr>
+                        <th>Fecha de Emitido</th>
+                        <td>{{ comprobante.femitido ? comprobante.femitido|date('d/m/Y') : '' }}</td>
+                    </tr>
+                    <tr>
+                        <th>Fecha de Vencimiento</th>
+                        <td>{{ comprobante.fvencimiento ? comprobante.fvencimiento|date('d/m/Y') : '' }}</td>
+                    </tr>
+                    <tr>
+                        <th>Fecha de Impresión</th>
+                        <td>{{ comprobante.fimpreso ? comprobante.fimpreso|date('d/m/Y') : '' }}</td>
+                    </tr>
+                    <tr>
+                        <th>Fecha de Entrega</th>
+                        <td>{{ comprobante.fentrega ? comprobante.fentrega|date('d/m/Y') : '' }}</td>
+                    </tr>
+                    <tr>
+                        <th>Fecha de Cancelación</th>
+                        <td>{{ comprobante.fcancel ? comprobante.fcancel|date('d/m/Y') : '' }}</td>
+                    </tr>
+                    <tr>
+                        <th>Sin Costo</th>
+                        <td>{{ comprobante.sincostp ? 'Si' : 'No' }}</td>
+                    </tr>
+                    <tr>
+                        <th>Duplicado</th>
+                        <td>{{ comprobante.duplicado ? 'Si' : 'No' }}</td>
+                    </tr>
+                    <tr>
+                        <th>Importe</th>
+                        <td id="tdimporte">{{ comprobante.importe }}</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <a href="{{ path('comprobante_index') }}">back to list</a>
+
+    {{ include('comprobante/_delete_form.html.twig') }}
+{% endblock %}
+{% block jsadicional %}
+    <script>
+        $(function () {
+            $('.datetimepicker4').datetimepicker({
+                format: 'L',
+                locale: 'es' });
+        });
+        function updateDictamen() {
+
+            var ext = $('#comprobante_extension option:selected');
+            var servSpan =  $('#comp_serv');
+
+            var cad = 'Servicio ' + tipo.text() + ' de ' + servAmp.text() + ' ' + rama.text() + '. ' + ext.text()+'.';
+
+
+            $('#lotjuridicas_dictamen').val(cad);
+        }
+        $('#limitante').hide();
+        $('#limitante').keyup( function () {
+            updateDictamen();
+        });
+
+        $(document).ready(function(){
+                var aseg= {{ comprobante.medio.aseguramiento ? '1':'0' }};
+                if( aseg===1){
+                    $('#ext').hide();
+                }
+                var selects= $('#comprobante_extension').change(function f() {
+                    var servSpan =  $('#comp_serv');
+                    servSpan.text('{{ comprobante.medio.servicio }}. '+ $('#comprobante_extension option:selected').text());
+                    var valor=tarifa(eval($('#comprobante_extension option:selected').val()));
+                    $('#valorimporte').text(valor);
+                    $('#tdimporte').text(valor);
+                    // $('#comprobante_importe').text(valor);
+                    $('#comprobante_importe').val(valor);
+                });
+                selects.change();
+
+            }
+        );
+        function tarifa(ext){
+            var tarif={{ tarifas | raw }} ;
+            return tarif.filter(tarifa =>tarifa.extension.id === ext && tarifa.concepto.includes('Comp')).shift().valor;
+        }
+    </script>
+{% endblock %}

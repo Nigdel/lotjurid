@@ -1,0 +1,74 @@
+{% macro fila(comp,loop,text) %}
+<div class="btn-group">
+{% if comp.estadoComp.id == 1 %}
+    <a href="#solicitar" class="badge badge-pill badge-warning">{% if text %}Solicitar{% endif %}</a>
+{% endif %}
+{#{% if comp.estadoComp.id == 2 %}#}
+    {#<a href="#imprimir" class="badge badge-pill badge-primary"><i class="fa fa-print"></i>Imprimir</a>#}
+{#{% endif %}#}
+{% if comp.estadoComp.id == 3 %}
+    <a href="{{ path('compestab_entregar', {'id': comp.id }) }}" class="badge badge-pill badge-primary"><i class="fa fa-history"></i>{% if text %} Entregar{% endif %}</a>
+{% endif %}
+{% if comp.estadoComp.id == 4 %}
+    <a href="{{ path('compestab_cancelar', {'id': comp.id }) }}" class="badge badge-pill badge-danger"><i class="fa fa-times"></i>{% if text %} Cancelar{% endif %}</a>
+    <a href="{{ path('compestab_suspender', {'id': comp.id }) }}" class="badge badge-pill badge-info"><i class="fa fa-clock"></i>{% if text %} Suspender {% endif %}</a>
+    <a href="{{ path('compestab_duplicado', {'id': comp.id }) }}" class="badge badge-pill badge-primary"><i class="fa fa-copy"></i>{% if text %} Duplicar{% endif %} </a>
+{% endif %}
+{% if comp.estadoComp.id == 6 %}
+    <a href="{{ path('compestab_cancelar', {'id': comp.id }) }}" class="badge badge-pill badge-danger"><i class="fa fa-times"></i>{% if text %} Cancelar{% endif %}</a>
+    <a href="{{ path('compestab_finsuspension', {'id': comp.id }) }}" class="badge badge-pill badge-success"><i class="fab fa-ubuntu"></i>{% if text %}Fin Susp{% endif %}</a>
+{% endif %}
+{% if comp.estadoComp.id == 5 %}
+    <a href="#renovar" class="badge badge-pill badge-success"><i class="fab fa-ubuntu"></i>{% if text %} Renovar{% endif %} </a>
+{% endif %}
+{% if comp.estadoComp.id == 2 %}
+    {#<a href="#imprimir" class="badge badge-pill badge-primary"><i class="fa fa-print"></i> Imprimir </a>#}
+    <a href="#imprimir"  class="badge badge-pill badge-primary" data-toggle="modal" data-target="#impresslotModal{{ loop }}">
+        <i class="fa fa-print"></i>{% if text %} Imprimir{% endif %}
+    </a>
+    <!-- Modal -->
+    <div class="modal fade" id="impresslotModal{{ loop }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content lotmodal-dialog">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Impresion del comprobante {{ comp }}</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form id="form{{ loop }}" method="post" action="{{ path('compestab_ptesimpress') }}" target="_blank">
+                        <div class="form-group">
+                            <label for="foliovalor" class="col-form-label">Folio:</label>
+                            <input type="text" class="form-control" id="foliovalor" name="foliovalor" {% if comp.folio is not null %} value="{{ comp.folio }}"{% endif %}">
+                        </div>
+                        <input type="hidden" name="comp" value="{{ comp.id }}">
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                    <button type="button" class="btn btn-primary" onclick="
+                   $('#form{{ loop }}').submit(); $('.modal').modal('hide');
+                            ">Imprimir</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <a href="{{ path('compestab_marcarcomoimpreso', {'id': comp.id }) }}" class="badge badge-pill badge-warning"><i class="fa fa-check"></i>{% if text %} Impreso{% endif %} </a>
+{% endif %}
+</div>
+{% endmacro %}
+{% macro showcompFila(comp,loop,fulltext) %}
+    <td><a class="badge badge-warning badge-pill" href="{{ path('instalaciones_show', {'id': comp.instalacion.id }) }}">{{ comp.instalacion }}</a></td>
+    <td>{{ comp.folio }}</td>
+    <td>{{ comp.estadocomp }}</td>
+    <td>{{ comp.femitido ? comp.femitido|date('d/m/Y') : '' }}</td>
+    <td>{{ comp.duplicado ? 'Si': 'No' }}</td>
+    <td>
+        <a class="badge badge-primary" href="{{ path('compestab_show', {'id': comp.id}) }}"><i class="fa fa-eye"></i> {% if fulltext %}Ver{% endif %}</a>
+        <a class="badge badge-warning" href="{{ path('compestab_edit', {'id': comp.id}) }}"><i class="fa fa-edit warning"></i> {% if fulltext %}Editar{% endif %}</a>
+    </td>
+    <td>
+        {{ _self.fila(comp,loop.index,fulltext) }}
+    </td>
+{% endmacro %}

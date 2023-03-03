@@ -1,0 +1,39 @@
+{% extends 'base2.html.twig' %}
+
+{% block title %}Municipios index{% endblock %}
+
+{% block body %}
+    <h1>Municipios index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>SGuid</th>
+                <th>Codigo</th>
+                <th>Municipio</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for municipio in municipios %}
+            <tr>
+                <td>{{ municipio.id }}</td>
+                <td>{{ municipio.sGuid }}</td>
+                <td>{{ municipio.codigo }}</td>
+                <td>{{ municipio.municipio }}</td>
+                <td>
+                    <a href="{{ path('municipios_show', {'id': municipio.id}) }}">show</a>
+                    <a href="{{ path('municipios_edit', {'id': municipio.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="5">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('municipios_new') }}">Create new</a>
+{% endblock %}

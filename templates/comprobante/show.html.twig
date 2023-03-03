@@ -1,0 +1,80 @@
+{% extends 'base2.html.twig' %}
+{% block body %}
+    {% if is_granted("ROLE_ADMIN") or is_granted("ROLE_LOTPROV") %}
+    <h1>Comprobante</h1>
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ comprobante.id }}</td>
+            </tr>
+            <tr>
+                <th>Femitido</th>
+                <td>{{ comprobante.femitido ? comprobante.femitido|date('Y-m-d') : '' }}</td>
+            </tr>
+            <tr>
+                <th>FVencimiento</th>
+                <td>{{ comprobante.fvencimiento ? comprobante.fvencimiento|date('Y-m-d') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Fimpreso</th>
+                <td>{{ comprobante.fimpreso ? comprobante.fimpreso|date('Y-m-d') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Fentrega</th>
+                <td>{{ comprobante.fentrega ? comprobante.fentrega|date('Y-m-d') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Fcancel</th>
+                <td>{{ comprobante.fcancel ? comprobante.fcancel|date('Y-m-d') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Sincostp</th>
+                <td>{{ comprobante.sincostp ? 'Yes' : 'No' }}</td>
+            </tr>
+            <tr>
+                <th>Duplicado</th>
+                <td>{{ comprobante.duplicado ? 'Yes' : 'No' }}</td>
+            </tr>
+            <tr>
+                <th>Importe</th>
+                <td>{{ comprobante.importe }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('comprobante_index') }}">back to list</a>
+
+    <a href="{{ path('comprobante_edit', {'id': comprobante.id}) }}">edit</a>
+
+    {{ include('comprobante/_delete_form.html.twig') }}
+    <hr/>
+    {% endif %}
+    {% include 'comprobante/comprobanteHeader.html.twig' with {comp : comprobante, title : ' ' } %}
+    {% include 'comprobante/DetallesComprobante.html.twig' with {comp : comprobante } %} <!-- /container -->
+
+{% endblock %}
+{% block aditionalcss%}
+    {#<style>#}
+        {#.modal-body { color: #1e2b55;}#}
+        {##izq {#}
+            {#float: left;#}
+            {#padding:95px 10px  10px 15px;#}
+            {#top: 10px;#}
+            {#width: 40%;#}
+            {#height: 93%;#}
+
+            {#/* background-color: #00aa88;*/#}
+        {#}#}
+        {##der {#}
+            {#float: right;#}
+            {#padding: 10px;#}
+            {#top: 10px;#}
+            {#width: 46%;#}
+            {#height: 93%;#}
+            {#/*background-color: #00ccff;*/#}
+        {#}#}
+    {#</style>#}
+{% endblock %}
+
+

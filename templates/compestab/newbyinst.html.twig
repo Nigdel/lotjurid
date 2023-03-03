@@ -1,0 +1,11 @@
+{% extends 'lot.html.twig' %}
+{% block body %}
+    {% include 'compestab/comprobanteHeader.html.twig' with {'detalle_title': "Solicitar Nuevo Comprobante para Instalacion"} %}
+    <div class="m-3 border-light border p-3 rounded">
+        {{ include('compestab/_formnewbyInst.html.twig') }}
+    </div>
+    <div class="container">
+        {% include 'compestab/Detallesdelcomprobante.html.twig' %}
+    </div>
+    {#<a href="{{ path('compestab_index') }}">back to list</a>#}
+{% endblock %}

@@ -1,0 +1,68 @@
+:root {
+  --jumbotron-padding-y: 3rem;
+}
+
+.jumbotron {
+  padding-top: var(--jumbotron-padding-y);
+  padding-bottom: var(--jumbotron-padding-y);
+  margin-bottom: 0;
+  background-color: #fff;
+}
+@media (min-width: 768px) {
+  .jumbotron {
+    padding-top: calc(var(--jumbotron-padding-y) * 2);
+    padding-bottom: calc(var(--jumbotron-padding-y) * 2);
+  }
+}
+
+.jumbotron p:last-child {
+  margin-bottom: 0;
+}
+
+.jumbotron-heading {
+  font-weight: 300;
+}
+
+.jumbotron .container {
+  max-width: 40rem;
+}
+
+footer {
+  padding-top: 3rem;
+  padding-bottom: 3rem;
+}
+
+footer p {
+  margin-bottom: .25rem;
+}
+.sidebar {
+    position: relative;
+    top: 0px;
+    bottom: 0px;
+    left: 0px;
+    z-index: 100;
+    #padding: 48px 0px 0px;
+    box-shadow: -1px 0px 0px rgba(0, 0, 0, 0.1) inset;
+	width: 10rem;
+}
+#nav-col {
+
+    padding: 0;
+    z-index: 100;
+    position: absolute;
+    background: #2c3e50;
+    background-color: rgb(44, 62, 80);
+    width: 220px;
+
+}
+.navbarp {
+	font-size:1rem;
+	padding:0.1rem;
+}
+.col-md-8[role="main"] {
+    flex: 0 0 auto !important;
+    width: 100% !important;
+    max-width: 80% !important;
+    padding: 0px 2rem 1rem !important;
+}
+#carbonads-container {display:none} [data-anchorjs-icon]::after {content:""} h1[id] {padding-top:0px; margin-top:20px} .zero-clipboard {display:none !important} .bd-content>h2[id]::before, .bd-content>h3[id]::before, .bd-content>h4[id]::before {margin-top:0 !important; height:0rem !important} .bd-home .bd-masthead {padding-top:50px !important} .bd-docs .col-md-9 {flex: 0 0 100% !important} .bd-navbar {display:none !important} .bd-sidebar {display:none !important} .bd-content {right:0px !important; width:100% !important} .bd-toc {display:none !important} .bs-old-docs {display:none} .bd-clipboard {display:none !important} .bs-social {display:none} .bs-sidebar {display:none !important} .bd-docs .col-xl-8 {max-width:none !important} .bd-content>ol, .bd-content>p, .bd-content>ul {max-width:none !important} .bd-docs .bd-content {padding-left:15px !important; padding-top:0 !important} .bd-docs .bd-title {margin-top:10px !important} .col-md-9[role=main] {flex:none !important; width:100% !important; max-width:none !important; padding:0 2rem 1rem !important} .bd-masthead {padding-top:2rem !important} .navbar-fixed-top {position:absolute !important}

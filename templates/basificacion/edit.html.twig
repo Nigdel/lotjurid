@@ -1,0 +1,13 @@
+{% extends 'base2.html.twig' %}
+
+{% block title %}Edit Basificacion{% endblock %}
+
+{% block body %}
+    <h1>Edit Basificacion</h1>
+
+    {{ include('basificacion/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('basificacion_index') }}">back to list</a>
+
+    {{ include('basificacion/_delete_form.html.twig') }}
+{% endblock %}

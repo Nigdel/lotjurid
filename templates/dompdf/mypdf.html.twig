@@ -1,0 +1,93 @@
+<HTML>
+<HEAD>
+    <TITLE>Sin título-2</TITLE>
+    <META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+    <style>
+        @page {
+            margin:0px;
+            padding: 0px;
+        }
+        body {
+            font-size: 10px;
+            font-family: "Lucida Grande", "Lucida Sans Unicode", Verdana, Arial, Helvetica, sans-serif;
+            font-style: initial;
+        }
+        #contenedor {
+            size: auto ;
+            background-color: #0b2e13;
+            padding: 10px;
+        }
+        #izq {
+            float: left;
+            padding: 10px;
+            top: 10px;
+            width: 40%;
+            height: 93%;
+
+           /* background-color: #00aa88;*/
+        }
+        #der {
+            float: right;
+            padding: 10px;
+            top: 10px;
+            width: 40%;
+            height: 93%;
+            /*background-color: #00ccff;*/
+        }
+    </style>
+</HEAD>
+<BODY BGCOLOR=#FFFFFF LEFTMARGIN=0 TOPMARGIN=0 MARGINWIDTH=0 MARGINHEIGHT=0>
+<div id="contenedor">
+    <div id="izq">
+        <h3>{{ comp.lot }}</h3>
+        <div>
+            <br/>
+            <article>
+            A Favor de: {{ comp.lot.identidad }}
+            </article>
+            <br/>
+            <article>
+            Con Direccion: {{ comp.lot.identidad.direccion }}
+            </article>
+            <br/>
+            <article>
+             Servicio Autorizado:<br/>
+             {{ comp.lot.dictamen }}
+            </article>
+        </div>
+    </div>
+
+    <div id="der">
+        <article>
+            Chapa<br/>
+             {{ comp.medio.nombre }}
+        </article>
+        <br/>
+        <article>
+            Folio<br/>
+            {{ comp.folio.valor }}
+        </article>
+        <br/>
+        <article>
+            Tipo<br/>
+            {{ comp.medio.tipoMedio }}
+        </article>
+        <br/>
+        <article>
+            Marca/Modelo<br/>
+            {{ comp.medio.marca }} / {{ comp.medio.modelo }}
+        </article>
+        <br/>
+        <article>
+            Lugar de Basificacion<br/>
+            {{ comp.medio.basificacionObj }}
+        </article>
+        <br/>
+        <article>
+            Firma<br/>
+            {{ "Pepe el mano suave" }}
+        </article>
+    </div>
+</div>
+</BODY>
+</HTML>

@@ -1,0 +1,12 @@
+{% extends 'base2.html.twig' %}
+
+{% block body %}
+    <h1 class="alert alert-warning">Modificar Direccion Provincial</h1>
+    {{ include('direccion_provincial/_form.html.twig', {'button_label': 'Actualizar'}) }}
+{% endblock %}
+{% block topnavlink %}
+    <a class="btn btn-sm text-light text-decoration-none" href="{{ path('direccion_provincial_index') }}"><i class="fa fa-list"></i> Listar</a>
+    {% if is_granted("ROLE_ADMIN") %}
+        {{ include('direccion_provincial/_delete_form.html.twig') }}
+    {% endif %}
+{% endblock %}

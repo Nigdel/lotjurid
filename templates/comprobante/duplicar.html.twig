@@ -1,0 +1,101 @@
+{% extends 'base2.html.twig' %}
+{% block body %}
+    <div class="jumbotron p-2">
+        <div class="container">
+            <h3 class="alert alert-success">
+                <i class="fa fa-clone"></i> Duplicado de Comprobante de Medio de Transporte {{ medio.rama | capitalize }} </h3>
+            <p>Este comprobante amparar&aacute; al medio<a href="{{ path('medios_trans_show', {'id':medio.id }) }}"> <strong class="badge badge-pill badge-success"> {{ medio }}</strong></a> <br/>
+                Registrado en la basificacion <a href="{{ path('basificacion_show', {'idlbasiam': medio.basificacionObj.idlbasiam }) }}"><strong class="badge badge-primary"> {{ medio.basificacionObj }} </strong></a> <br/>
+                Perteneciente a la lot <strong class="badge badge-pill badge-warning">{{ comprobante.lot }}</strong> solicitada por la entidad <strong class="badge badge-pill badge-success">{{ comprobante.lot.identidad }}</strong>.
+                A prestar el servicio de <strong> {{ medio.Servicio }} </strong>
+            </p>
+        </div>
+    </div>
+    <div class="m-3 border-light border p-3 rounded">
+        {{ include('comprobante/_formDuplicado.html.twig') }}
+    </div>
+
+    <div class="container">
+        <!-- Example row of columns -->
+        <div class="row">
+            <div class="col-md-5">
+                <h2 class="alert alert-success">Datos del medio {{ medio }}</h2>
+                {% if medio.rama.id == 1 %}
+                    {% include "medios_trans/cfautomotor.html.twig" with { 'medios_trans': medio }  %}
+                {% endif %}
+                {% if medio.rama.id == 2 %}
+                    {% include "medios_trans/cfmaritimo.html.twig" with { 'medios_trans': medio }  %}
+                {% endif %}
+                {% if medio.rama.id == 3 %}
+                    {% include "medios_trans/cfTAH.html.twig" with { 'medios_trans': medio }  %}
+                {% endif %}
+                {% if medio.rama.id == 4 %}
+                    {% include "medios_trans/cfferroviario.html.twig" with { 'medios_trans': medio }  %}
+                {% endif %}
+                {% if medio.rama.id == 5 %}
+                    {% include "medios_trans/cfMD.html.twig" with { 'medios_trans': medio }  %}
+                {% endif %}
+            </div>
+            <div class="col">
+                <h2 class="alert alert-dark">Detalles del Comprobante</h2>
+
+                <table class="table">
+                    <tbody>
+                    <tr>
+                        <th>Folio</th>
+                        <td>{{ comprobante.folio }}</td>
+                    </tr>
+                    <tr>
+                        <th>Estado</th>
+                        <td>{{ comprobante.estadoComp }}</td>
+                    </tr>
+                    <tr>
+                        <th>Fecha de Emitido</th>
+                        <td>{{ comprobante.femitido ? comprobante.femitido|date('d/m/Y') : '' }}</td>
+                    </tr>
+                    <tr>
+                        <th>Fecha de Vencimiento</th>
+                        <td>{{ comprobante.fvencimiento ? comprobante.fvencimiento|date('d/m/Y') : '' }}</td>
+                    </tr>
+                    <tr>
+                        <th>Fecha de Impresión</th>
+                        <td>{{ comprobante.fimpreso ? comprobante.fimpreso|date('d/m/Y') : '' }}</td>
+                    </tr>
+                    <tr>
+                        <th>Fecha de Entrega</th>
+                        <td>{{ comprobante.fentrega ? comprobante.fentrega|date('d/m/Y') : '' }}</td>
+                    </tr>
+                    <tr>
+                        <th>Fecha de Cancelación</th>
+                        <td>{{ comprobante.fcancel ? comprobante.fcancel|date('d/m/Y') : '' }}</td>
+                    </tr>
+                    <tr>
+                        <th>Sin Costo</th>
+                        <td>{{ comprobante.sincostp ? 'Si' : 'No' }}</td>
+                    </tr>
+                    <tr>
+                        <th>Duplicado</th>
+                        <td>{{ comprobante.duplicado ? 'Si' : 'No' }}</td>
+                    </tr>
+                    <tr>
+                        <th>Importe</th>
+                        <td>{{ comprobante.importe }}</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+
+    </div>
+{% endblock %}
+{% block jsadicional %}
+    <script>
+        $(function () {
+            $('.datetimepicker4').datetimepicker({
+                format: 'L',
+                locale: 'es' });
+        });
+    </script>
+{% endblock %}
+

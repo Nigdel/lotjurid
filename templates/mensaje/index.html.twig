@@ -1,0 +1,45 @@
+{% extends 'base2.html.twig' %}
+
+{% block title %}Mensajes{% endblock %}
+
+{% block body %}
+    <h1 class="alert alert-primary">Mis Mensajes ({{ mensajes |length }})</h1>
+
+    <table class="table table-striped table-dark table-sm">
+        <thead>
+            <tr>
+                <th>Asunto</th>
+                <th>De</th>
+                <th>Fecha</th>
+                {#<th>actions</th>#}
+            </tr>
+        </thead>
+        <tbody>
+        {% for mensaje in mensajes %}
+            <tr>
+                <td><a class="text-decoration-none{% if not mensaje.leido %} text-warning{% else %} text-light{% endif %}" href="{{ path('mensaje_show', {'id': mensaje.id}) }}">{% if not mensaje.leido %}<strong>{% endif %} <i class="fa fa-eye"></i> {{ mensaje.asunto }}{% if not mensaje.leido %}</strong>{% endif %}</a></td>
+                <td>{% if not mensaje.leido %}<strong class="text-warning" >{% endif %}{{ mensaje.envia }}{% if not mensaje.leido %}</strong>{% endif %}</td>
+                <td>{{ mensaje.fechaenvio | date('d/m/Y h:t') }}</td>
+                {#<td>#}
+                    {#<a href="{{ path('mensaje_show', {'id': mensaje.id}) }}">show</a>#}
+                    {#<a href="{{ path('mensaje_edit', {'id': mensaje.id}) }}">edit</a>#}
+                {#</td>#}
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="3">No hay mensajes a Mostrar</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+
+{% endblock %}
+{% block topnavlink %}
+    <li class="nav-item">
+        <a class="nav-link text-light" href="{{ path('mensaje_new') }}"><i class="fa fa-at text-success"></i> Redactar Nuevo</a>
+
+    </li>
+
+
+{% endblock %}

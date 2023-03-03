@@ -1,0 +1,73 @@
+{% use "form_div_layout.html.twig" %}
+{{ form_start(form) }}
+<div class="form-group">
+    <fieldset disabled>
+    {{ form_errors(form) }}
+    <div class="form-row">
+        <div class="form-group">
+            {{ form_row(form.identidad) }}
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="form-group col-md-3">
+            {{ form_row(form.idtipo) }}
+        </div>
+        <div class="form-group col-md-3">
+            {{ form_row(form.idservicio) }}
+        </div>
+        <div class="form-group col-md-3">
+            {{ form_row(form.idrama) }}
+        </div>
+        <div class="form-group col-md-3">
+            {{ form_row(form.idextension) }}
+        </div>
+    </div>
+    <div class="form-row">
+        {{ form_widget(form.dictamen) }}
+    </div>
+    <div class="form-row">
+        <div class="form-group col-md-3">
+            {{ form_row(form.presentada) }}
+        </div>
+        <div class="form-group col-md-3">
+            {{ form_row(form.aprobada) }}
+        </div>
+        <div class="form-group col-md-3">
+            {{ form_row(form.mediatarifa) }}
+        </div>
+        <div class="form-group col-md-3">
+            {{ form_row(form.duplicado) }}
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="form-group col-md-3">
+            {{ form_row(form.fechaaprobacion) }}
+        </div>
+        <div class="form-group col-md-3">
+            {{ form_row(form.fechaemision) }}
+        </div>
+        <div class="form-group col-md-3">
+            {{ form_row(form.fechaentrega) }}
+        </div>
+        <div class="form-group col-md-3">
+            {{ form_row(form.fechadecancelacion) }}
+        </div>
+        <div class="form-group col-md-3">
+            {{ form_row(form.fechaaprobinicial) }}
+        </div>
+        <div class="form-group col-md-3">
+            {{ form_row(form.fechasolicitud) }}
+        </div>
+        <div class="form-group col-md-3">
+            {{ form_row(form.fecharenov) }}
+        </div>
+    </div>
+
+    <div class="d-none">
+        {{ form_widget(form) }}
+    </div>
+   </fieldset>
+</div>
+
+    {#<button class="btn">{{ button_label|default('Crear') }}</button>#}
+{{ form_end(form) }}

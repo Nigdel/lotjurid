@@ -1,0 +1,71 @@
+{% extends 'base2.html.twig' %}
+{% block title %}Nueva Solicitud{% endblock %}
+
+{% block body %}
+    <h1 class="text-center">Tr&aacute;mite LOT</h1>
+    {% if lotjuridica.id is none %}
+    <div class="card-deck mb-3 text-center align-items-center">
+        <div class="card mb-2 shadow-sm col-lg-4 col-sm-6 mx-auto p-2">
+            <div class="card-header">
+                <h4 class="my-0 font-weight-normal">Expediente</h4>
+            </div>
+            <div class="card-body">
+                <form class="form d-flex justify-content-center" action="{{ path('lotjuridicas_newsolic') }}" method="post">
+                    <input type="text" class="form-control d-flex m-1" name="numlot">
+                    <button type="submit" class="btn btn-outline-primary form-control m-1">Buscar</button>
+                </form>
+
+            </div>
+        </div>
+    </div>
+
+{% else %}
+    {% if lotjuridica.identidad is none  %}
+        <h6 class="alert alert-danger">La licencia {{ lotjuridica.id }} no existe o no tiene asignada una entidad v&aacute;lida</h6>
+<div class="card-deck">
+    <div class="card ">
+        <div class="card-header text-center">Acciones</div>
+        <div class="card-body">
+            <p>
+                El expediente solicitado no existe o no se encuentra la entidad asociada al mismo. Para solicitar una nueva LOT (<strong>{{ lotjuridica.id }}</strong>) debe declarar/seleccionar la persona jur&iacute;dica de la misma.
+            </p>
+            <div class="btn-group-vertical">
+                <a href="{{ path('personasjuridicas_newbylot',{'lot':lotjuridica.id}) }}" class="btn btn-sm btn-success"><i class="fas fa-plus"></i> Declarar Nueva Persona Jur&iacute;dica</a>
+                <a href="#" class="btn btn-sm btn-primary"><i class="fas fa-search-location"></i> Seleccionar Persona Jur&iacute;dica</a>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+    {% else %}
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+            {{ lotjuridica.id }}
+        </button>
+        <!-- Modal -->
+        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg" role="document">
+                <div class="lotmodal-dialog modal-content ">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel"> {{ lotjuridica.id }} {% if lotjuridica.idestado is not none %} <span class="badge badge-pill badge-{% if lotjuridica.idestado.id == 8  %}{{ 'danger' }} {% else %}{{ 'primary' }}{% endif %}">{{ lotjuridica.idestado }}</span>{% endif %}</h5>
+                        <button type="button" class="close danger" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        {{ include('lotjuridicas/_formModal.html.twig',{'button_label':"ok"}) }}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <span class="alert alert-primary d-block text-center">Acciones</span>
+        <div class="card-deck">
+            <div class="card">
+                <p>
+                    lolasdasd
+                </p>
+            </div>
+        </div>
+    {% endif %}
+{% endif %}
+{% endblock %}

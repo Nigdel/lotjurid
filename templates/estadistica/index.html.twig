@@ -1,0 +1,179 @@
+{% extends 'base2.html.twig' %}
+
+{% block body %}
+    <div class="jumbotron p-2">
+        <div class="container">
+            <h3 class="alert alert-warning">Módulo Estadístico </h3>
+            <div class="row">
+                <div class="col-4">
+                    <strong class="badge alert-primary">{{ alcance | default ('Municipio') }} {{ alcancevalor }}</strong>
+                    {% include "oficina_mcpal/Estadistica.html.twig" with {'idmcpio':alcancevalor.id} %}
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="card-columns">
+        <div class="card">
+            <div class="card-img">
+                <canvas id="myChart"></canvas>
+            </div>
+            <div class="card-body">
+                <h5 class="card-title">Lots {{ alcance | default ('Municipio') }} {{ alcancevalor }} <span class="badge badge-primary">{{ datosEstLot[0].total }}</span>
+                    <a href="#" class="text-decoration-none text-light"> <i class="fa fa-download"></i></a>
+                </h5>
+                <table class="table table-striped table-dark table-sm">
+                    <tr>
+                        <th>Vigentes</th>
+                        <td>{{ datosEstLot[0].vigentes }}</td>
+                    </tr>
+                    <tr>
+                        <th>Canceladas</th>
+                        <td>{{ datosEstLot[0].canceladas }}</td>
+                    </tr>
+                    <tr>
+                        <th>Suspendidas</th>
+                        <td>{{ datosEstLot[0].Suspendida }}</td>
+                    </tr>
+                    <tr>
+                        <th>Pendientes de Aprobacion</th>
+                        <td>{{ datosEstLot[0]["Pte Aprob"] }}</td>
+                    </tr>
+                    <tr>
+                        <th>Pendientes de Impresion</th>
+                        <td>{{ datosEstLot[0]["Pte Impresion"] }}</td>
+                    </tr>
+                    <tr>
+                        <th>Pendientes de Entrega</th>
+                        <td>{{ datosEstLot[0]["Pte Entrega"] }}</td>
+                    </tr>
+                    <tr>
+                        <th>Pendientes de Renovacion</th>
+                        <td>{{ datosEstLot[0]["Pte Renovacion"] }}</td>
+                    </tr>
+                    <tr>
+                        <th>Destruidas</th>
+                        <td>{{ datosEstLot[0]["Destruido"] }}</td>
+                    </tr>
+                    <tr>
+                        <th>No Entregadas</th>
+                        <td>{{ datosEstLot[0]["No Entregada"] }}</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+
+        <div class="card">
+
+            <div class="card-body">
+                <h5 class="card-title">Medios de Trasporte <span class="badge badge-primary">{{ mediosT | length }}</span>
+                   <a href="#" class="text-decoration-none text-light"> <i class="fa fa-download"></i></a>
+                </h5>
+                <table class="table table-striped table-dark table-sm">
+                    <tr>
+                        <th>Aptos</th>
+                        <td>{{ aptos | length }}</td>
+                    </tr>
+                    <tr>
+                        <th>Con Comprobante Vigente</th>
+                        <td>{{ medioscomp[0]["vigente"] | default('0')  }}</td>
+                    </tr>
+                    <tr>
+                        <th>Suspendidos</th>
+                        <td>{{medioscomp[0]["suspendido"] |  default('0') }}</td>
+                    </tr>
+                    <tr>
+                        <th>Pendientes de Entrega</th>
+                        <td>{{ medioscomp[0]["pteentrega"] |  default('0') }}</td>
+                    </tr>
+                    <tr>
+                        <th>Pendientes de Impresion</th>
+                        <td>{{ medioscomp[0]["pteimpres"] |  default('0') }}</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        {#<div class="card">#}
+            {#<div class="card-header"><h5>Reportes habituales</h5></div>#}
+            {#<div class="card-body">#}
+                {#{% include "oficina_mcpal/Estadistica.html.twig" with {'idmcpio':alcancevalor.id} %}#}
+            {#</div>#}
+
+        {#</div>#}
+    </div>
+
+
+{% endblock %}
+{% block jsadicional %}
+    <script src="{{ asset('chartjs/node_modules/chart.js/dist/chart.js') }}"></script>
+    {#<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>#}
+    <script>
+        const labels = [
+            'Vigentes',
+            'Canceladas',
+            'Suspendidas',
+            'Pte Aprob',
+            'Pte Impres',
+            'Pte Entrega',
+            'Pte Renov',
+            'Destruidas',
+            'No Entregadas',
+        ];
+        const data = {
+            labels: labels,
+            datasets: [{
+                label: 'Tramites por Meses',
+                backgroundColor: [
+                    '#28a745',
+                    '#ce101a',
+                    '#007bff',
+                    '#99b628',
+                    '#498db6',
+                    '#bf6f5d',
+                    '#94781e',
+                    '#99b628',
+                    '#b5b62c',
+                ],
+                borderColor: [
+                    'rgba(255, 255, 255, 0.5)',
+                    // 'rgba(54, 162, 235, 1)',
+                    // 'rgba(255, 206, 86, 1)',
+                    // 'rgba(75, 192, 192, 1)',
+                    // 'rgba(153, 102, 255, 1)',
+                    // 'rgba(255, 159, 64, 1)'
+                ],
+                data: [
+                    {{ datosEstLot[0].vigentes }},
+                    {{ datosEstLot[0].canceladas }},
+                    {{ datosEstLot[0].Suspendida  }},
+                    {{ datosEstLot[0]["Pte Aprob"] }},
+                    {{ datosEstLot[0]["Pte Impresion"] }},
+                    {{ datosEstLot[0]["Pte Entrega"] }},
+                    {{ datosEstLot[0]["Pte Renovacion"] }},
+                    {{ datosEstLot[0]["Destruido"] }},
+                    {{ datosEstLot[0]["No Entregada"] }}
+                    ],
+            }]
+        };
+        const config = {
+            type: 'pie',
+            data: data,
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        position: 'top',
+                    },
+                    title: {
+                        display: true,
+                        text: 'Lots por Estado'
+                    }
+                }
+            },
+        };
+        var myChart = new Chart(
+            document.getElementById('myChart'),
+            config
+        );
+
+    </script>
+{% endblock %}

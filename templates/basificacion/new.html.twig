@@ -1,0 +1,11 @@
+{% extends 'base2.html.twig' %}
+
+{% block title %}New Basificacion{% endblock %}
+
+{% block body %}
+    <h1>Nueva Basificacion</h1>
+
+    {{ include('basificacion/_form.html.twig') }}
+
+    <a href="{{ path('basificacion_index') }}">back to list</a>
+{% endblock %}

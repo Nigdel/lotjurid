@@ -1,0 +1,65 @@
+{% use "form_div_layout.html.twig" %}
+{{ form_start(form) }}
+<div class="form-group">
+    <hr>
+    {{ form_errors(form) }}
+    <fieldset>
+    <div class="form-row">
+        <div class="form-group col-md-3">
+            {{ form_label(form.id) }}
+            {{ form_widget(form.id,{'attr':
+                {'readonly':true,
+                 'class':'form-control'
+                }
+            }) }}
+        </div>
+        <div class="form-group col-md-3">
+            {{ form_row(form.idmunicipio) }}
+        </div>
+    </div>
+    </fieldset>
+    <div class="form-group">
+        {{ form_row(form.nomentidad) }}
+    </div>
+
+    <div class="form-row">
+
+        <div class="form-group col-md-2">
+            {{ form_row(form.codreeup) }}
+        </div>
+        <div class="form-group col-md-5">
+            {{ form_row(form.representante) }}
+        </div>
+        <div class="form-group col-md-3">
+            {{ form_row(form.email) }}
+        </div>
+        <div class="form-group col-md-2">
+            {{ form_row(form.telefono) }}
+        </div>
+    </div>
+    <div class="form-group">
+        {{ form_row(form.direccion) }}
+    </div>
+    <div class="form-row">
+        <div class="form-group col-md-4">
+           {{ form_row(form.idorga) }}
+        </div>
+        <div class="form-group col-md-2">
+            {{ form_row(form.actividad) }}
+        </div>
+        <div class="form-group col-md-2">
+            {{ form_row(form.rama) }}
+        </div>
+        <div class="form-group col-md-2">
+           {{ form_row(form.subrama) }}
+        </div>
+        <div class="form-group col-md-2">
+            {{ form_row(form.nocontribuyente) }}
+        </div>
+    </div>
+    {{ form_widget(form) }}
+</div>
+    <button class="btn btn-success btn-sm">
+        <i class="fas fa-save"></i>
+        {{ button_label|default('Guardar') }}</button>
+{{ form_end(form) }}

@@ -1,0 +1,18 @@
+{% extends 'base2.html.twig' %}
+
+{% block title %}Edit Personasjuridicas{% endblock %}
+
+{% block body %}
+    <h1 class="alert alert-success">Modificar Datos de la Entidad <span class="badge badge-pill badge-warning">{{ personasjuridica }}</span></h1>
+    {{ include('personasjuridicas/_form.html.twig', {'button_label': 'Actualizar', 'modo':'edit'}) }}
+
+{% endblock %}
+{% block topnavlink %}
+    <li class="nav-item">
+        <a class="nav-link" href="{{ path('personasjuridicas_index') }}"><i class="fa fa-list text-primary"></i> Listar Todas</a>
+    </li>
+    <li class="nav-item">
+        {{ include('personasjuridicas/_delete_form.html.twig') }}
+    </li>
+
+{% endblock %}

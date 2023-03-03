@@ -1,0 +1,37 @@
+{% extends 'base2.html.twig' %}
+
+{% block title %}ServicioAmparado index{% endblock %}
+
+{% block body %}
+    <h1>ServicioAmparado index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>ServicioAmparado</th>
+                <th>DescServicioAmparado</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for servicio_amparado in servicio_amparados %}
+            <tr>
+                <td>{{ servicio_amparado.id }}</td>
+                <td>{{ servicio_amparado.ServicioAmparado }}</td>
+                <td>{{ servicio_amparado.DescServicioAmparado }}</td>
+                <td>
+                    <a href="{{ path('servicio_amparado_show', {'id': servicio_amparado.id}) }}">show</a>
+                    <a href="{{ path('servicio_amparado_edit', {'id': servicio_amparado.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="4">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('servicio_amparado_new') }}">Create new</a>
+{% endblock %}

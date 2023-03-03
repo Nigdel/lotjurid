@@ -1,0 +1,78 @@
+<table class="table table-striped table-dark table-sm">
+    <tbody>
+    <tr>
+        <th>Matrícula</th>
+        <td>{{ medios_trans.nombre }}</td>
+    </tr>
+    <tr>
+        <th>Basificacion</th>
+        <td>{{ medios_trans.basificacion }}</td>
+    </tr>
+    <tr>
+        <th>Tipo de Medio</th>
+        <td>{{ medios_trans.tipoMedio }}</td>
+    </tr>
+    <tr>
+        <th>Año de Fabricación</th>
+        <td>{{ medios_trans.yearFab }}</td>
+    </tr>
+    <tr>
+        <th>Cap</th>
+        <td>{{ medios_trans.cap }}</td>
+    </tr>
+    <tr>
+        <th>Umcap</th>
+        <td>{{ medios_trans.umcap }}</td>
+    </tr>
+    <tr>
+        <th>Aseguramiento</th>
+        <td>{{ medios_trans.aseguramiento ? 'Si' : 'No' }}</td>
+    </tr>
+    <tr>
+        <th>Marca</th>
+        <td>{{ medios_trans.marca }}</td>
+    </tr>
+    <tr>
+        <th>Modelo</th>
+        <td>{{ medios_trans.modelo }}</td>
+    </tr>
+    <tr>
+        <th>Estado del Medio</th>
+        <td>{{ medios_trans.estadoMedio }}</td>
+    </tr>
+    <tr>
+        <th>Servicios Especiales</th>
+        <td>{{ medios_trans.serviciosEspeciales }}</td>
+    </tr>
+    <tr>
+        <th>Tipo de Combustible</th>
+        <td>{{ medios_trans.tipoCombustible }}</td>
+    </tr>
+    <tr>
+        <th>IndConsumo</th>
+        <td>{{ medios_trans.indConsumo }}</td>
+    </tr>
+    <tr>
+        <th>Rama</th>
+        <td>{{ medios_trans.rama }}</td>
+    </tr>
+    <tr>
+        <th>NumRevTecnica</th>
+        <td>{{ medios_trans.numRevTecnica }}</td>
+    </tr>
+    <tr>
+        <th>VencRevTecnica</th>
+        <td>{{ medios_trans.vencRevTecnica ? medios_trans.vencRevTecnica|date('Y-m-d') : '' }}</td>
+    </tr>
+    <tr>
+        <th>IdTipo</th>
+        <td>{{ medios_trans.idTipo }}</td>
+    </tr>
+
+    <tr>
+        <th>Comprobantes</th>
+        <td>{{ medios_trans.comprobantes | length }}</td>
+    </tr>
+
+    </tbody>
+</table>

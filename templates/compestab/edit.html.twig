@@ -1,0 +1,11 @@
+{% extends 'lot.html.twig' %}
+
+{% block body %}
+    <h1>Edit Compestab</h1>
+
+    {{ include('compestab/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('compestab_index') }}">back to list</a>
+
+    {{ include('compestab/_delete_form.html.twig') }}
+{% endblock %}

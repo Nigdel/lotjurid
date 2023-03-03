@@ -1,0 +1,139 @@
+{% macro fila(lot,loop) %}
+{% if app.user.municipio.provinciaid.id == lot.identidad.Idmunicipio.provinciaid.id %}
+    <div class="btn-group">
+        {% if lot.idestado.id == 1 and lot.idaprueba.id == app.user.id %}
+            <a href="{{ path('lotjuridicas_aprobacion', {'id': lot.id}) }}" class="badge badge-pill badge-warning">Aprobar/Denegar</a>
+        {% endif %}
+        {% if lot.idestado.id == 2 %}
+            <a href="{{ path('lotjuridicas_show', {'id': lot.id }) }}" class="badge badge-pill badge-danger">Denegada</a>
+        {% endif %}
+        {% if lot.idestado.id == 3 or lot.idestado.id == 9 %}
+            <a href="{{ path('lotjuridicas_entregar', {'id': lot.id }) }}" class="badge badge-pill badge-primary"><i class="fa fa-history"></i> Entregar</a>
+        {% endif %}
+        {% if lot.idestado.id == 4 or lot.idestado.id == 5 or lot.idestado.id == 6 %}
+            <a href="{{ path('lotjuridicas_cancelar', {'id': lot.id }) }}"  class="badge badge-pill badge-danger">
+                <i class="fa fa-times"></i> Cancelar
+            </a>
+
+        {% endif %}
+        {% if lot.idestado.id == 5 %}
+            <a href="{{ path('lotjuridicas_suspender', {'id': lot.id}) }}" class="badge badge-pill badge-info"><i class="fa fa-times"></i> Suspender </a>
+            <a href="{{ path('lotjuridicas_duplicado', {'id': lot.id }) }}" class="badge badge-pill badge-primary"><i class="fa fa-copy"></i> Duplicar </a>
+        {% endif %}
+        {% if lot.idestado.id == 6 or lot.idestado.id ==7 or lot.idestado.id ==8 %}
+            <a href="{{ path('lotjuridicas_renovar', {'id': lot.id }) }}" class="badge badge-pill badge-success"><i class="fab fa-ubuntu"></i> Renovar </a>
+        {% endif %}
+        {% if lot.idestado.id == 10 %}
+            <a href="#nuevasolic" class="badge badge-pill badge-success"><i class="fab fa-ubuntu"></i> Nueva </a>
+        {% endif %}
+        {% if lot.idestado.id == 11 %}
+            {#<a href="#imprimir" class="badge badge-pill badge-primary"><i class="fa fa-print"></i> Imprimir </a>#}
+            <a href="#imprimir"  class="badge badge-pill badge-primary" data-toggle="modal" data-target="#impresslotModal{{ loop }}">
+                <i class="fa fa-print"></i> Imprimir
+            </a>
+            <!-- Modal -->
+            <div class="modal fade" id="impresslotModal{{ loop }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content lotmodal-dialog">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Impresion de la lot {{ lot }}</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true" >&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <form id="form{{ loop }}" method="post" action="{{ path('lotjuridicas_ptesimpresion') }}" target="_blank">
+                                <div class="form-group">
+                                    <label for="recipient-name" class="col-form-label">Folio:</label>
+                                    <input type="text" class="form-control" id="foliovalor" name="foliovalor">
+                                </div>
+                                <input type="hidden" name="lot" value="{{ lot }}">
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                            <button type="button" class="btn btn-primary" onclick="
+                                    $('#form{{ loop }}').submit();$('.modal').modal('hide');
+                                    ">Imprimir</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <a href="{{ path('lotjuridicas_marcarcomoimpresa', {'id': lot.id}) }}" class="badge badge-pill badge-warning"><i class="fa fa-check"></i> Impresa </a>
+        {% endif %}
+    </div>
+{% else %}
+    <i class="fa fa-times-circle"></i> No Permitido
+{% endif %}
+
+{% endmacro %}
+{% macro showlotFila(lot,loop) %}
+    {% from 'Sitio/utilidades.html.twig' import estadolot %}
+    <td><a class="badge badge-warning badge-pill" href="{{ path('lotjuridicas_show', { 'id': lot.id }) }}"><i class="fa fa-eye text-success"></i> {{ lot.id }}</a></td>
+    <td>{% if lot.identidad %}
+            <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#exampleModal{{  loop.index }}">
+                {{  lot.identidad }} <span class="badge badge-warning">{{ lot.basificaciones | length }}</span>
+            </button>
+            <!-- Modal -->
+            <div class="modal fade" id="exampleModal{{  loop.index }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel{{  loop.index }}" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content  lotmodal-dialog">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel{{  loop.index }}">{{ lot.identidad.nomentidad }}</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <form>
+                                <div class="form-row">
+
+                                    <div class="form-group col-md-6">
+                                        <label for="Reup">Teléfono</label>
+                                        <input type="tel" class="form-control" id="tel" placeholder="Número telefónico" value="{{ lot.identidad.telefono }}" readonly>
+                                    </div>
+                                    {% if not lot.identidad.email is empty %}
+                                        <div class="form-group col-md-6">
+                                            <label for="email">Email</label>
+                                            <a href="mailto:{{ lot.identidad.email }}" class="btn btn-block btn-warning" >{{ lot.identidad.email }}</a>
+                                        </div>
+                                    {% endif %}
+                                </div>
+                                <div class="form-group">
+                                    <label for="inputAddress">Direccion</label>
+                                    <input type="text" class="form-control" id="inputAddress" placeholder="Calle 27 #111" value="{{ lot.identidad.direccion }}" readonly>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group col-md-6">
+                                        <label for="municipio">Municipio</label>
+                                        <input type="text" class="form-control" id="municipio" placeholder="Municipio" value="{{ lot.identidad.idmunicipio }}" readonly>
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <label for="organismo">Organismo</label>
+                                        <input type="text" class="form-control" id="organismo" placeholder="Organismo al que pertenece" value="{{ lot.identidad.idorga }}" readonly>
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group col-md-6">
+                                        <label for="Reup">Reeup</label>
+                                        <input type="text" class="form-control" id="Reup" placeholder="Reeup ó CAE de la empresa" value="{{ lot.identidad.codreeup }}" readonly>
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <label for="NIT">NIT</label>
+                                        <input type="text" class="form-control" id="nit" placeholder="Número de Contribuyente" value="{{ lot.identidad.nocontribuyente }}" readonly>
+                                    </div>
+                                </div>
+                            </form>
+                            <a href="{{ path('personasjuridicas_show',{'id':lot.identidad.id}) }}" class="btn btn-sm btn-outline-primary" >Ver</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% endif %}</td>
+    <td>{{ lot.idextension }}</td>
+    <td>{{ lot.idrama }}</td>
+    <td>{{ estadolot(lot.idestado) }}</td>
+    <td>
+        {{ _self.fila(lot,loop.index) }}
+    </td>
+{% endmacro %}

@@ -1,0 +1,10 @@
+{% extends 'base2.html.twig' %}
+{% block body %}
+    <h1>Edit Tarifa</h1>
+
+    {{ include('tarifa/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('tarifa_index') }}">back to list</a>
+
+    {{ include('tarifa/_delete_form.html.twig') }}
+{% endblock %}

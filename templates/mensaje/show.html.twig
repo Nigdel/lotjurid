@@ -1,0 +1,21 @@
+{% extends 'base2.html.twig' %}
+
+{% block title %}Mensaje{% endblock %}
+
+{% block body %}
+    <h1 class="alert alert-primary">{{ mensaje.asunto ? mensaje.asunto : 'Sin Asunto'  }}</h1>
+    <div class="card-header">De: {{ mensaje.envia }} </div>
+    <div class="card-body bg-light text-dark rounded m-2"><p>{{ mensaje.texto | capitalize}}</p></div>
+    <div class="card-footer">enviado el <small class="text-primary">{{ mensaje.fechaenvio | date('d/m/Y') }}</small></div>
+
+{% endblock %}
+
+{% block topnavlink %}
+    <li class="nav-item">
+        <a class="nav-link" href="{{  path('user_msjs') }}"><i class="fa fa-list text-primary"></i> Listar Todas</a>
+    </li>
+    <li class="nav-item">
+        {{ include('mensaje/_delete_form.html.twig') }}
+    </li>
+
+{% endblock %}

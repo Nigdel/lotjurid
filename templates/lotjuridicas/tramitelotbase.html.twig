@@ -1,0 +1,24 @@
+{% extends 'base2.html.twig' %}
+{% block body %}
+    {% import 'lotjuridicas/lottramit.html.twig' as tramite %}
+<h6 class="alert alert-success">Licencias {{ tramitelot | default("Pendientes de Entrega") }} <span class="badge badge-warning">{{ lots | length }}</span></h6>
+    <table class="records_list table table-striped table-sm">
+        <thead>
+        <tr>
+            <th>Numero</th>
+            <th>Entidad(cant Bases de Transp)</th>
+            <th>Extension</th>
+            <th>Rama</th>
+            <th>Estado</th>
+            <th>Acciones</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for entity in lots %}
+            <tr>
+                {{ tramite.showlotFila(entity, loop) }}
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

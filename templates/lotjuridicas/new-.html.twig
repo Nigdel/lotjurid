@@ -1,0 +1,168 @@
+{% extends 'base2.html.twig' %}
+
+{% block title %}Solicitud de Lotjuridicas{% endblock %}
+
+{% block body %}
+    <h1 class="alert alert-success">Solicitar Lot para la entidad <a class="badge badge-warning badge-pill" href="{{ path('personasjuridicas_show', {'id': lotjuridica.identidad.id}) }}" > {{ lotjuridica.identidad }}</a></h1>
+
+    {{ include('lotjuridicas/_formNewbypj.html.twig') }}
+{% endblock %}
+{% block topnavlink %}
+    <li class="nav-item">
+        <a class="nav-link " href="{{ path('lotjuridicas_index') }}"><i class="fa fa-list text-primary"></i> Listar Todas</a>
+    </li>
+{% endblock %}
+{% block jsadicional %}
+<script type="text/javascript">
+    function updateDictamen() {
+        var tipo = $('#lotjuridicas_idtipo option:selected');
+        var servAmp = $('#lotjuridicas_servicioamparado option:selected');
+        var serv = $('#lotjuridicas_idservicio option:selected');
+        var ext = $('#lotjuridicas_idextension option:selected');
+        var rama = $('#lotjuridicas_idrama option:selected');
+        var limitante = $('#lotjuridicas_limitacion');
+
+        var cad = 'Servicio ' + tipo.text() + ' de ' + servAmp.text() + ' ' + rama.text() + '. ' + ext.text()+'.';
+
+        if(tipo.val()==='2'){
+            cad = 'Servicio  de ' + servAmp.text() + '. Limitado a '+limitante.val()+'. ' + rama.text() + '. ' + ext.text();
+        }
+        $('#lotjuridicas_dictamen').val(cad);
+    }
+    $('#limitante').hide();
+    $('#limitante').keyup( function () {
+        updateDictamen();
+    });
+
+    $(document).ready(function(){
+            var selects= $('#lotjuridicas_idtipo').add('#lotjuridicas_idservicio').add('#lotjuridicas_idrama').add('#lotjuridicas_idextension');
+            selects.change(function f() {
+                var tipo = $('#lotjuridicas_idtipo option:selected');
+                var servAmp = $('#lotjuridicas_servicioamparado option:selected');
+                var serv = $('#lotjuridicas_idservicio option:selected');
+                var rama = $('#lotjuridicas_idrama option:selected');
+                var limitante = $('#lotjuridicas_limitacion');
+                var divlimitante = $('#limitante');
+                var importe = $('#lotjuridicas_importe');
+                var servs = $('#lotjuridicas_servicioamparado option');
+                var ext = $('#lotjuridicas_idextension option:selected');
+                if (tipo.val() === '2') {
+                    divlimitante.show();
+                    limitante.prop('required', true);
+                }
+                else {
+                    limitante.val('');
+                    limitante.removeAttr("required");
+                    divlimitante.hide();
+                }
+
+                servs.removeAttr("selected");
+                servs.hide();
+                switch (serv.val()) {
+                    case '1': {
+                        if (tipo.val() === '3') {
+                           var pers= $('#lotjuridicas_servicioamparado option[value=3]');
+                           pers.attr("selected", true);
+                           pers.show();
+                        }
+                        else {
+                           var pas= $('#lotjuridicas_servicioamparado option[value=2]');
+                           pas.attr("selected", true);
+                           pas.show();
+                        }
+                    }
+                        break;
+                    case '2': {
+                        var carga=$('#lotjuridicas_servicioamparado option[value=1]');
+                        carga.attr("selected", true);
+                        carga.show();
+                    }
+                        break;
+                    case '3': {
+                        cont = servs.length;
+                        for (var i = 4; i <= cont; i++) {
+                            $("#lotjuridicas_servicioamparado option[value='" + i + "']").show();
+                        }
+                        $('#lotjuridicas_servicioamparado option[value=4]').attr("selected", true);
+
+                    }
+                        break;
+                }
+
+                var exts = $("#lotjuridicas_idextension option");
+                $("#lotjuridicas_idextension option[value='3']").attr('disabled',true);
+                exts.removeAttr('selected');
+                exts.hide();
+                switch (rama.val()) {
+                    case '2': {
+                        for (var i = 1; i <= 7; i++) {
+                            $("#lotjuridicas_idextension option[value='" + i + "']").show();
+                        }
+                    }
+                        break;
+                    case '3': {
+
+                        $("#lotjuridicas_idextension option[value=4]").attr('selected', true);
+                        $("#lotjuridicas_idextension option[value=4]").show();
+
+                    }
+                        break;
+                    case '6': {
+                        $("#lotjuridicas_idextension option[value=4]").show();
+                        $("#lotjuridicas_idextension option[value=4]").attr('selected', true);
+                    }
+                        break;
+                    default : {
+                        for (var i = 1; i <= 4; i++) {
+                            $("#lotjuridicas_idextension option[value='" + i + "']").show();
+                        }
+                        if(eval(ext.val())<=4){
+                            $("#lotjuridicas_idextension option[value='" + ext.val() + "']").attr('selected',true);
+                        }
+                        else{
+                            $("#lotjuridicas_idextension option[value='1']").attr('selected',true);
+                        }
+                    }
+                }
+                updateDictamen();
+                if(serv.val()==='3'){
+                    if(ext.val()==='1' || ext.val()==='2' || ext.val()==='4')
+                    importe.val(tarifa(eval(ext.val()),'Aux'));
+                    else{
+                        importe.val(tarifa(1,'Aux'));
+                    }
+                }
+                else{
+                    if(ext.val()==='1' || ext.val()==='2' || ext.val()==='4'){
+                        switch (rama.val()){
+                            case '3':{
+                                importe.val(tarifa(eval(ext.val()),'Anim'));
+                            }break;
+                            case '6':{
+                                importe.val(tarifa(eval(ext.val()),'Hum'));
+                            }break;
+                            default :{
+                                importe.val(tarifa(eval(ext.val()),'Aut'));
+                            }
+                        }
+                    }
+                    else{
+                        importe.val(tarifa(1,'Aut'));
+                    }
+                }
+            });
+            selects.change();
+            $('#lotjuridicas_servicioamparado').change(function () {
+                updateDictamen();
+            });
+
+    }
+    );
+    function tarifa(ext,rama){
+        var tarif={{ tarifas | raw }} ;
+        // return tarif.filter(tarifa =>tarifa.extension.id === ext && tarifa.concepto.includes(conceptos) && tarifa.concepto.includes(rama)).shift().valor;
+        return tarif.filter(tarifa =>tarifa.extension.id === ext && tarifa.concepto.includes('Lot') && tarifa.concepto.includes(rama)).shift().valor;
+    }
+
+</script>
+{% endblock %}

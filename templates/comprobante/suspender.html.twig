@@ -1,0 +1,40 @@
+{% extends 'base2.html.twig' %}
+{% block title %}Suspender Comprobante{% endblock %}
+{% block body %}
+    {% include 'comprobante/ComprobanteHeader.html.twig' with{ title : 'suspender'} %}
+    <div class="m-3 border-light border p-3 rounded">
+        <form onsubmit="return confirm('Presione Aceptar para Suspender este comprobante?');" method="post" >
+            <div class="form-row col-md-3 pl-0">
+                <label for="fechasusp">Fecha de Suspension</label>
+                <input type="text" name="fechasusp" id="fechasusp" class="form-control datetimepicker4" required>
+            </div>
+            <div class="form-row">
+                <label for="causasuspencion">Causa de Suspension</label>
+                <select class="form-control mi-selector" id="causasuspencion" name="causasuspencion" required>
+                    {% for causa in causas %}
+                        <option value="{{ causa.id }}">{{ causa.Causa }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="form-row mt-2">
+                <input type="submit" class="btn btn-sm btn-danger" value="Suspender Comprobante" />
+                <a href="{{ path('comprobante_index') }}" class="btn btn-sm btn-info mx-3 px-2">Descartar</a>
+            </div>
+        </form>
+    </div>
+
+    {% include 'comprobante/DetallesComprobante.html.twig' %}
+
+{% endblock %}
+{% block jsadicional %}
+    <script type="text/javascript">
+        $(function () {
+            $('.datetimepicker4').datetimepicker({
+                format: 'L',
+                locale: 'es' });
+        });
+        $('.mi-selector').select2();
+        $('.select2').css('width','100%');
+        $('.select2-selection__rendered').addClass('select2-selection__rendered form-control');
+    </script>
+{% endblock %}

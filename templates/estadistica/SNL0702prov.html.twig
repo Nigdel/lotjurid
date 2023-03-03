@@ -1,0 +1,166 @@
+{% extends 'base2.html.twig' %}
+{% block body %}
+<h1 class="alert alert-primary">SNL-07-02 Informativo sobre Lots de Pasaje <span class="badge badge-warning">{{ prov }}</span></h1>
+    <div class="container">
+        <div class="card">
+            <div class="card-header">Lots Vigentes por Rama </div>
+            <div class="card-body">
+                <h1>Licencias Vigentes por Rama</h1>
+                <table class="table table-striped table-dark table-sm" id="lotsv">
+                    <tr>
+                        <th>Rama</th>
+                        <th>Total</th>
+                        <th>Publico</th>
+                        <th>Limitado</th>
+                        <th>Propio</th>
+                    </tr>
+
+                    {% for lot in lotvigcargaSum %}
+                        <tr>
+                            <th><a class="text-decoration-none" href="{{ path('lotjuridicas_vigTipoRama', {'rama': lot.idrama, 'tipo': '1'}) }}">{{ lot.Ramas }}</a></th>
+                            <td>{{ lot.Total }}</td>
+                            <td>{{ lot.Publica }}</td>
+                            <td>{{ lot.Limitada }}</td>
+                            <td>{{ lot.Propia }}</td>
+                        </tr>
+                    {% else %}
+                        <tr><td colspan="5">No se obtuvieron resultados</td></tr>
+                    {% endfor %}
+
+                </table>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-header">Medios Con Comprobantes Vigentes Por Ramas </div>
+            <div class="card-body p-1">
+                    <div class="card">
+                        <div class="card-header">Medios Automotores</div>
+                        <div class="card-body">
+                            <table class="mx-auto w-100 table table-striped table-dark table-sm">
+                                <tr>
+                                    <th>Tipo de Medio</th>
+                                    <th>Total</th>
+                                    <th>Publico</th>
+                                    <th>Limitado</th>
+                                    <th>Propio</th>
+                                </tr>
+                                {% for tm in mediosAm %}
+                                <tr>
+                                    <td>{{ tm.Medios }}</td>
+                                    <td>{{ tm.Total }}</td>
+                                    <td>{{ tm.Publica }}</td>
+                                    <td>{{ tm.Limitada }}</td>
+                                    <td>{{ tm.Propia }}</td>
+                                </tr>
+                                {% endfor %}
+                            </table>
+                        </div>
+                    </div>
+                <div class="card">
+                    <div class="card-header">Medios Maritimos</div>
+                    <div class="card-body">
+                        <table class="mx-auto w-100 table table-striped table-dark table-sm">
+                            <tr>
+                                <th>Tipo de Medio</th>
+                                <th>Total</th>
+                                <th>Publico</th>
+                                <th>Limitado</th>
+                                <th>Propio</th>
+                            </tr>
+                            {% for tm in mediosMar %}
+                                <tr>
+                                    <td>{{ tm.Medios }}</td>
+                                    <td>{{ tm.Total }}</td>
+                                    <td>{{ tm.Publica }}</td>
+                                    <td>{{ tm.Limitada }}</td>
+                                    <td>{{ tm.Propia }}</td>
+                                </tr>
+                            {% endfor %}
+                        </table>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-header">Medios Ferroviarios</div>
+                    <div class="card-body">
+                        <table class="mx-auto w-100 table table-striped table-dark table-sm">
+                            <tr>
+                                <th>Tipo de Medio</th>
+                                <th>Total</th>
+                                <th>Publico</th>
+                                <th>Limitado</th>
+                                <th>Propio</th>
+                            </tr>
+                            {% for tm in mediosFC %}
+                                <tr>
+                                    <td>{{ tm.Medios }}</td>
+                                    <td>{{ tm.Total }}</td>
+                                    <td>{{ tm.Publica }}</td>
+                                    <td>{{ tm.Limitada }}</td>
+                                    <td>{{ tm.Propia }}</td>
+                                </tr>
+                            {% endfor %}
+                        </table>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-header">Medios Traccion Animal</div>
+                    <div class="card-body">
+                        <table class="mx-auto w-100 table table-striped table-dark table-sm">
+                            <tr>
+                                <th>Tipo de Medio</th>
+                                <th>Total</th>
+                                <th>Publico</th>
+                                <th>Limitado</th>
+                                <th>Propio</th>
+                            </tr>
+                            {% for tm in mediosTA %}
+                                <tr>
+                                    <td>{{ tm.Medios }}</td>
+                                    <td>{{ tm.Total }}</td>
+                                    <td>{{ tm.Publica }}</td>
+                                    <td>{{ tm.Limitada }}</td>
+                                    <td>{{ tm.Propia }}</td>
+                                </tr>
+                            {% endfor %}
+                        </table>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-header">Medios Traccion Humana</div>
+                    <div class="card-body">
+                        <table class="mx-auto w-100 table table-striped table-dark table-sm">
+                            <tr>
+                                <th>Tipo de Medio</th>
+                                <th>Total</th>
+                                <th>Publico</th>
+                                <th>Limitado</th>
+                                <th>Propio</th>
+                            </tr>
+                            {% for tm in mediosTH %}
+                                <tr>
+                                    <td>{{ tm.Medios }}</td>
+                                    <td>{{ tm.Total }}</td>
+                                    <td>{{ tm.Publica }}</td>
+                                    <td>{{ tm.Limitada }}</td>
+                                    <td>{{ tm.Propia }}</td>
+                                </tr>
+                            {% endfor %}
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block topnavlink %}
+    <li class="nav-item">
+        <a class="nav nav-link" href="{{ path('estadisticaprov_SNL', {'id': '0701','prov': prov.id}) }}"><i class="fa fa-list"></i> SNL0701 </a>
+    </li>
+    <li class="nav-item">
+        <a class="nav nav-link" href="{{ path('estadisticaprov_SNL', {'id': '0703','prov': prov.id}) }}"><i class="fa fa-list"></i> SNL0703 </a>
+    </li>
+    <li class="nav-item">
+        <a class="nav nav-link" href="{{ path('estadisticaprov_SNL', {'id': '0722','prov': prov.id}) }}"><i class="fa fa-list"></i> SNL0722 </a>
+    </li>
+
+{% endblock %}

@@ -1,0 +1,192 @@
+{% extends 'base2.html.twig' %}
+ {% import 'comprobante/comptramit.html.twig' as tramite %}
+{% block title %}MediosTrans{% endblock %}
+
+{% block body %}
+    {% if is_granted("ROLE_ADMIN") %}
+    <table class="table table-striped table-dark table-sm">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ medios_tran.id }}</td>
+            </tr>
+            <tr>
+                <th>Identificador</th>
+                <td>{{ medios_tran.nombre }}</td>
+            </tr>
+            <tr>
+                <th>Basificacion</th>
+                <td>{{ medios_tran.basificacion }}</td>
+            </tr>
+            <tr>
+                <th>TipoMedio</th>
+                <td>{{ medios_tran.tipoMedio }}</td>
+            </tr>
+            <tr>
+                <th>YearFab</th>
+                <td>{{ medios_tran.yearFab }}</td>
+            </tr>
+            <tr>
+                <th>Cap</th>
+                <td>{{ medios_tran.cap }}</td>
+            </tr>
+            <tr>
+                <th>Umcap</th>
+                <td>{{ medios_tran.umcap }}</td>
+            </tr>
+            <tr>
+                <th>Aseguramiento</th>
+                <td>{{ medios_tran.aseguramiento ? 'Si' : 'No' }}</td>
+            </tr>
+            <tr>
+                <th>Marca</th>
+                <td>{{ medios_tran.marca }}</td>
+            </tr>
+            <tr>
+                <th>Modelo</th>
+                <td>{{ medios_tran.modelo }}</td>
+            </tr>
+            <tr>
+                <th>EstadoMedio</th>
+                <td>{{ medios_tran.estadoMedio }}</td>
+            </tr>
+            <tr>
+                <th>ServiciosEspeciales</th>
+                <td>{{ medios_tran.serviciosEspeciales }}</td>
+            </tr>
+            <tr>
+                <th>TipoCombustible</th>
+                <td>{{ medios_tran.tipoCombustible }}</td>
+            </tr>
+            <tr>
+                <th>IndConsumo</th>
+                <td>{{ medios_tran.indConsumo }}</td>
+            </tr>
+            <tr>
+                <th>Potencia</th>
+                <td>{{ medios_tran.potencia }}</td>
+            </tr>
+            <tr>
+                <th>TipoPropiedad</th>
+                <td>{{ medios_tran.tipoPropiedad }}</td>
+            </tr>
+            <tr>
+                <th>Rama</th>
+                <td>{{ medios_tran.rama }}</td>
+            </tr>
+            <tr>
+                <th>NumRevTecnica</th>
+                <td>{{ medios_tran.numRevTecnica }}</td>
+            </tr>
+            <tr>
+                <th>VencRevTecnica</th>
+                <td>{{ medios_tran.vencRevTecnica ? medios_tran.vencRevTecnica|date('Y-m-d') : '' }}</td>
+            </tr>
+            <tr>
+                <th>PaisAbanderamiento</th>
+                <td>{{ medios_tran.paisAbanderamiento }}</td>
+            </tr>
+            <tr>
+                <th>IdTipo</th>
+                <td>{{ medios_tran.idTipo }}</td>
+            </tr>
+            <tr>
+                <th>Comprobantes</th>
+                <td>{{ medios_tran.comprobantes | length }}</td>
+            </tr>
+            {% for comp in medios_tran.comprobantes %}
+            <tr>
+                <th>folio</th>
+                <td>{{ comp.folio }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('medios_trans_index') }}">back to list</a>
+
+    <a href="{{ path('medios_trans_edit', {'id': medios_tran.id}) }}">edit</a>
+
+    {{ include('medios_trans/_delete_form.html.twig') }}
+    {% endif %}
+    <div class="jumbotron p-2">
+        <div class="container">
+            <h3 class="alert alert-warning"> Medio de Transporte {{ medios_tran.rama }} {{ medios_tran.nombre }} <a href="{{ path('medios_trans_edit', {'id': medios_tran.id }) }}"><i class="fa fa-edit"></i></a></h3>
+            <p>Basificado en <a class="btn btn-sm btn-primary" href="{{ path('basificacion_show', {'idlbasiam': medios_tran.basificacionObj.idlbasiam }) }}" >{{ medios_tran.basificacionObj }}</a></p>
+            <p>Perteneciente a la lot <strong><a class="btn btn-sm btn-primary" href="{{ path('lotjuridicas_show', {'id': medios_tran.basificacionObj.idlicencia}) }}">{{ medios_tran.basificacionObj.idlicencia }}</a> </strong>
+                autorizada a prestar el servicio de <span class="badge badge-primary">{{ medios_tran.basificacionObj.idlicencia.servicioamparado }}</span> . La misma se encuentra <span class="badge badge-primary">{{ medios_tran.basificacionObj.idlicencia.idestado }}</span> y tiene extension <span class="badge badge-primary">{{ medios_tran.basificacionObj.idlicencia.idextension }}</span>
+            </p>
+            {% if medios_tran.comprobanteactivo %}
+            <p>
+                Ultimo comprobante activo:<i class="fa fa-arrow-down"></i><a href="#{{ medios_tran.comprobanteactivo ? medios_tran.comprobanteactivo.id : 'Sin Comprobante' }}" class="badge badge-light"> {{ medios_tran.comprobanteactivo | default('Sin foliar') }}</a> con fecha de emision {{ medios_tran.comprobanteactivo.femitido | date('d/m/y') }}
+            </p>
+            {% endif %}
+        </div>
+    </div>
+    <div class="container">
+        <div>
+
+        </div>
+        <div class="row">
+            <div class="col-md-5">
+                <h2 class="alert alert-success">Datos del medio {{ medios_tran }}</h2>
+                {% if medios_tran.rama.id == 1 %}
+                    {% include "medios_trans/cfautomotor.html.twig" with { 'medios_trans': medios_tran }  %}
+                {% endif %}
+                {% if medios_tran.rama.id == 2 %}
+                    {% include "medios_trans/cfmaritimo.html.twig" with { 'medios_trans': medios_tran }  %}
+                {% endif %}
+                {% if medios_tran.rama.id == 3 or medios_tran.rama.id == 6 %}
+                    {% include "medios_trans/cfTAH.html.twig" with { 'medios_trans': medios_tran }  %}
+                {% endif %}
+                {% if medios_tran.rama.id == 4 %}
+                    {% include "medios_trans/cfferroviario.html.twig" with { 'medios_trans': medios_tran }  %}
+                {% endif %}
+                {% if medios_tran.rama.id == 5 %}
+                    {% include "medios_trans/cfMD.html.twig" with { 'medios_trans': medios_tran }  %}
+                {% endif %}
+            </div>
+            <div class="col">
+                <h2 class="alert alert-dark">Comprobantes asignados: <span class="float-right"><a class="badge badge-pill badge-success" href="{{ path('comprobante_newbymed', {'medio': medios_tran.id }) }}"><i class="fa fa-plus"></i></a></span></h2>
+                <table class="table table-striped table-dark table-sm">
+                    <thead>
+                    <tr>
+                        <th>Medio</th>
+                        <th>Folio</th>
+                        <th>Estado</th>
+                        <th>Femitido</th>
+                        <th>Duplicado</th>
+                        <th>Ver/Editar</th>
+                        <th>Trámites</th>
+                    </tr>
+                    </thead>
+                    <tbody id="comprobantes">
+                    {% for comprobante in medios_tran.comprobantes %}
+                        <tr>
+                            {{ tramite.showcompFila(comprobante, loop) }}
+                        </tr>
+                    {% else %}
+                        <tr>
+                            <td colspan="9">No se encontraron resultados</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </div>
+{% endblock %}
+{% block topnavlink %}
+    <li class="nav-item">
+        <a class="nav-link" href="{{ path('medios_trans_index') }}"><i class="fa fa-list text-primary"></i> Listar Todos</a>
+    </li>
+    {% if medios_tran.basificacionObj.idmun.id == app.user.municipio.id   %}
+        <li class="nav-item">
+            <a class="nav-link" href="{{ path('medios_trans_edit', {'id': medios_tran.id}) }}"><i class="fa fa-edit text-warning"></i> Editar</a>
+        </li>
+        <li class="nav-item">
+            {{ include('medios_trans/_delete_form.html.twig') }}
+        </li>
+    {% endif %}
+{% endblock %}

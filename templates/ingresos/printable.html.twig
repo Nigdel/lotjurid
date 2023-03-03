@@ -1,0 +1,226 @@
+<HTML>
+<HEAD>
+    <TITLE>{{ title }}</TITLE>
+    <META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+    <style>
+        @media print {
+            body * {
+                visibility: hidden;
+            }
+            #section-to-print, #section-to-print * {
+                visibility: visible;
+            }
+            #section-to-print {
+                position: absolute;
+                left: 0;
+                top: 0;
+            }
+        }
+
+        @page {
+            margin:0px;
+            padding: 0px;
+            /*size: 21.6cm 21.6cm portrait;*/
+        }
+
+        body {
+            font-size: 10pt;
+            font-family: sans-serif;
+            /*background-color: white;*/
+            margin: 0;
+            padding: 0;
+
+        }
+        table{
+            font-size: 10pt;
+        }
+        #contenedor {
+            /*size: auto ;*/
+            padding: 0 15px;
+            border: #5f2dab dotted 1px;
+            text-align: center;
+            margin: auto;
+
+        }
+        #footer {
+            float:bottom;
+            /*flex-direction: column;*/
+            border: #5f2dab dotted 0.5px;
+            /*margin-top: 1.5cm;*/
+            {# margin-left: 9.5cm; #}
+            /*font-size: 10pt;*/
+            {# width: 11cm; #}
+            /*align-items: flex-end;*/
+            /*position: page;*/
+            /*align-content: space-around;*/
+            /*text-align: end;*/
+            padding: 20px;
+        }
+        #footer table {
+            flex: auto;
+            float:right;
+            padding-right: 1.5cm;
+            padding-bottom: 1.5cm;
+        }
+        td{
+            {# text-align: left; #}
+        }
+    
+        #section-to-print {
+            margin: 0;
+            padding: 0;
+            /*size: auto ;*/
+            /*background-color: #0b2e13;*/
+            /*padding: 10px;*/
+            /*position: static;*/
+            /*margin-top: auto;*/
+            align-content: left;
+            text-align: left;
+            width: 21.6cm;
+            {# border: #008a00 dashed 2pt; #}
+            /*align-self: center;*/
+            /* height: 14cm; */
+           /*padding-top: 1.5cm;*/
+        }      
+                
+    </style>
+</HEAD>
+<BODY>
+<div id="contenedor" >
+    <div id="section-to-print" style="position: relative;"> 
+    <div id="header" style="border: #000999 solid 1pt; margin-right:20pt; padding:15pt;">
+        <div style="margin:20pt auto; font-size:12pt;">
+                    Ministerio del Transporte<br/>
+                    Unidad Estatal de Tr&aacute;fico<br/>
+                    {{ app.user.municipio.provinciaid.Provincias }}
+            </div>
+            <div style="text-align:center; padding:20pt 20pt 0 20pt;">
+                <H1>Conciliaci&oacute;n con Econom&iacute;a</H1>
+                <H3><u>Personas Jur&iacute;dicas</u></H3>  
+                Per&iacute;odo <br/>
+                Desde: {{ inicio | default("1/01/2023") }} <t />
+                Hasta: {{ fin | default("today"|date("d/m/Y"))}}      
+            </div>
+    </div> 
+    
+    <div style="text-align:center; padding: 10pt;margin:30pt 0 30pt 0;">        
+            <table  style="width:85%;">
+                <caption><u>Concepto: Lincencias Entregadas</u></caption>
+                <tr>
+                    <th>Tipo</th>
+                    <th>Provinciales</th>
+                    <th>Nacionales</th>
+                    <th>Ingresos</th>
+                </tr>
+                <tr>
+                    <td>Aut,Mar,FC</td>
+                    <td style="text-align: center;">0</td>
+                    <td style="text-align: center;">0</td>
+                    <td style="text-align: right;">0</td>
+                </tr>
+                <tr>
+                    <td>TAH</td>
+                    <td style="text-align: center;">0</td>
+                    <td style="text-align: center;">0</td>
+                    <td style="text-align: right;">0</td>
+                </tr>
+                <tr>
+                    <td>Auc o Conex</td>
+                    <td style="text-align: center;">0</td>
+                    <td style="text-align: center;">0</td>
+                    <td style="text-align: right;">0</td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td style="text-align: right;">Total:0</td>
+                </tr>            
+            </table>         
+    </div>
+    <div style="text-align:center; padding: 10pt;">        
+            <table  style="width:85%; margin:10pt;">
+                <caption><u>Concepto: Comprobantes Entregados</u></caption>
+                <tr>
+                    <th>Tipo</th>
+                    <th>Provinciales</th>
+                    <th>Nacionales</th>
+                    <th>Ingresos</th>
+                </tr>
+                <tr>
+                    <td>Aut</td>
+                    <td style="text-align: center;">0</td>
+                    <td style="text-align: center;">0</td>
+                    <td style="text-align: right;">0</td>
+                </tr>
+                <tr>
+                    <td>Mar</td>
+                    <td style="text-align: center;">0</td>
+                    <td style="text-align: center;">0</td>
+                    <td style="text-align: right;">0</td>
+                </tr>
+                <tr>
+                    <td>FC</td>
+                    <td style="text-align: center;">0</td>
+                    <td style="text-align: center;">0</td>
+                    <td style="text-align: right;">0</td>
+                </tr>
+                <tr>
+                    <td>TAH</td>
+                    <td style="text-align: center;">0</td>
+                    <td style="text-align: center;">0</td>
+                    <td style="text-align: right;">0</td>
+                </tr>
+                <tr>
+                    <td>Estab</td>
+                    <td style="text-align: center;">0</td>
+                    <td style="text-align: center;">0</td>
+                    <td style="text-align: right;">0</td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td style="text-align: right;">Total:0</td>
+                </tr>            
+            </table> 
+             <div style="margin:30pt 0 30pt 0;">
+                 Ingreso Total:  0
+            </div>        
+    </div>     
+     <div id="footer" >
+        {# <div>
+
+            Confeccionado LOT: {{app.user.nombreApellidos}} <t/>
+            Conciliado (Economía):
+            Fecha: ______________Fecha: ______________
+            Firma: ______________Firma: ______________
+        </div> #}
+
+        <table cellspacing="10pt" style="width:100%; margin:10pt;">
+                <tr>
+                    <th style="text-align: right;">Confeccionado: </th>    
+                    <th style="text-align: left;">{{app.user.nombreApellidos}}</th>                
+                    <th style="text-align: right;">Conciliado(Economía):</th>                    
+                    <th style="text-align: left;">____________________</th>                    
+                </tr>
+                <tr>
+                    <td></td>                    
+                    <td >Fecha:____________</td>  
+                    <td></td>                  
+                    <td >Fecha:____________</td>
+                </tr>
+                <tr>               
+                    <td></td>                    
+                    <td>Firma:_____________</td>
+                    <td></td>
+                    <td >Firma:____________</td>
+                </tr>
+                            
+            </table>         
+    </div>
+</div>
+
+</BODY>
+</HTML>
+

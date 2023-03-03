@@ -1,0 +1,72 @@
+{% extends 'base2.html.twig' %}
+{% block title %}Aprobar o Denegar Lotjuridica{% endblock %}
+{% block body %}
+    <h6 class="alert alert-danger">Cancelacion de la lot <a href="#" class="badge badge-pill badge-warning" data-toggle="modal" data-target="#lot">{{ lot }}</a></h6>
+    <div class="modal fade" id="lot" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="lotmodal-dialog modal-content ">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel"> {{ lot.id }} {% if lot.idestado is not none %} <span class="badge badge-pill badge-{% if lot.idestado.id == 8  %}{{ 'danger' }} {% else %}{{ 'primary' }}{% endif %}">{{ lot.idestado }}</span>{% endif %}</h5>
+                    <button type="button" class="close danger" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    {% set rendered %}
+                        {% include "lotjuridicas/_formMin.html.twig" %}
+                    {% endset %}
+                    {{ rendered }}
+                </div>
+            </div>
+        </div>
+    </div>
+    <form onsubmit="return confirm('Presione Aceptar para cancelar esta licencia?');" method="post">
+        <div class="form-row col-3 pl-0">
+            <label for="fechacancel">Fecha de Cancelacion</label>
+            <input type="text" name="fechacancel" id="fechacancel" class="form-control datetimepicker4" required>
+        </div>
+        <div class="form-row">
+            <label for="causacancel">Causa de Cancelacion</label>
+            <select class="form-control mi-selector" id="causacancel" name="causacancel" required>
+                {% for causa in causas %}
+                <option value="{{ causa.id }}">{{ causa.Causa }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="form-row mt-2">
+            <input type="submit" class="btn btn-sm btn-danger" value="Cancelar LOT" />
+            <a href="{{ path('lotjuridicas_index') }}" class="btn btn-sm btn-info mx-3 px-2">Descartar</a>
+        </div>
+    </form>
+
+
+{% endblock %}
+{% block jsadicional %}
+    <script type="text/javascript">
+        $.extend(true, $.fn.datetimepicker.defaults, {
+            icons: {
+                time: 'far fa-clock',
+                date: 'far fa-calendar',
+                up: 'fas fa-arrow-up',
+                down: 'fas fa-arrow-down',
+                previous: 'fas fa-chevron-left',
+                next: 'fas fa-chevron-right',
+                today: 'fas fa-calendar-check',
+                clear: 'far fa-trash-alt',
+                close: 'far fa-times-circle'
+            }
+        });
+
+        $(function () {
+            $('.datetimepicker4').datetimepicker({
+                format: 'L',
+                locale: 'es' });
+        });
+
+        $('.mi-selector').select2();
+        $('.select2').css('width','100%');
+        $('.select2-selection__rendered').addClass('select2-selection__rendered form-control');
+
+    </script>
+
+{% endblock %}

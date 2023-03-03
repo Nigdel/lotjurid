@@ -1,0 +1,20 @@
+{{ form_start(form) }}
+<div class="form-group">
+    <div class="form-group">
+        {{ form_row(form.nombreApellidos) }}
+    </div>
+    <div class="form-group">
+        {{ form_row(form.carnetFuncionario) }}
+    </div>
+    <div class="form-group">
+        {{ form_row(form.fechaContratacion) }}
+    </div>
+    <div class="form-group">
+        {{ form_row(form.cargo) }}
+    </div>
+    <div class="d-none">
+        {{ form_widget(form) }}
+    </div>
+    <button class="btn btn-success btn-sm">{{ button_label|default('Guardar') }}</button>
+</div>
+{{ form_end(form) }}

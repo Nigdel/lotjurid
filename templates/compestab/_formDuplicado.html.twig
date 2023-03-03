@@ -1,0 +1,10 @@
+{{ form_start(form) }}
+<div class="form-group">
+    {{ form_errors(form) }}
+    <div class="d-none">
+        {{ form_widget(form) }}
+    </div>
+</div>
+    <button class="btn btn-sm btn-success" type="submit">{{ button_label|default('Duplicar') }}</button>
+    <a class="btn btn-sm btn-info" href="{{ path('compestab_index') }}">Ir al Listado de Comprobantes</a>
+{{ form_end(form) }}

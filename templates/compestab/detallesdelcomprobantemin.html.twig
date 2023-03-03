@@ -1,0 +1,64 @@
+{% import 'compestab/comptramit.html.twig' as tramite %}
+<h2 class="alert alert-dark">Detalles del Comprobante
+    {{ tramite.fila(compestab,'1') }}
+</h2>
+<table class="table">
+    <tbody>
+    <tr>
+        <th>Folio</th>
+        <td>{{ compestab.folio }}</td>
+    </tr>
+    <tr>
+        <th>Estado</th>
+        <td>{{ compestab.estadoComp }}</td>
+    </tr>
+    <tr>
+        <th>Extension</th>
+        <td>{{ compestab.extensionID }}</td>
+    </tr>
+    <tr>
+        <th>Fecha de Emitido</th>
+        <td>{{ compestab.femitido ? compestab.femitido|date('d/m/Y') : '' }}</td>
+    </tr>
+    <tr>
+        <th>Fecha de Vencimiento</th>
+        <td>{{ compestab.fvencimiento ? compestab.fvencimiento|date('d/m/Y') : '' }}</td>
+    </tr>
+    {% if compestab.fimpreso %}
+    <tr>
+        <th>Fecha de Impresión</th>
+        <td>{{ compestab.fimpreso ? compestab.fimpreso|date('d/m/Y') : '' }}</td>
+    </tr>
+    {% endif %}
+
+    {% if compestab.fentrega %}
+    <tr>
+        <th>Fecha de Entrega</th>
+        <td>{{ compestab.fentrega ? compestab.fentrega|date('d/m/Y') : '' }}</td>
+    </tr>
+    {% endif %}
+
+    {% if compestab.estadoComp.id ==8 %}
+    <tr>
+        <th>Fecha de Cancelación</th>
+        <td>{{ compestab.fcancel ? compestab.fcancel|date('d/m/Y') : '' }}</td>
+    </tr>
+    <tr>
+        <th>Causa de Cancelación</th>
+        <td>{{ compestab.cCancel }}</td>
+    </tr>
+    {% endif %}
+    <tr>
+        <th>Sin Costo</th>
+        <td>{{ compestab.sincostp ? 'Si' : 'No' }}</td>
+    </tr>
+    <tr>
+        <th>Duplicado</th>
+        <td>{{ compestab.duplicado ? 'Si' : 'No' }}</td>
+    </tr>
+    <tr>
+        <th>Importe</th>
+        <td>{{ compestab.importe }}</td>
+    </tr>
+    </tbody>
+</table>

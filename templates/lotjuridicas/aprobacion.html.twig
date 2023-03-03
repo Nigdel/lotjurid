@@ -1,0 +1,79 @@
+{% extends 'base2.html.twig' %}
+
+{% block title %}Aprobar o Denegar Lotjuridica{% endblock %}
+
+{% block body %}
+
+<div class="d-flex justify-content-center">
+    <div class="card w-50 border-primary mb-3">
+        <div class="card-header">
+            <h6 >Aprobacion/Negacion de la lot {{ lot }}</h6>
+            </div>
+        <div class="card-body">
+            <form method="post">
+                <div class="row">
+                    <div class="col mb-3">
+                        <label for="fechaaprob" >Fecha de Aprobacion/Negacion*</label>
+                        <input type="text" class="form-control datetimepicker4" name="fechaaprob" id="fechaaprob" required placeholder="d/m/aaaa" value="{{ date('today')| date('d/m/Y') }}" />
+                    </div>
+                </div>
+
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="aprobacion" id="aprob" value="aprob" checked>
+                    <label class="form-check-label" for="aprob">
+                        Aprobada
+                    </label>
+                </div>
+                <div class="form-check my-3">
+                    <input class="form-check-input" type="radio" name="aprobacion" id="deneg" value="deneg">
+                    <label class="form-check-label" for="deneg">
+                        Denegada
+                    </label>
+                </div>
+                <div class="row my-3 visible" id="cnegacionCtn" style="display: none;">
+                    <div class="col">
+                        <label for="cnegacion">Causa de Negacion</label>
+                        <input class="form-control border-danger" type="text" placeholder="Causa de Negacion" name="cnegacion" id="cnegacion" />
+                    </div>
+                </div>
+                <button class="btn btn-primary btn-sm">Aceptar</button>
+            </form>
+        </div>
+
+    </div>
+</div>
+
+
+    <div class="card-deck">
+        <div class="card ">
+            {% include 'personasjuridicas/detallespj.html.twig' with {'pj' : lot.identidad } %}
+        </div>
+        <div class="card ">
+            {% include 'lotjuridicas/detalleslot.html.twig' %}
+        </div>
+    </div>
+
+
+{% endblock %}
+{% block jsadicional %}
+    <script>
+        $("input:radio").click(function () {
+           if($("#deneg").is(':checked'))
+           {
+               $("#cnegacionCtn").show();
+               $("#cnegacion")[0].required=true;
+           }
+
+           else{
+               $("form")[0].reset();
+               $("#cnegacionCtn").hide();
+               $("#cnegacion")[0].required=false;
+           }
+        });
+        $(function () {
+            $('.datetimepicker4').datetimepicker({
+                format: 'L',
+                locale: 'es' });
+        });
+    </script>
+{% endblock %}

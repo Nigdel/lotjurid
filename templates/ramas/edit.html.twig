@@ -1,0 +1,13 @@
+{% extends 'base2.html.twig' %}
+
+{% block title %}Edit Ramas{% endblock %}
+
+{% block body %}
+    <h1>Edit Ramas</h1>
+
+    {{ include('ramas/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('ramas_index') }}">back to list</a>
+
+    {{ include('ramas/_delete_form.html.twig') }}
+{% endblock %}

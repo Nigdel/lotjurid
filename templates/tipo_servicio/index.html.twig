@@ -1,0 +1,35 @@
+{% extends 'base2.html.twig' %}
+
+{% block title %}TipoServicio index{% endblock %}
+
+{% block body %}
+    <h1>TipoServicio index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>TipoServicio</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for tipo_servicio in tipo_servicios %}
+            <tr>
+                <td>{{ tipo_servicio.id }}</td>
+                <td>{{ tipo_servicio.TipoServicio }}</td>
+                <td>
+                    <a href="{{ path('tipo_servicio_show', {'id': tipo_servicio.id}) }}">show</a>
+                    <a href="{{ path('tipo_servicio_edit', {'id': tipo_servicio.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="3">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('tipo_servicio_new') }}">Create new</a>
+{% endblock %}

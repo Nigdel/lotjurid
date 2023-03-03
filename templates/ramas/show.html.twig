@@ -1,0 +1,30 @@
+{% extends 'base2.html.twig' %}
+
+{% block title %}Ramas{% endblock %}
+
+{% block body %}
+    <h1>Ramas</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ rama.id }}</td>
+            </tr>
+            <tr>
+                <th>Ramas</th>
+                <td>{{ rama.Ramas }}</td>
+            </tr>
+            <tr>
+                <th>RamasAnexo2</th>
+                <td>{{ rama.RamasAnexo2 }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('ramas_index') }}">back to list</a>
+
+    <a href="{{ path('ramas_edit', {'id': rama.id}) }}">edit</a>
+
+    {{ include('ramas/_delete_form.html.twig') }}
+{% endblock %}

@@ -1,0 +1,119 @@
+{% extends 'base2.html.twig' %}
+{% block title %}Ingresos{% endblock %}
+{% block body %}
+
+    <div class="card-deck">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title alert alert-success">Ingresos de Hoy </h5>
+                <table class="table table-striped table-dark table-sm">
+                    {% for ingreso in ingresos %}
+                        <tr>
+                            <th>{{ ingreso['concepto']  | capitalize}} <span class="badge badge-primary">{{ ingreso['cant'] }}</span></th>
+                            <td>{{ ingreso['importe'] | capitalize }}</td>
+                        </tr>
+                    {% endfor %}
+                </table>
+            </div>
+        </div>
+        {#<div class="card p-3 bg-light">#}
+                {#<h5 class="card-title alert alert-success">Ingresos por días {{ date('today') | date("F") }}</h5>#}
+                {#<div>#}
+                    {#<canvas id="myChart"></canvas>#}
+                {#</div>#}
+        {#</div>#}
+ </div>
+    <div class="card p-3 bg-light">
+        <h5 class="card-title alert alert-success">Ingresos por días {{ date('today') | date("F") }}</h5>
+        <div>
+            <canvas id="myChart"></canvas>
+        </div>
+    </div>
+
+
+{% endblock %}
+{% block jsadicional %}
+    <script src="{{ asset('chartjs/node_modules/chart.js/dist/chart.js') }}"></script>
+    {#<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>#}
+    <script>
+        // const labels = [
+        //     'Enero',
+        //     'Febrero',
+        //     'Marzo',
+        //     'Abril',
+        //     'Mayo',
+        //     'Junio',
+        // ];
+        // const data = {
+        //     labels: labels,
+        //     datasets: [{
+        //         label: 'Tramites por Meses',
+        //         backgroundColor: 'rgb(255, 99, 132)',
+        //         borderColor: 'rgb(255, 99, 132)',
+        //         data: [0, 10, 5, 2, 20, 30, 45],
+        //     }]
+        // };
+        // const config = {
+        //     type: 'line',
+        //     data,
+        //     options: {}
+        // };
+        // var myChart = new Chart(
+        //     document.getElementById('myChart'),
+        //     config
+        // );
+        var ctx = document.getElementById('myChart');
+        var myChart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: [
+                    {% for key,value in ingresosmes %}
+                    {% for key,val in value %}
+                    '{{ key }}',
+                    {% endfor %}
+                    {% endfor %}
+                ],
+                datasets: [{
+                    label: 'importe',
+                    data: [{% for key,value in ingresosmes %}
+                        {% for val in value %}
+                        '{{ val }}',
+                        {% endfor %}
+                        {% endfor %}
+                    ],
+                    backgroundColor: 'rgb(255, 99, 132)',
+                    borderColor: 'rgb(255, 99, 132)',
+                    // backgroundColor: [
+                    //     'rgba(255, 99, 132, 0.2)',
+                    //     'rgba(54, 162, 235, 0.2)',
+                    //     'rgba(255, 206, 86, 0.2)',
+                    //     'rgba(75, 192, 192, 0.2)',
+                    //     'rgba(153, 102, 255, 0.2)',
+                    //     'rgba(255, 159, 64, 0.2)'
+                    // ],
+                    // borderColor: [
+                    //     'rgba(255, 99, 132, 1)',
+                    //     'rgba(54, 162, 235, 1)',
+                    //     'rgba(255, 206, 86, 1)',
+                    //     'rgba(75, 192, 192, 1)',
+                    //     'rgba(153, 102, 255, 1)',
+                    //     'rgba(255, 159, 64, 1)'
+                    // ],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+
+        // var myChart = new Chart(
+        //     document.getElementById('myChart'),
+        //     config
+        // );
+    </script>
+{% endblock %}

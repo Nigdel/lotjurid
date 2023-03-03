@@ -1,0 +1,10 @@
+<div class="jumbotron p-2">
+    <div class="container">
+        <h3 class="alert alert-success">
+            {{ detalle_title | default ("Comprobante de Lot para Instalaciones") }}</h3>
+        <p>El presente comprobante ampara a la instalacion <a href="{{ path('instalaciones_show', {'id':compestab.instalacion.id }) }}" class="badge badge-pill badge-light"> {{ compestab.instalacion }}</a> <br/>
+            Perteneciente a la lot <strong class="badge badge-pill badge-warning">{{ compestab.instalacion.lot }}</strong> solicitada por la entidad <strong class="badge badge-pill badge-success">{{ compestab.instalacion.lot.identidad }}</strong>.
+            A prestar el servicio de <strong> {{ compestab.instalacion.servvisual }} </strong>
+        </p>
+    </div>
+</div>

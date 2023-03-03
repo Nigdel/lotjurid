@@ -1,0 +1,13 @@
+{% extends 'base2.html.twig' %}
+
+{% block title %}Nueva Persona Juridica{% endblock %}
+
+{% block body %}
+    <h1 class="alert alert-success">Declarar nueva Persona Jur&iacute;dica</h1>
+     {{ include('personasjuridicas/_form.html.twig',{'modo': 'Nueva'}) }}
+{% endblock %}
+{% block topnavlink %}
+    <li class="nav-item">
+        <a class="nav-link text-primary" href="{{ path('personasjuridicas_index') }}"><i class="fa fa-list"></i> Listar Todas</a>
+    </li>
+{% endblock %}

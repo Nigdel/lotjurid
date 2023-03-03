@@ -1,0 +1,99 @@
+{% extends 'base2.html.twig' %}
+
+{% block body %}
+
+    <div class="jumbotron p-2">
+        <div class="container">
+            <h3 class="alert alert-success">
+                <img src="{{ asset('Images/uetLogo.jpg') }}" class="img-thumbnail rounded-pill" alt="logo" style="max-height: 4rem;" />
+                Dirección Provincial {{ direccion_provincial.provincia }}{% if is_granted("ROLE_ADMIN") or is_granted("ROLE_LOTPROV") %}
+                <a href="{{ path('direccion_provincial_edit', {'id': direccion_provincial.id}) }}"><i class="fa fa-edit"></i></a>
+                {% endif %}
+            </h3>
+
+            <p>Ud puede encontrarnos en: <strong> {{ direccion_provincial.direccion }} </strong> <br>
+                O llamarnos por los tel&eacute;fonos : <strong> {{ direccion_provincial.telefonos }} </strong>
+            </p>
+            <p>
+                Director Provincial: <strong> {{ direccion_provincial.directorProvincial.nombreApellidos }}</strong>
+            </p>
+            <p>
+                Personal Autorizado a Firmar:<br/>
+                Lots: <strong> {{ direccion_provincial.firmalot.nombreApellidos | default('') }} ({{ direccion_provincial.firmalot.cargo | default('') }})<br/></strong>
+                Comprobantes: <strong>{{ direccion_provincial.firmacomp.nombreApellidos | default('')}} ({{ direccion_provincial.firmacomp.cargo| default('') }})</strong>
+            </p>
+
+        </div>
+    </div>
+    <div class="container">
+        <!-- Example row of columns -->
+        <div class="row">
+            <div class="col-md-4">
+                <h2 class="alert alert-success">Oficinas Municipales</h2>
+                <a class="btn btn-primary btn-sm" data-toggle="collapse" href="#oms" role="button" aria-expanded="false" aria-controls="oms">
+                    Adicionar Oficinas
+                </a>
+                <div class="collapse mt-2" id="oms">
+                    <div class="card card-body bg-dark p-0">
+                        <ul class="list-group">
+                            <li class="list-group-item list-group-item-action" style="background-color: #242939; " >
+                                <a href="{{ path('oficina_mcpal_newbydp', {'dp': direccion_provincial.id }) }}" class="d-inline-block text-decoration-none" style="color: #c0c4d1;" ><i class="fa fa-plus text-success"></i> Registrar Nuevo</a>
+                            </li>
+                            {% for om in direccion_provincial.oficinasMunicipales %}
+                                <li class="list-group-item list-group-item-secondary" style="color: #c0c4d1;" ><a class="text-decoration-none" href="#"><i class="fa fa-plus text-success " ></i> {{ om }}</a> </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+                <p>
+                <ul class="list-group">
+                    {% for om in direccion_provincial.oficinasMunicipales %}
+                        <li class="list-group-item" style="background-color: #242939; " ><a class="nav-item text-decoration-none" href="{{ path('oficina_mcpal_show',{'id':om.id}) }}" style="color: #c0c4d1;">{{ om }}</a> <a href="#"> <i class="fa fa-minus close" style="color: red; font-size: larger"></i></a></li>
+                    {% endfor %}
+                </ul>
+                </p>
+            </div>
+            <div class="col-md-4">
+                <h2 class="alert alert-dark">Estad&iacute;sticas</h2>
+                <p>Informaci&oacute;n estad&iacute;stica en tiempo real. Reportes personalizados y an&aacute;lisis de series hist&oacute;ricas </p>
+                {% include 'direccion_provincial/estadisticas.html.twig' %}
+            </div>
+            <div class="col-md-4">
+                <h2 class="alert alert-primary">Funcionarios</h2>
+
+                <a class="btn btn-primary btn-sm" data-toggle="collapse" href="#funcionarios" role="button" aria-expanded="false" aria-controls="funcionarios">
+                    Adicionar Funcionarios
+                </a>
+
+                <div class="collapse mt-2" id="funcionarios">
+                    <div class="card card-body bg-dark p-0">
+                        <ul class="list-group">
+                            <li class="list-group-item list-group-item-action" style="background-color: #242939; " >
+                                <a href="{{ path('direccion_provincial_registerFunc',{'id': direccion_provincial.id }) }}" class="d-inline-block text-decoration-none" style="color: #c0c4d1;" ><i class="fa fa-plus text-success"></i> Registrar Nuevo</a>
+                            </li>
+                            {% for func in funcionarios %}
+                                <li class="list-group-item list-group-item-secondary"><a class="text-decoration-none" href="{{ path('direccion_provincial_addFunc',{'id': direccion_provincial.id, 'idfunc': func.id }) }}"><i class="fa fa-plus text-success " ></i> {{ func }}</a> </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+                <p>
+                <ul class="list-group">
+                    {% for func in direccion_provincial.funcionarios %}
+                        <li class="list-group-item bg-secondary" >{{ func }} <a href="{{ path('direccion_provincial_removeFunc',{'id': direccion_provincial.id, 'idfunc': func.id }) }}"> <i class="fa fa-minus close" style="color: red; font-size: larger"></i></a></li>
+                    {% endfor %}
+                </ul>
+                </p>
+            </div>
+        </div>
+
+    </div> <!-- /container -->
+{% endblock %}
+{% block topnavlink %}
+    {% if is_granted("ROLE_ADMIN") %}
+        {{ include('direccion_provincial/_delete_form.html.twig') }}
+    {% endif %}
+{% endblock %}
+{% block jsadicional %}
+    <script type="text/javascript" src="{{ asset('js/estadistprov.js') }}" ></script>
+{% endblock %}

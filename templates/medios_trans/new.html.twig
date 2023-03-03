@@ -1,0 +1,18 @@
+{% extends 'base2.html.twig' %}
+
+{% block title %}New MediosTrans{% endblock %}
+
+{% block body %}
+    <h1 class="alert alert-primary">Registrar Nuevo Medio de Transporte {{ medios_tran.rama }}</h1>
+    {% if  medios_tran.rama.id == 1  %}{{ include('medios_trans/_formAutom.html.twig', {'modo':'new'}) }}{% endif %}
+    {% if  medios_tran.rama.id == 2  %}{{ include('medios_trans/_formMAR.html.twig', {'modo':'new'}) }}{% endif %}
+    {% if  medios_tran.rama.id == 3  %}{{ include('medios_trans/_formTA.html.twig', {'modo':'new'}) }}{% endif %}
+    {% if  medios_tran.rama.id == 4  %}{{ include('medios_trans/_formFC.html.twig', {'modo':'new'}) }}{% endif %}
+    {% if  medios_tran.rama.id == 5  %}{{ include('medios_trans/_form.html.twig', {'modo':'new'}) }}{% endif %}
+    {% if  medios_tran.rama.id == 6  %}{{ include('medios_trans/_formTH.html.twig', {'modo':'new'}) }}{% endif %}
+{% endblock %}
+{% block topnavlink %}
+    <li class="nav-item">
+        <a class="nav-link" href="{{ path('medios_trans_index') }}"><i class="fa fa-list text-primary"></i> Listar Todos</a>
+    </li>
+{% endblock %}

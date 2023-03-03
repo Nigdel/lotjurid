@@ -1,0 +1,58 @@
+{% extends 'base2.html.twig' %}
+
+{% block title %}Personasjuridicas{% endblock %}
+{% from 'Sitio/utilidades.html.twig' import estadolot %}
+{% block body %}
+    <div class="jumbotron p-1">
+        <div class="container">
+            <h3 class="alert alert-success">
+                {{ personasjuridica }} {% if personasjuridica.idmunicipio.provinciaid.id == app.user.municipio.provinciaid.id   %} <a  href="{{ path('personasjuridicas_edit', {'id': personasjuridica.id }) }}"><i class="fa fa-edit"></i> </a> {% endif %}</h3>
+            <p>
+             La presente entidad se encuentra en el expediente {{ personasjuridica.id  }} cuenta con <span class="badge badge-warning">{{ personasjuridica.lot | length }}</span>  Licencia{% if personasjuridica.lot.toArray | length > 1  %}s{% endif %} de Operacion del Transporte.<br/>
+             Radica en {{ personasjuridica.direccion | capitalize }}. Municipio {{ personasjuridica.idmunicipio.municipio  }}. Provincia {{ personasjuridica.idmunicipio.provinciaid }}.
+            </p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            {% include 'personasjuridicas/detallespj.html.twig' with {'pj': personasjuridica } %}
+        </div>
+        <div class="col">
+            <h1 class="alert alert-primary">Lots Solicitadas <span class="badge badge-dark">{{ personasjuridica.lot | length }}</span> <a class="badge badge-pill badge-success" href="{{ path('lotjuridicas_newbypj', {'pj': personasjuridica.id}) }}"><i class="fa fa-plus"></i></a> </h1>
+            <div class="accordion" id="accordionExample">
+                {% for lot in personasjuridica.lot %}
+                <div class="card">
+                    <div class="card-header" id="headingOne">
+                        <h6 class="mb-0">
+                            <button class="alert" type="button" data-toggle="collapse" data-target="#collapse{{ loop.index }}" aria-expanded="true" aria-controls="collapse{{ loop.index }}">
+                                {{ lot }} {{ lot.idrama }} {{ lot.idtipo }} {{ lot.idservicio }} {{ estadolot(lot.idestado) }}
+                            </button>
+                        </h6>
+                    </div>
+
+                    <div id="collapse{{ loop.index }}" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
+                        {% include 'lotjuridicas/detalleslot.html.twig' with {'lot': lot } %}
+                    </div>
+                </div>
+                {% else %}
+                    <h3 class="alert alert-danger">No se encuentra ninguna lot asociada a esta entidad</h3>
+                    <a class="badge badge-pill badge-success" href="{{ path('lotjuridicas_newbypj', {'pj': personasjuridica.id }) }}">Solicitar Lot</a>
+
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block topnavlink %}
+    <li class="nav-item">
+        <a class="nav-link" href="{{ path('personasjuridicas_index') }}"><i class="fa fa-list text-primary"></i> Listar Todas</a>
+    </li>
+    {% if personasjuridica.idmunicipio.provinciaid.id == app.user.municipio.provinciaid.id   %}
+    <li class="nav-item">
+        <a class="nav-link" href="{{ path('personasjuridicas_edit', {'id': personasjuridica.id}) }}"><i class="fa fa-edit text-warning"></i> Editar</a>
+    </li>
+    <li class="nav-item">
+        {{ include('personasjuridicas/_delete_form.html.twig') }}
+    </li>
+    {% endif %}
+{% endblock %}

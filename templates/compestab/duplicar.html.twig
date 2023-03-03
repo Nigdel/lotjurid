@@ -1,0 +1,25 @@
+{% extends 'base2.html.twig' %}
+{% block body %}
+    {% include 'compestab/ComprobanteHeader.html.twig' with{ title : 'Duplicado'} %}
+    <div class="m-3 border-light border p-3 rounded">
+        {{ include('compestab/_formDuplicado.html.twig') }}
+    </div>
+<div class="row">
+    <div class="col-md-6">
+        {% include 'instalaciones/detalleinstalacion.html.twig' with{'instalacione':compestab.instalacion } %}
+    </div>
+    <div class="col">
+        {% include 'compestab/detallesdelcomprobantemin.html.twig' with{'compestab': duplicado} %}
+    </div>
+</div>
+{% endblock %}
+{% block jsadicional %}
+    <script>
+        $(function () {
+            $('.datetimepicker4').datetimepicker({
+                format: 'L',
+                locale: 'es' });
+        });
+    </script>
+{% endblock %}
+

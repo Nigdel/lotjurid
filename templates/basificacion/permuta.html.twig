@@ -1,0 +1,26 @@
+{% extends 'base2.html.twig' %}
+
+{% block title %}Mover Medios a otra Base{% endblock %}
+
+{% block body %}
+<div class="jumbotron p-2">
+    <div class="container">
+        <h3 class="alert alert-warning"> Mover Medios de la Base: {{ basificacion.nombrelb }}</h3>
+        <p>Registrada por la lot <a class="btn btn-sm btn-primary" href="{{ path('lotjuridicas_show', {'id': basificacion.idlicencia}) }}" >{{ basificacion.idlicencia }}</a></p>
+        <p>Direccion:  {{ basificacion.direccion }}  <br></p>
+        <div class="row justify-content-between">
+            <div class="col-4">
+                <strong class="badge alert-primary">{{ basificacion.idmun }}</strong>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+    <div class="container">
+        <form method="post" onsubmit="return confirm('Esta seguro que desea Mover los medios a otra basificacion, todos ellos tendran su comprobante cancelado y quedaran temporalmente sin comprobante?');">
+            {{ form(form)}}
+         </form>
+    
+    </div>    
+{% endblock %}

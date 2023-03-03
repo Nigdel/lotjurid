@@ -1,0 +1,74 @@
+{% use "form_div_layout.html.twig" %}
+{{ form_start(form) }}
+<div class="form-group">
+    <hr>
+    {{ form_errors(form) }}
+    <div class="form-row {{ modo=='edit' ? 'text-warning':'' }}">
+        <div class="form-group  col-md-3">
+            {% if modo and modo == 'edit' %}
+            <span class="">Expediente</span> <br/>
+            <span class="form-control mt-2">{{ personasjuridica.id }}</span>
+            {% else %}
+            {{ form_row(form.id) }}
+            {% endif %}
+        </div>
+
+        <div class="form-group col-md-3 text-warning">
+            {{ form_row(form.idmunicipio) }}
+            {#<span class="">Municipio</span> <br/>#}
+            {#<span class="form-control mt-2">{{ personasjuridica.idmunicipio }}</span>#}
+        </div>
+        <div class="form-group col-md-3">
+            {{ form_row(form.tipoEmpresa) }}
+            {#<span class="">Municipio</span> <br/>#}
+            {#<span class="form-control mt-2">{{ personasjuridica.idmunicipio }}</span>#}
+        </div>
+    </div>
+    <div class="form-group">
+        {{ form_row(form.nomentidad) }}
+    </div>
+
+    <div class="form-row">
+
+        <div class="form-group col-md-2">
+            {{ form_row(form.codreeup) }}
+        </div>
+        <div class="form-group col-md-5">
+            {{ form_row(form.representante) }}
+        </div>
+        <div class="form-group col-md-3">
+            {{ form_row(form.email) }}
+        </div>
+        <div class="form-group col-md-2">
+            {{ form_row(form.telefono) }}
+        </div>
+    </div>
+    <div class="form-group">
+        {{ form_row(form.direccion) }}
+    </div>
+    <div class="form-row">
+        <div class="form-group col-md-4">
+           {{ form_row(form.idorga) }}
+        </div>
+        <div class="form-group col-md-2">
+            {{ form_row(form.actividad) }}
+        </div>
+        <div class="form-group col-md-2">
+            {{ form_row(form.rama) }}
+        </div>
+        <div class="form-group col-md-2">
+           {{ form_row(form.subrama) }}
+        </div>
+        <div class="form-group col-md-2">
+            {{ form_row(form.nocontribuyente) }}
+        </div>
+    </div>
+    <div class="d-none">
+        {{ form_widget(form) }}
+    </div>
+
+</div>
+    <button class="btn btn-success btn-sm">
+        <i class="fas fa-save"></i>
+        {{ button_label|default('Guardar') }}</button>
+{{ form_end(form) }}

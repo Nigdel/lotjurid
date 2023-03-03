@@ -1,0 +1,64 @@
+<div class="modal fade" id="{{ id }}" tabindex="-1" role="dialog" aria-labelledby="{{ id }}" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="{{  id }}">
+                    {% block modaltittle %}
+                        Título
+                    {% endblock %}
+                </h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+               {% block modalbody %}
+                       <form>
+                           {% from 'LotBundle:Sitio:utilidades.html.twig' import campo %}
+                           <div class="form-row">
+                               <div class="form-group col-md-6">
+                                   Rama: {{ campo('Rama',entity.Idrama,true) }}
+                               </div>
+                               <div class="form-group col-md-6">
+                                   Extensión: {{ campo('Extension',entity.Idextension,true)  }}
+                               </div>
+                           </div>
+
+                           <div class="form-row">
+                               <div class="form-group col-md-3">
+                                   Moneda: {{ campo('moneda',entity.Tipomoneda,true) }}
+                               </div>
+                               <div class="form-group col-md-4">
+                                   Tipo de Servicio: {{ campo('idtipo', entity.Idtipo, true) }}
+                               </div>
+                               <div class="form-group col-md-3">
+                                   Solicitud: {{ campo('fechasolicitud',entity.Fechasolicitud | date('d/m/Y'),true)  }}
+                               </div>
+                           </div>
+                           <div class="form-row">
+                               <div class="form-group col-md-6">
+                                   T de Transportación: {{ campo('Idservicio', entity.Idservicio, true) }}
+                               </div>
+                               <div class="form-group col-md-6">
+                                   Servicio Amparado: {{ campo('Servicioamparado', entity.Servicioamparado, true) }}
+                               </div>
+                           </div>
+                           <div class="form-row">
+                               <div class="form-group col-md-4">
+                                   Limitación: {{ campo('limitacion',entity.Limitacion ,true )}}
+                               </div>
+                               <div class="form-group col-md-4">
+                                   Medios Amp. {{ campo('Tpomedioamparado', entity.Tpomedioamparado ,true) }}
+                               </div>
+                               <div class="form-group col-md-4">
+                                   Duracion {{ campo('Duracion', entity.Duracion ,true) }}
+                               </div>
+                           </div>
+                           <a href="{{ path('lotjurid_aprobar_',{'id':entity.id}) }}" class="btn btn-sm btn-outline-primary" >Aprobar</a>
+                           <a href="{{ path('lotjurid_denegar_',{'id':entity.id}) }}" class="btn btn-sm btn-outline-primary" >Denegar</a>
+                       </form>
+               {% endblock %}
+            </div>
+        </div>
+    </div>
+</div>

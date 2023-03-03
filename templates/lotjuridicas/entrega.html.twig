@@ -1,0 +1,42 @@
+{% extends 'base2.html.twig' %}
+
+{% block title %}Entrega{% endblock %}
+
+{% block body %}
+    <h1 class="alert alert-success">Entrega de la lot {{ lot }}</h1>
+<div class="container">
+    <div class="card">
+        <div class="card-body">
+            <form method="post">
+                <div class="row">
+                    <div class="col-4 mb-3">
+                        <label for="fechaaprob" >Fecha de Entrega</label>
+                        <input type="text" class="form-control datetimepicker4" name="fechaentrega" id="fechaentrega" required />
+                    </div>
+                </div>
+                <button class="btn btn-primary btn-sm">Aceptar</button>
+            </form>
+        </div>
+
+    </div>
+
+</div>
+    <div class="card-deck mt-3">
+        <div class="card ">
+            {% include 'personasjuridicas/detallespj.html.twig' with {'pj' : lot.identidad } %}
+        </div>
+        <div class="card ">
+            {% include 'lotjuridicas/detalleslot.html.twig' %}
+        </div>
+    </div>
+
+{% endblock %}
+{% block jsadicional %}
+    <script>
+        $(function () {
+            $('.datetimepicker4').datetimepicker({
+                format: 'L',
+                locale: 'es' });
+        });
+    </script>
+{% endblock %}

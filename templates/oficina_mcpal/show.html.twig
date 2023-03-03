@@ -1,0 +1,123 @@
+{% extends 'base2.html.twig' %}
+
+{% block body %}
+    {% if is_granted("ROLE_ADMIN") %}
+    <h1>OficinaMcpal</h1>
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ oficina_mcpal.id }}</td>
+            </tr>
+            <tr>
+                <th>Funcionarios</th>
+                <td>{{ oficina_mcpal.funcionarios |length}}</td>
+            </tr>
+            <tr>
+                <th>Direccion</th>
+                <td>{{ oficina_mcpal.direccion }}</td>
+            </tr>
+            <tr>
+                <th>Telefono</th>
+                <td>{{ oficina_mcpal.telefono }}</td>
+            </tr>
+            <tr>
+                <th>Email</th>
+                <td>{{ oficina_mcpal.email }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('oficina_mcpal_index') }}">back to list</a>
+
+    <a href="{{ path('oficina_mcpal_edit', {'id': oficina_mcpal.id}) }}">edit</a>
+
+    {{ include('oficina_mcpal/_delete_form.html.twig') }}
+        <hr/>
+    {% endif %}
+    <div class="jumbotron p-2">
+        <div class="container">
+            <h3 class="alert alert-success">
+                <img src="{{ asset('Images/uetLogo.jpg') }}" class="img-thumbnail rounded-pill" alt="logo" style="max-height: 4rem;" />
+                Oficina Municipal {{ oficina_mcpal.municipio.municipio }} {% if is_granted("ROLE_ADMIN") or is_granted("ROLE_LOTPROV")  %}
+                <a href="{{ path('oficina_mcpal_edit', {'id': oficina_mcpal.id}) }}"><i class="fa fa-edit"></i></a> {% endif %}
+            </h3>
+
+            <p>Ud puede encontrarnos en: <strong> {{ oficina_mcpal.direccion }} </strong> <br>
+                O llamarnos por los tel&eacute;fonos : <strong> {{ oficina_mcpal.telefono }} </strong>
+            </p>
+            <p>
+                Jefe de Oficina: <strong> {{ oficina_mcpal.director }}</strong>
+            </p>
+            <p>
+                Personal Autorizado a Firmar:<br/>
+                <span class="badge badge-pill badge-warning">Lots:</span><strong> {{  oficina_mcpal.firmalot ? oficina_mcpal.firmalot.nombreApellidos~' - '~oficina_mcpal.firmalot.cargo : oficina_mcpal.direccionProvincial.firmalot.nombreApellidos~' - '~oficina_mcpal.direccionProvincial.firmalot.cargo }}</strong><br/>
+                <span class="badge badge-pill badge-light">Comprobantes:</span> <strong>{{  oficina_mcpal.firmacomp ? oficina_mcpal.firmacomp.nombreApellidos~' - '~oficina_mcpal.firmacomp.cargo : oficina_mcpal.direccionProvincial.firmacomp.nombreApellidos~' - '~oficina_mcpal.direccionProvincial.firmacomp.cargo }}</strong>
+            </p>
+        </div>
+    </div>
+    <div class="container">
+        <!-- Example row of columns -->
+        <div class="row">
+            <div class="col-md-4">
+                <h2 class="alert alert-success">Funcionarios</h2>
+                <p>Acceda a informacion relacionada con las direcciones ...</p>
+
+                <p><a class="btn btn-secondary" href="#" role="button">Ver detalles &raquo;</a></p>
+            </div>
+            <div class="col-md-4">
+                <h2 class="alert alert-dark">Estad&iacute;sticas</h2>
+                <p>Informaci&oacute;n estad&iacute;stica en tiempo real. Reportes personalizados y an&aacute;lisis de series hist&oacute;ricas </p>
+                {% include "oficina_mcpal/Estadistica.html.twig" with {'idmcpio':oficina_mcpal.municipio.id } %}
+            </div>
+            <div class="col-md-4">
+                <h2 class="alert alert-primary">Funcionarios</h2>
+
+                    <a class="btn btn-primary btn-sm" data-toggle="collapse" href="#funcionarios" role="button" aria-expanded="false" aria-controls="funcionarios">
+                        Adicionar Funcionarios
+                    </a>
+
+                <div class="collapse mt-2" id="funcionarios">
+                    <div class="card card-body bg-dark p-0">
+                        <ul class="list-group">
+                            <li class="list-group-item list-group-item-action" style="background-color: #242939; " >
+                                <a href="{{ path('ofic_mcpal_registerFunc',{'id':oficina_mcpal.id}) }}" class="d-inline-block text-decoration-none" style="color: #c0c4d1;" ><i class="fa fa-plus text-success"></i> Registrar Nuevo</a>
+                            </li>
+                            {% for func in funcionarios %}
+                                <li class="list-group-item list-group-item-secondary"><a class="text-decoration-none" href="{{ path('oficina_mcpal_addFunc',{'id':oficina_mcpal.id ,'idfunc':func.id}) }}"><i class="fa fa-plus text-success " ></i> {{ func }}</a> </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+            <p>
+                <ul class="list-group">
+                    {% for func in oficina_mcpal.funcionarios %}
+                        <li class="list-group-item bg-secondary" >{{ func }} <a href="{{ path('oficina_mcpal_removeFunc',{'id':oficina_mcpal.id ,'idfunc':func.id}) }}"> <i class="fa fa-minus close" style="color: red; font-size: larger"></i></a></li>
+                    {% endfor %}
+                </ul>
+            </p>
+            </div>
+        </div>
+
+    </div> <!-- /container -->
+{% endblock %}
+{% block jsadicional %}
+<script type="text/javascript">
+    $('#addfunc').on('click', function(e) {
+        $('#message').fadeOut();
+        e.preventDefault();
+        $.ajax({
+            url: "{{ path('oficina_mcpal_addFunc',{'id':oficina_mcpal.id,'idfunc': 1 }) }}",
+            dataType: 'text', // what to expect back from the PHP script, if anything
+            cache: false,
+            contentType: false,
+            type: 'get',
+            success: function(php_script_response) {
+                $('#message').html(php_script_response).fadeIn();
+                //alert(php_script_response); // display response from the PHP script, if any
+            }
+        });
+
+    });
+</script>
+{% endblock %}

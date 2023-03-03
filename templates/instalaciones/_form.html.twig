@@ -1,0 +1,44 @@
+{{ form_start(form) }}
+    {#{{ form_widget(form) }}#}
+    {#<button class="btn btn-outline-warning">{{ button_label|default('Save') }}</button>#}
+<div class="form-group">
+    <div class="row">
+        <div class="col-md-9">
+            {{ form_row(form.nombre) }}
+        </div>
+        <div class="col-md-3">
+            {{ form_row(form.municipio) }}
+        </div>
+
+    </div>
+    <div class="row">
+        <div class="col">
+            {{ form_row(form.direccion) }}
+        </div>
+    </div>
+    {{ form_row(form.aseguramiento) }}
+    {#<div class="row">#}
+        {#<div class="col">#}
+            {#{{ form_row(form.servAuxCon) }}#}
+        {#</div>#}
+    {#</div>#}
+    <div class="row">
+        <div class="col" id="gposervicios">
+            {{ form_row(form.servicioshtml) }}
+        </div>
+    </div>
+    {#<div class="row">#}
+    {#<div class="col" id="gposervicios">#}
+    {#{{ form_row(form.servvisual) }}#}
+    {#</div>#}
+    {#</div>#}
+    <div class="form-group p-0 text-warning">
+        <label for="servaimprimir">Servicio a Imprimir</label>
+        <textarea class="form-control" id="servaimprimir" disabled rows="3">{{ instalacione.servvisual }}</textarea>
+    </div>
+    <div class="d-none">
+        {{ form_widget(form) }}
+    </div>
+</div>
+<button class="btn btn-outline-success">{{ button_label|default('Salvar') }}</button>
+{{ form_end(form) }}

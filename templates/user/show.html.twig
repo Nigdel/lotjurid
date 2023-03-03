@@ -1,0 +1,48 @@
+{% extends 'base2.html.twig' %}
+{% block body %}
+    {% if is_granted("ROLE_ADMIN") %}
+    <h1>User</h1>
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ user.id }}</td>
+            </tr>
+            <tr>
+                <th>Email</th>
+                <td>{{ user.email }}</td>
+            </tr>
+            <tr>
+                <th>Roles</th>
+                <td>{{ user.roles ? user.roles|json_encode : '' }}</td>
+            </tr>
+            <tr>
+                <th>Nombre y Apellidos</th>
+                <td>{{ user.nombreApellidos }}</td>
+            </tr>
+            <tr>
+                <th>Carnet de Funcionario</th>
+                <td>{{ user.carnetFuncionario }}</td>
+            </tr>
+            <tr>
+                <th>Fecha de Contratacion</th>
+                <td>{{ user.fechaContratacion ? user.fechaContratacion|date('Y-m-d') : '' }}</td>
+            </tr>
+            <tr>
+                <th>NivelAcceso</th>
+                <td>{{ user.nivelAcceso }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('user_index') }}">back to list</a>
+
+    <a href="{{ path('user_edit', {'id': user.id}) }}">edit</a>
+
+    {{ include('user/_delete_form.html.twig') }}
+    {% else %}
+    {% include 'user/usrdetails.html.twig' %}
+
+        <h3>Actividad Reciente</h3>
+    {% endif %}
+{% endblock %}

@@ -1,0 +1,342 @@
+{% extends 'base2.html.twig' %}
+
+{% block body %}
+    <div class="jumbotron p-2">
+        <div class="container">
+            <h3 class="alert alert-warning">Módulo Estadístico Nacional </h3>
+        </div>
+    </div>
+
+    <ul class="nav nav-tabs" id="myTab" role="tablist">
+        <li class="nav-item" role="presentation">
+            <a class="nav-link text-white" id="tabpers"  href="#home">General</a>
+        </li>
+        <li class="nav-item" role="presentation">
+            <a class="nav-link text-white" id="tabpers"  href="#lots">Lots</a>
+        </li>
+        <li class="nav-item" role="presentation">
+            <a class="nav-link text-white" id="tabpers"  href="#medios">Medios</a>
+        </li>
+        <li class="nav-item" role="presentation">
+            <a class="nav-link text-white" id="tabpers"  href="#insta">Instalaciones</a>
+        </li>
+    </ul>
+    <div class="tab-content mt-2">
+            <div id="home" class="tab-pane">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="card-group">
+                            <div class="card">
+                                <div class="card-header">Lots</div>
+                                <div class="card-img">
+                                    <canvas id="myChart"></canvas>
+                                </div>
+                                <div class="card-body">
+                                    <h5 class="card-title">
+                                        <a href="#" class="text-decoration-none text-light"> <i class="fa fa-download"></i></a>
+                                    </h5>
+
+                                </div>
+                            </div>
+                            <div class="card">
+                                <div class="card-header">Medios</div>
+                                <div class="card-body">
+                                    <h5 class="card-title">Medios de Trasporte <span class="badge badge-primary">num</span>
+                                        <a href="#" class="text-decoration-none text-light"> <i class="fa fa-download"></i></a>
+                                    </h5>
+                                    <table class="table table-striped table-dark table-sm">
+
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="card">
+                                <div class="card-header">Instalaciones</div>
+                                <div class="card-body"></div>
+                            </div>
+                            <div class="card">
+                                <div class="card-header">Reportes habituales</div>
+                                <div class="card-body">
+                                    {% include "estadistica/reportesnacional.html.twig" %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        <div id="lots" class="tab-pane">
+            <div class="card">
+                <div class="card-body">
+                    <div class="card">
+                        <div class="card-header">Vigentes por Provincias </div>
+                        <div class="card-img">
+                            <canvas id="lotsChart"></canvas>
+                        </div>
+                        <div class="card-body">
+
+                        </div>
+                    </div>
+                    <div class="card-group">
+                        <div class="card">
+                            <div class="card-header">Reportes habituales</div>
+                            <div class="card-body">
+                                {% include "estadistica/reportesnacional.html.twig" %}
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="card-header">Resumen Nacional</div>
+                            <div class="card-body">
+                                <table class="table table-striped table-dark table-sm">
+                                    <tr>
+                                        <th>Provincia</th>
+                                        <th>Totales</th>
+                                        <th>Vigentes</th>
+                                        <th>%</th>
+                                    </tr>
+                                   {% for lot in vigentes %}
+                                       <tr>
+                                           <td>{{ lot['provincia'] }}</td>
+                                           <td>{{ lot['total'] }}</td>
+                                           <td>{{ lot['vigentes'] }}</td>
+                                           <td>{{ (lot['total'] !=0 ? lot['vigentes'] *100/ lot['total']  : 0) | round }}</td>
+                                       </tr>
+                                   {% endfor %}
+                                </table>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <div id="medios" class="tab-pane">
+            <div class="card">
+                <div class="card-body">
+                    <div class="card-group">
+                        <div class="card">
+                            <div class="card-header">Lots</div>
+                            <div class="card-img">
+                                <canvas id="myChart"></canvas>
+                            </div>
+                            <div class="card-body">
+                                <h5 class="card-title">
+                                    <a href="#" class="text-decoration-none text-light"> <i class="fa fa-download"></i></a>
+                                </h5>
+
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="card-header">Medios</div>
+                            <div class="card-body">
+                                <h5 class="card-title">Medios de Trasporte <span class="badge badge-primary">num</span>
+                                    <a href="#" class="text-decoration-none text-light"> <i class="fa fa-download"></i></a>
+                                </h5>
+                                <table class="table table-striped table-dark table-sm">
+
+                                </table>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="card-header">Instalaciones</div>
+                            <div class="card-body"></div>
+                        </div>
+                        <div class="card">
+                            <div class="card-header">Reportes habituales</div>
+                            <div class="card-body">
+                                {% include "estadistica/reportesnacional.html.twig" %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="insta" class="tab-pane">
+            <div class="card">
+                <div class="card-body">
+                    <div class="card-group">
+                        <div class="card">
+                            <div class="card-header">Lots</div>
+                            <div class="card-img">
+                                <canvas id="myChart"></canvas>
+                            </div>
+                            <div class="card-body">
+                                <h5 class="card-title">
+                                    <a href="#" class="text-decoration-none text-light"> <i class="fa fa-download"></i></a>
+                                </h5>
+
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="card-header">Medios</div>
+                            <div class="card-body">
+                                <h5 class="card-title">Medios de Trasporte <span class="badge badge-primary">num</span>
+                                    <a href="#" class="text-decoration-none text-light"> <i class="fa fa-download"></i></a>
+                                </h5>
+                                <table class="table table-striped table-dark table-sm">
+
+                                </table>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="card-header">Instalaciones</div>
+                            <div class="card-body"></div>
+                        </div>
+                        <div class="card">
+                            <div class="card-header">Reportes habituales</div>
+                            <div class="card-body">
+                                {% include "estadistica/reportesnacional.html.twig" %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+{% block jsadicional %}
+    <script src="{{ asset('chartjs/node_modules/chart.js/dist/chart.js') }}"></script>
+    {#<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>#}
+    <script>
+        const labels = [
+            'Vigentes',
+            'Canceladas',
+            'Suspendidas',
+            'Pte Aprob',
+            'Pte Impres',
+            'Pte Entrega',
+            'Pte Renov',
+            'Destruidas',
+            'No Entregadas',
+        ];
+        const data = {
+            labels: labels,
+            datasets: [{
+                label: 'Tramites por Meses',
+                backgroundColor: [
+                    '#28a745',
+                    '#ce101a',
+                    '#007bff',
+                    '#99b628',
+                    '#498db6',
+                    '#bf6f5d',
+                    '#94781e',
+                    '#99b628',
+                    '#b5b62c',
+                ],
+                borderColor: [
+                    'rgba(255, 255, 255, 0.5)',
+                    // 'rgba(54, 162, 235, 1)',
+                    // 'rgba(255, 206, 86, 1)',
+                    // 'rgba(75, 192, 192, 1)',
+                    // 'rgba(153, 102, 255, 1)',
+                    // 'rgba(255, 159, 64, 1)'
+                ],
+                data: [
+                    {#{{ datosEstLot[0].vigentes }},#}
+                    {#{{ datosEstLot[0].canceladas }},#}
+                    {#{{ datosEstLot[0].Suspendida  }},#}
+                    {#{{ datosEstLot[0]["Pte Aprob"] }},#}
+                    {#{{ datosEstLot[0]["Pte Impresion"] }},#}
+                    {#{{ datosEstLot[0]["Pte Entrega"] }},#}
+                    {#{{ datosEstLot[0]["Pte Renovacion"] }},#}
+                    {#{{ datosEstLot[0]["Destruido"] }},#}
+                    {#{{ datosEstLot[0]["No Entregada"] }}#}
+                    ],
+            }]
+        };
+        const config = {
+            type: 'pie',
+            data: data,
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        position: 'top',
+                    },
+                    title: {
+                        display: true,
+                        text: 'Lots por Estado'
+                    }
+                }
+            },
+        };
+
+        var myChart = new Chart(
+            document.getElementById('myChart'),
+            config
+        );
+        $(document).ready(function(){
+            $('.nav-tabs a:first').tab('show');
+            $(".nav-tabs a").click(function(){
+                $(this).tab('show');
+                // $(this).css("background","#ffffff4a");
+            });
+        });
+
+        const labels1 = [
+            {% for key,value in vigentes %}
+            '{{ value.provincia }}',
+            {% endfor %}
+        ];
+        const data1 = {
+            labels: labels1,
+            datasets: [{
+                label: 'Vigentes',
+                backgroundColor: [
+                    '#26fe12',
+                ],
+                borderColor: [
+                    '#4a4ad3',
+                ],
+                borderWidth: 0.1,
+                data: [
+                    {% for key,value in vigentes %}
+                    '{{ value.vigentes }}',
+                    {% endfor %}
+                ],
+            },
+
+            ]
+        };
+        const plugin = {
+            id: 'custom_canvas_background_color',
+            beforeDraw: (chart) => {
+            const ctx = chart.canvas.getContext('2d');
+        ctx.save();
+        ctx.globalCompositeOperation = 'destination-over';
+        ctx.fillStyle = '#242939';
+        ctx.fillRect(0, 0, chart.width, chart.height);
+        ctx.restore();
+        }
+        };
+        const config1 = {
+            type: 'bar',
+            data: data1,
+            options: {
+                responsive: true,
+            interaction: {
+                intersect: false,
+                mode: 'index',
+            },
+                plugins: {
+                    legend: {
+                        position: 'top',
+                    },
+                    title: {
+                        display: true,
+                        text: 'Lots Vigentes'
+                    }
+                }
+            },
+
+            plugins: [plugin],
+        };
+
+        var myChart1 = new Chart(
+            document.getElementById('lotsChart'),
+            config1
+        );
+
+    </script>
+{% endblock %}

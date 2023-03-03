@@ -1,0 +1,22 @@
+{% extends 'base2.html.twig' %}
+
+{% block title %}Renovacion de Lotjuridica{% endblock %}
+
+{% block body %}
+    <h1 class="alert alert-success"><i class="fa fa-recycle"></i>Renovacion de Lotjuridica</h1>
+
+    {{ include('lotjuridicas/_formRenovacion.html.twig', {'button_label': 'Renovar'}) }}
+
+
+
+    {#{{ include('lotjuridicas/_delete_form.html.twig') }}#}
+{% endblock %}
+{% block jsadicional %}
+<script>
+    $(function () {
+        $('.datetimepicker4').datetimepicker({
+            format: 'L',
+            locale: 'es' });
+    });
+</script>
+{% endblock %}

@@ -1,0 +1,86 @@
+{{ form_start(form) }}
+<div class="form-group">
+    <div class="form-row {% if modo is defined %}{{ modo=='edit' ? 'text-warning':'' }}{% endif %}">
+        <div class="form-group col-md-2 col-sm-4">
+            {% if modo is defined %}
+                <span class="">Locomotora</span> <br/>
+                {% if modo == 'edit'  %}
+                    <span class="form-control mt-2">{{ medios_tran.nombre }}</span>
+                {% endif %}
+                {% if modo =='new' %}
+                    {{ form_widget(form.nombre, {'attr': {'class':'mt-2'}}) }}
+                {% endif %}
+            {% else %}
+                {{ form_row(form.nombre) }}
+            {% endif %}
+        </div>
+        <div class="form-group col-md col-sm-6 {% if modo is defined %}{{ (modo=='edit' or modo=='new') ? 'text-warning':'' }}{% endif %}">
+            {% if modo is defined %}
+                {% if (modo == 'edit') or (modo=='new')  %}
+                    <span class="">Basificacion</span> <br/>
+                    <span class="form-control mt-2 overflow-hidden ">{{ medios_tran.basificacionObj }}</span>
+                {% endif %}
+            {% else %}
+                {{ form_row(form.basificacionObj) }}
+            {% endif %}
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="form-group col-md-2 col-sm-6">
+            {{ form_row(form.tipoMedio) }}
+        </div>
+        <div class="form-group col-md-2 col-sm-4">
+            {{ form_row(form.yearFab) }}
+        </div>
+
+        <div class="form-group col-md-2 col-sm-4">
+            {{ form_row(form.marca) }}
+        </div>
+        <div class="form-group col-md-2 col-sm-4">
+            {{ form_row(form.modelo) }}
+        </div>
+        <div class="form-group col-md-2 col-sm-4">
+            {{ form_row(form.estadoMedio) }}
+        </div>
+
+    </div>
+    <div class="form-row">
+        <div class="form-group col-md-2 col-sm-4">
+            {{ form_row(form.aseguramiento) }}
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="col">
+            {{ form_row(form.servicio) }}
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="col">
+            {{ form_row(form.serviciosEspeciales) }}
+        </div>
+    </div>
+
+    <div class="form-row">
+
+        <div class="form-group col-md-2 col-sm-4">
+            {{ form_row(form.tipoCombustible) }}
+        </div>
+        <div class="form-group col-md-2 col-sm-4">
+            {{ form_row(form.indConsumo) }}
+        </div>
+        <div class="form-group col-md-2 col-sm-4">
+            {{ form_row(form.numRevTecnica) }}
+        </div>
+        <div class="form-group col-md-2 col-sm-4">
+            {{ form_row(form.vencRevTecnica) }}
+        </div>
+        <div class="form-group col-md-2 col-sm-4">
+            {{ form_row(form.potencia) }}
+        </div>
+    </div>
+    <div class="d-none">
+        {{ form_widget(form) }}
+    </div>
+    <button class="btn btn-success btn-sm"><i class="fa fa-save"></i> {{ button_label|default('Guardar') }}</button>
+</div>
+{{ form_end(form) }}

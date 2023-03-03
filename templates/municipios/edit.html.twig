@@ -1,0 +1,13 @@
+{% extends 'base2.html.twig' %}
+
+{% block title %}Edit Municipios{% endblock %}
+
+{% block body %}
+    <h1>Edit Municipios</h1>
+
+    {{ include('municipios/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('municipios_index') }}">back to list</a>
+
+    {{ include('municipios/_delete_form.html.twig') }}
+{% endblock %}

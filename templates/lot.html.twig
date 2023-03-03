@@ -1,0 +1,158 @@
+{% extends 'base2.html.twig' %}
+
+{% block header %}
+<header>
+    <nav class="navbar fixed-top navbar-expand-md navbar-dark bg-dark navbarp">
+        <a class="navbar-brand" href="{{ path('portada') }}">Lojurid 2.0</a>
+        <div class="collapse navbar-collapse" id="navbarBuscar">
+            {% if is_granted('ROLE_USUARIO') %}
+                <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ '#' }}">{{ app.user | title }} </a>
+                    </li>
+                    <li  class="nav-item">
+                        <a class="nav-link disabled" href="{{ path('#') }}">Cerrar sesi&oacute;n</a>
+                        {# el usuario todavía no ha hecho login #}
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">
+                            {% for mensaje in app.session.flashbag.get('info') %}
+                                <p class="info">{{ mensaje }}</p>
+                            {% endfor %}
+                        </a>
+                    </li>
+                </ul>
+
+                <div class="bg-primary">
+                    <form class="form-inline mw-50 mh-10 d-inline-block">
+                        <input class="form-control mr-sm-2" type="search" placeholder="Lot ó Comprobante">
+                        <button class="btn btn-outline-success" type="submit">Buscar</button>
+                    </form>
+                </div>
+            {% endif %}
+        </div>
+        <div class="pos-f-t">
+            <nav class="navbar navbar-dark navbar-expand-sm bg-dark">
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarBuscar" aria-controls="navbarBuscar" aria-expanded="true" aria-label="Mostrar Buscar">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+            </nav>
+        </div>
+    </nav>
+</header>
+{% endblock %}
+
+{% block contenido %}
+    <div class="row">
+        <nav class="col-md-2 d-none d-md-block bg-dark sidebar pt-5 p-0 mw-33">
+            <div id="nav-col" class="sidebar-stiky">
+                <div class="accordion" id="accordionExample">
+                    <div class="card bg-dark border-primary m-1">
+                        <div class="card-header" id="headingOne">
+                            <h5 class="mb-0">
+                                <button class="btn btn-secondary btn-sm btn-block" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+                                    Personas Jurídicas
+                                </button>
+                            </h5>
+                        </div>
+                        <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
+                            <div class="card-body">
+                                <a href="{{ "#" }}" class="btn btn-sm btn-outline-light btn-block">Listar</a>
+                                <a href="{{ "#" }}" class="btn btn-sm btn-outline-light btn-block">Buscar</a>
+                                <a href="{{ "#" }}" class="btn btn-sm btn-outline-light btn-block">Crear Nuevo</a>
+                                <a href="{{ "#" }}" class="btn btn-sm btn-outline-light btn-block">Solicitar Lot</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card bg-dark border-primary m-1">
+                        <div class="card-header" id="headingTwo">
+                            <h5 class="mb-0">
+                                <button class="btn btn-secondary btn-sm btn-block collapsed" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                    Lots Jurídicas
+                                </button>
+                            </h5>
+                        </div>
+                        <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
+                            <div class="card-body">
+                                <a href="{{ "#" }}" class="btn btn-outline-danger btn-block">Listar</a>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card bg-dark">
+                    <div class="card-header" id="Basificaciones">
+                        <h5 class="mb-0">
+                            <button class="btn btn-secondary btn-sm btn-block collapsed" type="button" data-toggle="collapse" data-target="#basifOper" aria-expanded="false" aria-controls="basifOper">
+                                Basificaciones
+                            </button>
+                        </h5>
+                    </div>
+                    <div id="basifOper" class="collapse" aria-labelledby="Basificaciones" data-parent="#accordionExample">
+                        <div class="card-body">
+                            <a href="{{ "#" }}" class="btn btn-outline-danger btn-block">Listar</a>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </nav>
+
+        <main role="main" class="col-md-8 col-sm-8 col-lg-10 px-4 mt-4">
+            <hr/>
+            <div id="main">
+            {% block main%}
+            {% endblock main %}
+            </div>
+        </main>
+    </div>
+
+
+    {% block aside %}
+    {% endblock %}
+
+{% endblock %}
+
+{% block footer %}
+<footer class="text-muted">
+    <div class="container">
+        <p class="float-right"><a href="#">Subir al inicio</a></p>
+        <p>lojurid 2.0 ({{ 'now' | date('Y') }}) </p>
+    </div>
+</footer>
+{% endblock %}
+
+{% block javascripts %}
+ <!-- Bootstrap core JavaScript
+ ================================================== -->
+ <!-- Placed at the end of the document so the pages load faster -->
+ <script src="{{ asset('js/vendor/jquery-slim.min.js') }}"></script>
+ <script>window.jQuery || document.write('<script src="js/vendor/jquery-slim.min.js"><\/script>')</script>
+ <script src="{{ asset('js/vendor/popper.min.js') }}"></script>
+ <script src="{{ asset('js/bootstrap.min.js') }}"></script>
+ <script src="{{ asset('js/vendor/holder.min.js') }}"></script>
+ <script src="{{ asset('js/llamarasincrono.js') }}"></script>
+{% endblock %}
+
+{% block jsadicional%}
+<script>
+    // Example starter JavaScript for disabling form submissions if there are invalid fields
+    (function() {
+        'use strict';
+        window.addEventListener('load', function() {
+            // Fetch all the forms we want to apply custom Bootstrap validation styles to
+            var forms = document.getElementsByClassName('needs-validation');
+            // Loop over them and prevent submission
+            var validation = Array.prototype.filter.call(forms, function(form) {
+                form.addEventListener('submit', function(event) {
+                    if (form.checkValidity() === false) {
+                        event.preventDefault();
+                        event.stopPropagation();
+                    }
+                    form.classList.add('was-validated');
+                }, false);
+            });
+        }, false);
+    })();
+</script>
+{% endblock %}

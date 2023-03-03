@@ -1,0 +1,28 @@
+{% extends 'base2.html.twig' %}
+
+{% block body %}
+    <h1>DireccionNacional</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ direccion_nacional.id }}</td>
+            </tr>
+            <tr>
+                <th>Direccion</th>
+                <td>{{ direccion_nacional.direccion }}</td>
+            </tr>
+            <tr>
+                <th>Telefonos</th>
+                <td>{{ direccion_nacional.telefonos }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('direccion_nacional_index') }}">back to list</a>
+
+    <a href="{{ path('direccion_nacional_edit', {'id': direccion_nacional.id}) }}">edit</a>
+
+    {{ include('direccion_nacional/_delete_form.html.twig') }}
+{% endblock %}

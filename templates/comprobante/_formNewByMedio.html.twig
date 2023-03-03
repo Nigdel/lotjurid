@@ -1,0 +1,35 @@
+{% use "form_div_layout.html.twig" %}
+{% from 'Sitio/utilidades.html.twig' import campoForm %}
+{{ form_start(form) }}
+<div class="form-group">
+    {{ form_errors(form) }}
+    <div class="form-row">
+        <div class="form-group col-md-2">
+            {{ form_row(form.femitido) }}
+        </div>
+        <div class="form-group col-md-2" id="ext">
+            {{ form_row(form.extension) }}
+        </div>
+        <div class="form-group col-md-2 text-warning">
+            <span>Importe</span>
+            <span id="valorimporte" class="form-control mt-2 overflow-auto bg-dark text-warning">0</span>
+        </div>
+    </div>
+    <div class="form-group">
+        <span>Servicio a Imprimir ( Tomado del Medio de Transporte o la LOT)</span>
+        <span id="comp_serv" class="form-control mt-2 overflow-auto">{{ comprobante.servicio }}</span>
+
+    </div>
+    <div class="form-group col-md-2">
+        {{ form_row(form.sincostp) }}
+    </div>
+    <div class="d-none">
+        {{ form_widget(form) }}
+    </div>
+</div>
+<div class="mb-3">
+    <button class="btn btn-sm btn-success">{{ button_label|default('Guardar') }}</button>
+    <a class="btn btn-sm btn-info" href="{{ path('comprobante_index') }}">Ignorar</a>
+    {{ form_end(form) }}
+</div>
+

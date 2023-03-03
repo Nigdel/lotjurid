@@ -1,0 +1,25 @@
+{% extends 'base2.html.twig' %}
+{% block body %}
+    {% import 'comprobante/comptramit.html.twig' as tramite %}
+<h6 class="alert alert-success">Comprobantes {{ tramitecomp | default("Pendientes de Impresion") }} de la Provincia <span class="badge badge-warning">{{ comps | length }}</span></h6>
+    <table class="table table-striped table-dark table-sm">
+        <thead>
+        <tr>
+            <th>Medio</th>
+            <th>Folio</th>
+            <th>Estado</th>
+            <th>F. Emitido</th>
+            <th>Duplicado</th>
+            <th>Ver/Editar</th>
+            <th>Trámites</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for entity in comps %}
+            <tr>
+                {{ tramite.showcompFila(entity,loop,'true') }}
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

@@ -1,0 +1,116 @@
+{% extends 'base2.html.twig' %}
+
+{% block title %}Instalaciones{% endblock %}
+
+{% block body %}
+    {% if is_granted("ROLE_ADMIN") %}
+    <h1>Instalacion</h1>
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ instalacione.id }}</td>
+            </tr>
+            <tr>
+                <th>Nombre</th>
+                <td>{{ instalacione.nombre }}</td>
+            </tr>
+            <tr>
+                <th>Direccion</th>
+                <td>{{ instalacione.direccion }}</td>
+            </tr>
+            <tr>
+                <th>Aseguramiento</th>
+                <td>{{ instalacione.aseguramiento ? 'Yes' : 'No' }}</td>
+            </tr>
+            <tr>
+                <th>Serv Aux Conex</th>
+                <td>{{ instalacione.servAuxCon }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    {% endif %}
+    <div class="jumbotron p-2">
+        <div class="container">
+            <h3 class="alert alert-warning"> Instalacion: {{ instalacione.nombre }} <a href="{{ path('instalaciones_edit', {'id': instalacione.id }) }}"><i class="fa fa-edit"></i></a> </h3>
+            <p>Registrada por la lot <a class="badge badge-pill badge-warning" href="{{ path('lotjuridicas_show', {'id': instalacione.lot}) }}" >{{ instalacione.lot }}</a>
+                de la entidad <a href="{{ path('personasjuridicas_show', {'id': instalacione.lot.identidad.id }) }}"><span class="badge badge-pill badge-light">{{ instalacione.lot.identidad }}</span></a></p>
+            <p>Servicio Prestado: <i class="text-success">{{ instalacione.servAuxCon }} </i></p>
+            <p>Aseguramiento: {{ instalacione.aseguramiento ? 'Sí' : 'No' }} </p>
+            <strong class="badge alert-primary">{{ instalacione.municipio }}</strong>
+        </div>
+    </div>
+    <div class="card-deck">
+        <div class="card">
+            {% include 'lotjuridicas/detalleslot.html.twig' with{'lot': instalacione.lot } %}
+        </div>
+        <div class="card">
+            {% include 'instalaciones/detalleinstalacion.html.twig' %}
+            {% include 'instalaciones/detallecomprobantes.html.twig' with{'comprobantes': instalacione.comprobante } %}
+
+        </div>
+    </div>
+    <div class="container">
+
+        {#<form>#}
+            {#<div class="form-row">#}
+
+            {#</div>#}
+            {#<div class="form-row">#}
+
+            {#</div>#}
+
+            {#<div class="form-row">#}
+
+            {#</div>#}
+
+            {#<fieldset class="form-group">#}
+                {#<div class="card border-light  mb-3">#}
+                    {#<div class="card-header alert alert-success mb-0">Comprobantes</div>#}
+                    {#<div class="card-body">#}
+                        {#<table class="table">#}
+                            {#<thead>#}
+                            {#<tr>#}
+                                {#<th>Folio</th>#}
+                                {#<th>F emitido</th>#}
+                                {#<th>F impresion</th>#}
+                                {#<th>F entrega</th>#}
+                                {#<th>F cancel</th>#}
+                                {#<th>Duplicado</th>#}
+                                {#<th>Sin costo</th>#}
+                                {#<th>Importe</th>#}
+                            {#</tr>#}
+                            {#</thead>#}
+                            {#<tbody>#}
+                            {#{% for comp in instalacione.comprobante %}#}
+                                {#<tr>#}
+                                    {#<td id="{{ comp.id }}"><a href="{{ path('compestab_show', {'id': comp.id }) }}" class="badge badge-pill badge-light"> {{ comp.folio }}</a></td>#}
+                                    {#<td>{{ comp.femitido | date('d/m/y')}}</td>#}
+                                    {#<td>{{ comp.fimpreso | date('d/m/y')}}</td>#}
+                                    {#<td>{{ comp.fentrega | date('d/m/y')}}</td>#}
+                                    {#<td>{{ comp.fcancel | date('d/m/y')}}</td>#}
+                                    {#<td>{{ comp.duplicado ? 'Si' : 'No' }}</td>#}
+                                    {#<td>{{ comp.sincostp ? 'Si' : 'No' }}</td>#}
+                                    {#<td>{{ comp.importe }}</td>#}
+                                {#</tr>#}
+                            {#{% endfor %}#}
+                            {#</tbody>#}
+                        {#</table>#}
+                    {#</div>#}
+                {#</div>#}
+
+            {#</fieldset>#}
+        {#</form>#}
+    </div>
+{% endblock %}
+{% block topnavlink %}
+<li class="nav-item active">
+    <a class="nav-link" href="{{ path('instalaciones_index') }}"><i class="fa fa-list"></i> Listar Todas</a>
+</li>
+<li class="nav-item">
+    {{ include('instalaciones/_delete_form.html.twig') }}
+</li>
+{% endblock %}
+
+

@@ -1,0 +1,13 @@
+{% extends 'base2.html.twig' %}
+
+{% block title %}Edit Provincias{% endblock %}
+
+{% block body %}
+    <h1>Edit Provincias</h1>
+
+    {{ include('provincias/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('provincias_index') }}">back to list</a>
+
+    {{ include('provincias/_delete_form.html.twig') }}
+{% endblock %}

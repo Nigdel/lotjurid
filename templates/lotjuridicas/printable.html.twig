@@ -1,0 +1,28 @@
+<div style="position: page;margin-top: 4.5cm;margin-left: 13cm; font-size: 14pt;">
+   {{ comp }}
+</div>
+<div id="lotdata" >
+    <div style="position: page;font-size: 12pt;top:6.5cm;margin-left: 4cm;">{{ comp.identidad }}</div>
+    <div style="margin-top: 0.15cm;margin-left: 3.75cm;font-size: 10pt; ">{{ comp.identidad.direccion }}</div>
+    <div style="margin-top: 0.1cm;margin-left: 4.72cm;font-size: 10pt; ">{{ comp.dictamen }}</div>
+    {#<article style="margin-top: 0.3cm;margin-left: 3.85cm;font-size: 10pt; ">{{ comp.instalacion.servvisual }}{{ comp.instalacion.aseguramiento ? 'Aseguramiento' :'' }}</article>#}
+</div>
+<div id="footer" >
+    <div class="prov">
+       {{ app.user.municipio.provinciaid }}
+    </div>
+    <div class="fechafirmaprt">
+        <table class="firmatb">
+            <tr>
+                <td style="text-align: center" >{{ comp.FechaEmision | date('d/m/Y')}}</td>
+            </tr>
+            <tr >
+                <td >{{ comp.idaprueba.nombreapellidos }}</td>
+            </tr>
+            <tr>
+                <td >{{ comp.idaprueba.cargo }}</td>
+            </tr>
+        </table>
+    </div>
+
+</div>

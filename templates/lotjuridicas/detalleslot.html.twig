@@ -1,0 +1,136 @@
+{% from 'Sitio/utilidades.html.twig' import estadolot %}
+<h2 class="alert alert-warning">Detalles de la lot <a class="card-link" href="{{ path('lotjuridicas_show', {'id': lot.id}) }}"><i class="fa fa-eye"></i> {{ lot.id }}</a>
+    <a href="{{ path('lotjuridicas_index',{'lot':lot.id}) }}"> <i class="fas fa-cogs" style="color: #5f2dab"></i></a> </h2>
+<table class="table table-striped table-dark table-sm">
+    <tbody>
+    <tr>
+        <th>Expediente</th>
+        <td>{{ lot.id }}</td>
+    </tr>
+    <tr>
+        <th>Folio</th>
+        <td>{{ lot.numfolio }}</td>
+    </tr>
+    <tr>
+        <th>Estado</th>
+        <td>{{ estadolot(lot.idestado) }}</td>
+    </tr>
+    <tr>
+        <th>Tipo de Servicio</th>
+        <td>{{ lot.Idtipo }}</td>
+    </tr>
+    <tr>
+        <th>Servicio a Prestar</th>
+        <td>{{ lot.Idservicio }}</td>
+    </tr>
+    <tr>
+        <th>Servicio Amparado</th>
+        <td>{{ lot.servicioamparado }}</td>
+    </tr>
+    <tr>
+        <th>Rama</th>
+        <td>{{ lot.idrama }}</td>
+    </tr>
+    <tr>
+        <th>Extension</th>
+        <td>{{ lot.idextension }}</td>
+    </tr>
+    <tr>
+        <th>F Solicitud</th>
+        <td>{{ lot.fechasolicitud ? lot.fechasolicitud|date('d/m/Y') : '' }}</td>
+    </tr>
+    {% if lot.aprobada %}
+    <tr>
+        <th>F. Aprobacion</th>
+        <td>{{ lot.fechaaprobacion ? lot.fechaaprobacion|date('d/m/Y') : '' }}</td>
+    </tr>
+    {% else %}
+        {% if lot.idestado.id ==1 %}
+            <tr>
+                <th>Aprueba/Deniega</th>
+                {% if lot.idaprueba %}
+                <td>{{ lot.idaprueba.NombreApellidos }}<a class="text-warning text-decoration-none" href="mailto:{{ lot.idaprueba }}"> <i class="fa fa-mail-bulk"></i></a></td>
+                {% else %}
+                <td> No definido </td>
+                {% endif %}
+            </tr>
+        {% endif %}
+    <tr>
+        <th>Causa de Negacion</th>
+        <td class="bg-danger">{{ lot.cNegacion }}</td>
+    </tr>
+    {% endif %}
+    <tr>
+        <th>F. Emision</th>
+        <td>{{ lot.fechaemision ? lot.fechaemision|date('d/m/Y') : '' }}</td>
+    </tr>
+    {% if lot.idestado.id > 4 and  lot.idestado.id < 11 %}
+    <tr>
+        <th>F. Entrega</th>
+        <td>{{ lot.fechaentrega ? lot.fechaentrega|date('d/m/Y') : '' }}</td>
+    </tr>
+    {% endif %}
+    {% if lot.limitacion %}
+    <tr>
+        <th>Limitacion</th>
+        <td>{{ lot.limitacion  }}</td>
+    </tr>
+    <tr>
+        <th>Tpomedioamparado</th>
+        <td>{{ lot.tpomedioamparado }}</td>
+    </tr>
+    {% endif %}
+    {% if lot.fechadecancelacion %}
+    <tr>
+        <th>F. Cancelacion</th>
+        <td>{{ lot.fechadecancelacion ? lot.fechadecancelacion|date('d/m/Y') : '' }}</td>
+    </tr>
+    {% endif %}
+    {% if lot.fecharenov  %}
+    <tr>
+        <th>F. Renovacion</th>
+        <td>{{ lot.fecharenov ? lot.fecharenov|date('d/m/Y') : '' }}</td>
+    </tr>
+    {% endif %}
+    {% if lot.mediatarifa %}
+    <tr>
+        <th>Mediatarifa</th>
+        <td>{{ lot.mediatarifa ? 'Yes' : 'No' }}</td>
+    </tr>
+    {% endif %}
+    <tr>
+        <th>Fechaaprobinicial</th>
+        <td>{{ lot.fechaaprobinicial ? lot.fechaaprobinicial|date('d/m/Y') : '' }}</td>
+    </tr>
+    {% if lot.causadecancelacion %}
+    <tr>
+        <th>Causadecancelacion</th>
+        <td>{{ lot.causadecancelacion }}</td>
+    </tr>
+    {% endif %}
+    <tr>
+        <th>Dictamen</th>
+        <td>{{ lot.dictamen }}</td>
+    </tr>
+    {#<tr>#}
+        {#<th>Prorrogadoendias</th>#}
+        {#<td>{{ lot.prorrogadoendias }}</td>#}
+    {#</tr>#}
+    {% if lot.fechadedestruccion %}
+    <tr>
+        <th>Fechadedestruccion</th>
+        <td>{{ lot.fechadedestruccion ? lot.fechadedestruccion|date('d/m/Y') : '' }}</td>
+    </tr>
+    {% endif %}
+    {% if lot.duplicado %}
+    <tr>
+        <th>Duplicado</th>
+        <td>{{ lot.duplicado ? 'Si' : 'No' }}</td>
+    </tr>
+    {% endif %}
+    <tr>
+        <th>Importe</th>
+        <td>{{ lot.importe }}</td>
+    </tr>
+    </tbody>
+</table>

@@ -1,0 +1,79 @@
+{% extends 'base2.html.twig' %}
+
+{% block title %}Lotjuridicas index{% endblock %}
+
+{% block body %}
+    <h1>Lotjuridicas index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Fechasolicitud</th>
+                <th>Presentada</th>
+                <th>Aprobada</th>
+                <th>Fechaaprobacion</th>
+                <th>Fechaemision</th>
+                <th>Fechaentrega</th>
+                <th>Limitacion</th>
+                <th>Tpomedioamparado</th>
+                <th>Duracion</th>
+                <th>Fechadecancelacion</th>
+                <th>Fecharenov</th>
+                <th>Posteada</th>
+                <th>Mediatarifa</th>
+                <th>Medidadeltiempo</th>
+                <th>Numfolio</th>
+                <th>Fechaaprobinicial</th>
+                <th>Tiposolicitud</th>
+                <th>Causadecancelacion</th>
+                <th>Dictamen</th>
+                <th>C_negacion</th>
+                <th>Prorrogadoendias</th>
+                <th>Fechadedestruccion</th>
+                <th>Duplicado</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for lotjuridica in lotjuridicas %}
+            <tr>
+                <td>{{ lotjuridica.id }}</td>
+                <td>{{ lotjuridica.fechasolicitud ? lotjuridica.fechasolicitud|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ lotjuridica.presentada ? 'Yes' : 'No' }}</td>
+                <td>{{ lotjuridica.aprobada ? 'Yes' : 'No' }}</td>
+                <td>{{ lotjuridica.fechaaprobacion ? lotjuridica.fechaaprobacion|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ lotjuridica.fechaemision ? lotjuridica.fechaemision|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ lotjuridica.fechaentrega ? lotjuridica.fechaentrega|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ lotjuridica.limitacion }}</td>
+                <td>{{ lotjuridica.tpomedioamparado }}</td>
+                <td>{{ lotjuridica.duracion }}</td>
+                <td>{{ lotjuridica.fechadecancelacion ? lotjuridica.fechadecancelacion|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ lotjuridica.fecharenov ? lotjuridica.fecharenov|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ lotjuridica.posteada ? 'Yes' : 'No' }}</td>
+                <td>{{ lotjuridica.mediatarifa ? 'Yes' : 'No' }}</td>
+                <td>{{ lotjuridica.medidadeltiempo }}</td>
+                <td>{{ lotjuridica.numfolio }}</td>
+                <td>{{ lotjuridica.fechaaprobinicial ? lotjuridica.fechaaprobinicial|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ lotjuridica.tiposolicitud }}</td>
+                <td>{{ lotjuridica.causadecancelacion }}</td>
+                <td>{{ lotjuridica.dictamen }}</td>
+                <td>{{ lotjuridica.cNegacion }}</td>
+                <td>{{ lotjuridica.prorrogadoendias }}</td>
+                <td>{{ lotjuridica.fechadedestruccion ? lotjuridica.fechadedestruccion|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ lotjuridica.duplicado ? 'Yes' : 'No' }}</td>
+                <td>
+                    <a href="{{ path('lotjuridicas_show', {'id': lotjuridica.id}) }}">show</a>
+                    <a href="{{ path('lotjuridicas_edit', {'id': lotjuridica.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="25">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('lotjuridicas_new') }}">Create new</a>
+{% endblock %}

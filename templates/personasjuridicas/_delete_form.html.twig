@@ -1,0 +1,7 @@
+<form method="post" action="{{ path('personasjuridicas_delete', {'id': personasjuridica.id}) }}" onsubmit="return confirm('Para realizar esta accion debe eliminar tambien las lots, comprobantes y basificaciones asociadas a la misma. Esta seguro que desea eliminar? Esta accion no se puede deshacer');">
+    <input type="hidden" name="_method" value="DELETE">
+    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ personasjuridica.id) }}">
+    <button class="btn btn-sm btn-dark">
+       <i class="fas fa-trash text-danger"></i>
+        Eliminar</button>
+</form>

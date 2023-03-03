@@ -1,0 +1,54 @@
+<HTML>
+<HEAD>
+    <TITLE>{{ title }}</TITLE>
+    <META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+    <style>
+        @page {
+            margin:0px;
+            padding: 0px;
+            size: 21.6cm 21.6cm portrait;
+        }
+        body {
+            font-size: 10pt;
+            font-family: "Lucida Grande", "Lucida Sans Unicode", Verdana, Arial, Helvetica, sans-serif;
+            font-style: initial;
+        }
+        #contenedor {
+            size: auto ;
+            padding: 10px;
+        }
+
+    </style>
+</HEAD>
+<BODY BGCOLOR=#FFFFFF LEFTMARGIN=0 TOPMARGIN=0 MARGINWIDTH=0 MARGINHEIGHT=0>
+<div id="contenedor">
+        <div style="left: 490px; top: 120px; position: fixed"><h1>{{ comp }}</h1></div>
+        <div style="position: fixed; left: 13cm; top:4.5cm">
+            <h2>
+                {{ comp.identidad }}
+            </h2>
+        </div>
+        <div style="position: absolute; left: 180px; top:210px">
+            <h2>
+                {{ comp.identidad.direccion }}
+            </h2>
+        </div>
+        <div style="position: fixed; left: 190px; top:230px; width: 550px">
+            <h2>
+                {{ comp.dictamen }}
+            </h2>
+        </div>
+    <div style="position: fixed; left: 190px; top:270px; width: 550px">
+        <h2>
+            {{ comp.numfolio }}
+        </h2>
+    </div>
+    <div style="position: fixed; left: 260px; top:290px; width: 550px">
+        <h2>
+            {{ app.user.municipio.provinciaid }}
+        </h2>
+    </div>
+
+</div>
+</BODY>
+</HTML>

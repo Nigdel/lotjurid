@@ -1,0 +1,142 @@
+<HTML>
+<HEAD>
+    <TITLE>{{ title | default('comprobante') }}</TITLE>
+    <META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+    <style>
+        @page {
+            margin:0px;
+            padding: 0px;
+            /*size: 25cm 10cm;*/
+        }
+        body {
+            font-size: 10px;
+            font-family: sans-serif;
+            font-style: initial;
+        }
+        #contenedor {
+            size: auto ;
+            background-color: #0b2e13;
+            padding: 10px;
+        }
+        #izq {
+            float: left;
+            padding: 10px;
+            top: 10px;
+            width: 40%;
+            height: 93%;
+
+           /* background-color: #00aa88;*/
+        }
+        #der {
+            float: right;
+            padding: 10px;
+            top: 10px;
+            width: 40%;
+            height: 93%;
+            /*background-color: #00ccff;*/
+        }
+    </style>
+</HEAD>
+<BODY BGCOLOR=#FFFFFF LEFTMARGIN=0 TOPMARGIN=0 MARGINWIDTH=0 MARGINHEIGHT=0>
+<div id="contenedor">
+    <div id="izq">
+        <h3>{{ comp.lot }}</h3>
+        <div>
+            <br/>
+            <article>
+            A Favor de: {{ comp.lot.identidad }}
+            </article>
+            <br/>
+            <article>
+            Con Direccion: {{ comp.lot.identidad.direccion }}
+            </article>
+            <br/>
+            <article>
+             Servicio Autorizado:<br/>
+             {{ comp.servicio ~ comp.extension }}
+            </article>
+        </div>
+    </div>
+
+    <div id="der">
+        <table width="95%">
+            <tr >
+                <td>{% if comp.medio.rama.id != 1%}
+                        {{ comp.medio.rama.id == 2 ? "Nombre:" : "Identificador:"  }}
+                    {% else %}
+                        Chapa
+                    {% endif %}</td>
+                <td style="text-align: center">Folio</td>
+            </tr>
+            <tr>
+                <td><b>{{ comp.medio.nombre }}</b></td>
+                <td style="text-align: center"><b>{{ comp.folio }}</b></td>
+            </tr>
+            {% if comp.medio.rama.id == 2 or comp.medio.rama.id==4 %}
+            <tr>
+                <td>Potencia</td>
+                <td></td>
+            </tr>
+            <tr>
+                <td><b>{{ comp.medio.potencia }}</b></td>
+                <td></td>
+            </tr>
+            {% endif %}
+            {% if comp.medio.rama.id == 1 %}
+                <tr>
+                    <td colspan="2">Capacidad {{ comp.medio.cap == 0 ? '( '~ comp.medio.umcap | capitalize ~' )'  : '( Pasajeros )' }}</td>
+
+                </tr>
+                <tr> {% if comp.medio.cap > 0 %}
+                    <td><b>{{ comp.medio.cap }} {{ comp.medio.umcap }}</b></td><td></td>
+                {% else %}
+                    <td><b>{{ comp.medio.CapPDepie }} de Pie</b> </td> <td><b>{{ comp.medio.CapPSentados }} sentados</b></td>
+                {% endif %}
+                </tr>
+            {% endif %}
+
+        </table>
+        <br/>
+        <article>
+            Tipo<br/>
+            {{ comp.medio.tipoMedio }}
+        </article>
+        <br/>
+        <article>
+            Marca/Modelo<br/>
+            {{ comp.medio.marca }} / {{ comp.medio.modelo }}
+        </article>
+        <br/>
+        <table>
+            <tr>
+                <td>Lugar de Basificacion:</td>
+            </tr>
+           <tr>
+               <td >
+                <div style="overflow: hidden; max-width: 100%;">
+                    {{ comp.medio.basificacionObj }}
+                </div>
+
+               </td>
+           </tr>
+        </table>
+        <br/>
+        <table width="95%">
+            <tr>
+                <td>Vigente desde</td>
+                <td>Vence</td>
+            </tr>
+            <tr>
+                <td><b>{{ comp.femitido| date('d/m/Y') }}</b></td>
+                <td><b>{{ comp.fvencimiento | date('d/m/Y') }}</b></td>
+            </tr>
+        </table>
+        <br/>
+        <article>
+            Firma<br/>
+            {{ comp.firma | default("") }}
+        </article>
+    </div>
+</div>
+</BODY>
+</HTML>

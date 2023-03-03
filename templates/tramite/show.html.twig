@@ -1,0 +1,32 @@
+{% extends 'base2.html.twig' %}
+
+{% block body %}
+    <h1>Tramite</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ tramite.id }}</td>
+            </tr>
+            <tr>
+                <th>Fecha</th>
+                <td>{{ tramite.fecha ? tramite.fecha|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Iporigen</th>
+                <td>{{ tramite.Iporigen }}</td>
+            </tr>
+            <tr>
+                <th>Observaciones</th>
+                <td>{{ tramite.observaciones }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('tramite_index') }}">back to list</a>
+
+    <a href="{{ path('tramite_edit', {'id': tramite.id}) }}">edit</a>
+
+    {{ include('tramite/_delete_form.html.twig') }}
+{% endblock %}

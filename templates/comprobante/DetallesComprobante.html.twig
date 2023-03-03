@@ -1,0 +1,191 @@
+{% import 'comprobante/comptramit.html.twig' as tramite %}
+{% from 'Sitio/utilidades.html.twig' import estadocomp %}
+<div class="container mt-3">
+    <!-- Example row of columns -->
+    <div class="row">
+        <div class="col-md-5">
+            <h2 class="alert alert-success">Datos del medio {{ comp.medio }}</h2>
+            {% if comp.medio.rama.id == 1 %}
+                {% include "medios_trans/cfautomotor.html.twig" with { 'medios_trans': comp.medio }  %}
+            {% endif %}
+            {% if comp.medio.rama.id == 2 %}
+                {% include "medios_trans/cfmaritimo.html.twig" with { 'medios_trans': comp.medio }  %}
+            {% endif %}
+            {% if comp.medio.rama.id == 3 %}
+                {% include "medios_trans/cfTAH.html.twig" with { 'medios_trans': comp.medio }  %}
+            {% endif %}
+            {% if comp.medio.rama.id == 4 %}
+                {% include "medios_trans/cfferroviario.html.twig" with { 'medios_trans': comp.medio }  %}
+            {% endif %}
+            {% if comp.medio.rama.id == 5 %}
+                {% include "medios_trans/cfMD.html.twig" with { 'medios_trans': comp.medio }  %}
+            {% endif %}
+        </div>
+        <div class="col">
+            <h2 class="alert alert-dark">Detalles del Comprobante
+                {#<a href="#" class="badge badge-pill badge-warning" data-toggle="modal" data-target="#lot">#}
+                    {#<i class="fa fa-eye"></i>#}
+                {#</a>#}
+                {{ tramite.fila(comp,'1') }}
+            </h2>
+            <div class="modal fade" id="lot" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-lg" role="document">
+                    <div class="lotmodal-dialog modal-content" >
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">{{ comp }}</h5>
+                            <button type="button" class="close danger" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body" style="background-image: url('{{ asset('Images/Comprobante.gif') }}');background-size: 100% 100%;height: 30rem">
+                            <div id="contenedor">
+                                <div id="izq">
+                                    <div>
+                                        <article style="float: right">
+                                            <strong>{{ comp.lot }}</strong>
+                                        </article>
+                                        <br/>
+                                        <article>
+                                            A Favor de: {{ comp.lot.identidad }}
+                                        </article>
+                                        <br/>
+                                        <article>
+                                            Con Direccion: {{ comp.lot.identidad.direccion }}
+                                        </article>
+                                        <br/>
+                                        <article>
+                                            Servicio Autorizado:<br/>
+                                            {{ comp.servicio }}
+                                        </article>
+                                    </div>
+                                </div>
+
+                                <div id="der">
+                                    <div class="row">
+                                        <div class="col">
+                                            <article>
+                                                Chapa<br/>
+                                                {{ comp.medio.nombre }}
+                                            </article>
+                                        </div>
+                                        <div class="col">
+                                            <article>
+                                                Folio<br/>
+                                                {{ comp.folio }}
+                                            </article>
+                                        </div>
+                                    </div>
+                                    <br/>
+                                    <article>
+                                        Tipo<br/>
+                                        {{ comp.medio.tipoMedio }}
+                                    </article>
+                                    <br/>
+                                    <article>
+                                        Marca/Modelo<br/>
+                                        {{ comp.medio.marca }} / {{ comp.medio.modelo }}
+                                    </article>
+                                    <br/>
+                                    <article>
+                                        Lugar de Basificacion<br/>
+                                        {{ comp.medio.basificacionObj }}
+                                    </article>
+                                    <br/>
+                                    <div class="row">
+                                        <div class="col">
+                                            Vigente Desde<br/>
+                                            {{ comp.femitido | date('d/m/Y') }}
+                                        </div>
+                                        <div class="col">
+                                            <article >
+                                                Vence<br/>
+                                                {{ comp.fvencimiento ? comp.fvencimiento| date('d/m/Y'): '' }}
+                                            </article>
+                                        </div>
+                                    </div>
+                                    <br/>
+                                    <article>
+                                        Firma<br/>
+                                        {{ "Pepe el mano suave" }}
+                                    </article>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <table class="table">
+                <tbody>
+                <tr>
+                    <th>Folio</th>
+                    <td>{{ comp.folio }}</td>
+                </tr>
+                <tr>
+                    <th>Extension</th>
+                    <td>{{ comp.extension }}</td>
+                </tr>
+                <tr>
+                    <th>Estado</th>
+                    <td>{{ estadocomp(comp.estadoComp) }}</td>
+                </tr>
+                <tr>
+                    <th>Fecha de Emitido</th>
+                    <td>{{ comp.femitido ? comp.femitido|date('d/m/Y') : '' }}</td>
+                </tr>
+                <tr>
+                    <th>Fecha de Vencimiento</th>
+                    <td>{{ comp.fvencimiento ? comp.fvencimiento|date('d/m/Y') : '' }}</td>
+                </tr>
+                <tr>
+                    <th>Fecha de Impresión</th>
+                    <td>{{ comp.fimpreso ? comp.fimpreso|date('d/m/Y') : '' }}</td>
+                </tr>
+                {% if comp.fentrega %}
+                <tr>
+                    <th>Fecha de Entrega</th>
+                    <td>{{ comp.fentrega ? comp.fentrega|date('d/m/Y') : '' }}</td>
+                </tr>
+                {% endif %}
+                {% if comp.estadoComp.id == 8 %}
+                <tr>
+                    <th>Fecha de Cancelación</th>
+                    <td>{{ comp.fcancel ? comp.fcancel|date('d/m/Y') : '' }}</td>
+                </tr>
+                <tr>
+                    <th>Causa de Cancelación</th>
+                    <td>{{ comp.ccancel }}</td>
+                </tr>
+                {% endif %}
+                {% if comp.estadoComp.id == 6 %}
+                <tr>
+                    <th>Causa de Suspensión</th>
+                    <td>{{ comp.cSuspencion }}</td>
+                </tr>
+                <tr>
+                    <th>Inicio de la Suspensión</th>
+                    <td>{{ comp.finicioSusp ? comp.finicioSusp | date('d/m/Y') : '' }}</td>
+                </tr>
+                <tr>
+                    <th>Fin de la Suspensión</th>
+                    <td>{{ comp.ffinSusp ? comp.ffinSusp | date('d/m/Y') : '' }}</td>
+                </tr>
+                {% endif %}
+                <tr>
+                    <th>Sin Costo</th>
+                    <td>{{ comp.sincostp ? 'Si' : 'No' }}</td>
+                </tr>
+                <tr>
+                    <th>Duplicado</th>
+                    <td>{{ comp.duplicado ? 'Si' : 'No' }}</td>
+                </tr>
+                <tr>
+                    <th>Importe</th>
+                    <td>{{ comp.importe }}</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+
+</div>

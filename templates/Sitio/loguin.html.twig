@@ -1,0 +1,27 @@
+{% extends '::base2.html.twig' %}
+{% block title %}lojurid{% endblock %}
+{% block stylesheets %}
+    <link href="{{ asset('css/signin.css') }}" rel="stylesheet">
+{% endblock %}
+{% block contenido %}
+{% block article %}
+
+<form class="form-signin" action="{{ path('usuario_login_check') }}" method="post">
+    <h1 class="h3 mb-3 font-weight-normal">Para Acceder debes Tener una Cuenta</h1>
+    {% if error %}
+        <div class="alert alert-danger" role="alert">Usuario o contrase&ntilde;a incorrectos. <a href="{{ path('usuario_registro') }}" class="alert-link">Registrate</a></div>
+    {% endif %}
+    <label class="sr-only" for="username">Usuario</label>
+    <input type="text" id="username" name="_username" class="form-control rounded" placeholder="Usuario"
+    value="{{ last_username }}" required autofocus />
+    <label for="password" class="sr-only">Contrase&ntilde;a:</label>
+    <input type="password" id="password" name="_password" class="form-control rounded" placeholder="Password" required/>
+    <div class="checkbox mb-3">
+            <label>
+              <input type="checkbox" id="no_cerrar" name="_remember_me" value="remember-me" checked /> Recordarme
+            </label>
+          </div>
+    <button class="btn btn-lg btn-primary btn-block" type="submit">Entrar</button>
+</form>
+{% endblock %}
+{% endblock %}

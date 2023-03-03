@@ -1,0 +1,74 @@
+<HTML>
+<HEAD>
+    <TITLE>{{ title | default('comprobante') }}</TITLE>
+    <META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+    <style>
+        @page {
+            margin:0px;
+            padding: 0px;
+        }
+        body {
+            font-size: 10px;
+            font-family: "Lucida Grande", "Lucida Sans Unicode", Verdana, Arial, Helvetica, sans-serif;
+            font-style: initial;
+            /*transform: rotate(-90deg) translate(5mm, 0);*/
+            /*transform-origin: 0 0;*/
+        }
+        #contenedor {
+            /*margin: 0.025cm;*/
+            size: auto ;
+            padding: 0 2.5cm 0 2.5cm;
+        }
+
+    </style>
+    <style>
+        @page {
+            /*size:  5.5in 9.84252in  landscape;*/
+            /*size: 25cm 14cm landscape;*/
+
+        }
+
+    </style>
+</HEAD>
+<BODY BGCOLOR=#FFFFFF LEFTMARGIN=0 TOPMARGIN=0 MARGINWIDTH=0 MARGINHEIGHT=0>
+<div id="contenedor">
+    <article style="margin-top: 5cm;margin-left: 10cm; font-size: 16pt;">
+        <span >{{ comp.instalacion.lot }}</span>
+    </article>
+
+        <section >
+            <article style="margin-top: 0.615cm; margin-left: 5.7cm;font-size: 12pt; ">{{ comp.instalacion.nombre }}</article>
+            <article style="margin-top: 0.15cm;margin-left: 2.8cm;font-size: 10pt; ">{{ comp.instalacion.direccion }}</article>
+            <article style="margin-top: 0.1cm;margin-left: 3.2cm;font-size: 10pt; ">{{ comp.instalacion.lot.identidad }}</article>
+            <article style="margin-top: 0.3cm;margin-left: 3.85cm;font-size: 10pt; ">{{ comp.instalacion.servvisual }}{{ comp.instalacion.aseguramiento ? 'Aseguramiento' :'' }}</article>
+        </section>
+    <section id="footer" style="margin-top: 1.5cm;margin-left: 2.8cm;font-size: 10pt;">
+        <article>
+            <table cellpadding="10px" >
+                <tr >
+                    <td style="text-align: center" >{{ comp.firma }}</td>
+                    <td>Vigente desde: {{ comp.femitido | date('d/m/Y')}}</td>
+                </tr>
+                <tr>
+                    <td >{{ comp.firmacargo }}.{{ comp.instalacion.municipio.provinciaid }}</td>
+                    <td>Vigente Hasta: {{ comp.fvencimiento |date('d/m/Y') }}</td>
+                </tr>
+            </table>
+        </article>
+
+        {#<section style="margin-top: 1.5cm;margin-left: 2.8cm;font-size: 10pt; ">{{ comp.firma }}#}
+        {#<article>Vigente desde:{{ comp.femitido | date('d/m/y')}}</article>#}
+        {#</section>#}
+        {#<section style="margin-top: 0.5cm;margin-left: 2.8cm;font-size: 10pt; ">#}
+            {#<article>#}
+                {#{{ comp.firmacargo }}.{{ comp.instalacion.municipio.provinciaid }}#}
+            {#</article>#}
+            {#<article>#}
+                {#Vigente Hasta: {{ comp.fvencimiento |date('d/m/y') }}#}
+            {#</article>#}
+        {#</section>#}
+    </section>
+
+</div>
+</BODY>
+</HTML>

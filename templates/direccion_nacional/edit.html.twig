@@ -1,0 +1,11 @@
+{% extends 'base2.html.twig' %}
+
+{% block body %}
+    <h1>Edit DireccionNacional</h1>
+
+    {{ include('direccion_nacional/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('direccion_nacional_index') }}">back to list</a>
+
+    {{ include('direccion_nacional/_delete_form.html.twig') }}
+{% endblock %}

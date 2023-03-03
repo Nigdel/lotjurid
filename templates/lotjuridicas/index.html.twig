@@ -1,0 +1,38 @@
+{% extends 'lot.html.twig' %}
+{% block body %}
+    {% import 'lotjuridicas/lottramit.html.twig' as tramite %}
+    <h3 class="alert alert-success">Licencias de Operación del Transporte {{ concepto | default('') }} <span class="badge badge-pill badge-primary">{{ pagination.getTotalItemCount }}</span></h3>
+    <form class="form-inline">
+        <label for="lot" class="mx-2">Num Lot</label>
+        <input id="lot" type="text" class="form-control-dark form-control " name="lot" value="{{ lot ? lot : ''  }}"/>
+        <label for="pj" class="mx-2">Entidad</label>
+        <input id="pj" type="text" class="form-control-dark form-control " name="pj" value="{{ pj ? pj : ''  }}" />
+        <button class="btn btn-sm btn-primary ml-2"><i class="fas fa-search"></i> Buscar</button><a class="btn btn-sm btn-primary ml-2" href="{{ path('lotjuridicas_index') }}">Todas</a>
+        <div class="d-inline px-1 py-0">
+            <span >Listado:</span> <a class="my-0 text-decoration-none text-light" href="{{ path('lotjuridicas_export_myprov') }}">Prov <img class="export-file" src="{{ asset('Images/excel_lrg.gif') }}"></a>
+            {#<a class="my-0 text-decoration-none text-light" href="{{ path('lotjuridicas_export') }}">Nac <img class="export-file" src="{{ asset('Images/excel_lrg.gif') }}"></a>#}
+        </div>
+    </form>
+    <table class="table table-striped table-dark table-sm">
+    <thead>
+        <tr>
+            <th>Numero</th>
+            <th>Entidad(cant Bases de Transp)</th>
+            <th>Extension</th>
+            <th>Rama</th>
+            <th>Estado</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for entity in pagination %}
+        <tr>
+        {{ tramite.showlotFila(entity, loop) }}
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+    <div class="navigation">
+        {{ knp_pagination_render(pagination, 'utiles/twitter_bootstrap_v4_pagination.html.twig') }}
+    </div>
+{% endblock %}

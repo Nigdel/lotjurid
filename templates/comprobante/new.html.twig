@@ -1,0 +1,227 @@
+{% extends 'base2.html.twig' %}
+{% block body %}
+    <div class="jumbotron p-2">
+        <div class="container">
+            <h3 class="alert alert-success">
+                Comprobante de Medio de Transporte {{ medio.rama | capitalize }} </h3>
+            <p>Este comprobante amparar&aacute; al medio<a href="{{ path('medios_trans_show', {'id':medio.id }) }}"> <strong class="badge badge-pill badge-success"> {{ medio }}</strong></a> <br/>
+                Registrado en la basificacion <a href="{{ path('basificacion_show', {'idlbasiam': medio.basificacionObj.idlbasiam }) }}"><strong class="badge badge-primary"> {{ medio.basificacionObj }} </strong></a> <br/>
+                Perteneciente a la lot <strong class="badge badge-pill badge-warning">{{ comprobante.lot }}</strong> solicitada por la entidad <strong class="badge badge-pill badge-success">{{ comprobante.lot.identidad }}</strong>.
+                A prestar el servicio de <strong> {{ medio.Servicio }} </strong>
+            </p>
+        </div>
+    </div>
+    <div class="m-3 border-light border p-3 rounded">
+        {{ include('comprobante/_formNewByMedio.html.twig') }}
+    </div>
+
+    <div class="container">
+        <!-- Example row of columns -->
+        <div class="row">
+            <div class="col-md-5">
+                <h2 class="alert alert-success">Datos del medio {{ medio }}</h2>
+                {% if medio.rama.id == 1 %}
+                    {% include "medios_trans/cfautomotor.html.twig" with { 'medios_trans': medio }  %}
+                {% endif %}
+                {% if medio.rama.id == 2 %}
+                    {% include "medios_trans/cfmaritimo.html.twig" with { 'medios_trans': medio }  %}
+                {% endif %}
+                {% if medio.rama.id == 3 %}
+                    {% include "medios_trans/cfTAH.html.twig" with { 'medios_trans': medio }  %}
+                {% endif %}
+                {% if medio.rama.id == 4 %}
+                    {% include "medios_trans/cfferroviario.html.twig" with { 'medios_trans': medio }  %}
+                {% endif %}
+                {% if medio.rama.id == 5 %}
+                    {% include "medios_trans/cfMD.html.twig" with { 'medios_trans': medio }  %}
+                {% endif %}
+            </div>
+            <div class="col">
+                <h2 class="alert alert-dark">Detalles del Comprobante
+                    <a href="#" class="badge badge-pill badge-warning" data-toggle="modal" data-target="#lot">
+                        <i class="fa fa-eye"></i>
+                    </a>
+                </h2>
+                <div class="modal fade" id="lot" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-lg" role="document">
+                        <div class="lotmodal-dialog modal-content" >
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">{{ comprobante }}</h5>
+                                <button type="button" class="close danger" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body" style="background-image: url('{{ asset('Images/Comprobante.gif') }}');background-size: 100% 100%;height: 30rem; color: #1c1d2a">
+                                <div id="contenedor">
+                                    <div id="izq">
+                                        <div>
+                                            <article style="float: right">
+                                                <strong>{{ comprobante.lot }}</strong>
+                                            </article>
+                                            <br/>
+                                            <article>
+                                                A Favor de: {{ comprobante.lot.identidad }}
+                                            </article>
+                                            <br/>
+                                            <article>
+                                                Con Direccion: {{ comprobante.lot.identidad.direccion }}
+                                            </article>
+                                            <br/>
+                                            <article>
+                                                Servicio Autorizado:<br/>
+                                                {{ comprobante.lot.dictamen }}
+                                            </article>
+                                        </div>
+                                    </div>
+
+                                    <div id="der">
+                                        <div class="row">
+                                            <div class="col">
+                                                <article>
+                                                    Chapa<br/>
+                                                    {{ medio.nombre }}
+                                                </article>
+                                            </div>
+                                            <div class="col">
+                                                <article>
+                                                    Folio<br/>
+                                                    {{ comprobante.folio }}
+                                                </article>
+                                            </div>
+                                        </div>
+                                        <br/>
+                                        <article>
+                                            Tipo<br/>
+                                            {{ medio.tipoMedio }}
+                                        </article>
+                                        <br/>
+                                        <article>
+                                            Marca/Modelo<br/>
+                                            {{ medio.marca }} / {{ medio.modelo }}
+                                        </article>
+                                        <br/>
+                                        <article>
+                                            Lugar de Basificacion<br/>
+                                            {{ medio.basificacionObj }}
+                                        </article>
+                                        <br/>
+                                        <div class="row">
+                                            <div class="col">
+                                                Vigente Desde<br/>
+                                                {{ comprobante.femitido | date('d/m/Y') }}
+                                            </div>
+                                            <div class="col">
+                                                <article >
+                                                    Vence<br/>
+                                                    {{ comprobante.fvencimiento ? comprobante.fvencimiento| date('d/m/Y'): '' }}
+                                                </article>
+                                            </div>
+                                        </div>
+                                        <br/>
+                                        <article>
+                                            Firma<br/>
+                                            {{ "Pepe el mano suave" }}
+                                        </article>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <table class="table">
+                    <tbody>
+                    <tr>
+                        <th>Folio</th>
+                        <td>{{ comprobante.folio }}</td>
+                    </tr>
+                    <tr>
+                        <th>Estado</th>
+                        <td>{{ comprobante.estadoComp }}</td>
+                    </tr>
+                    <tr>
+                        <th>Fecha de Emitido</th>
+                        <td>{{ comprobante.femitido ? comprobante.femitido|date('d/m/Y') : '' }}</td>
+                    </tr>
+                    <tr>
+                        <th>Fecha de Vencimiento</th>
+                        <td>{{ comprobante.fvencimiento ? comprobante.fvencimiento|date('d/m/Y') : '' }}</td>
+                    </tr>
+                    <tr>
+                        <th>Fecha de Impresión</th>
+                        <td>{{ comprobante.fimpreso ? comprobante.fimpreso|date('d/m/Y') : '' }}</td>
+                    </tr>
+                    <tr>
+                        <th>Fecha de Entrega</th>
+                        <td>{{ comprobante.fentrega ? comprobante.fentrega|date('d/m/Y') : '' }}</td>
+                    </tr>
+                    <tr>
+                        <th>Fecha de Cancelación</th>
+                        <td>{{ comprobante.fcancel ? comprobante.fcancel|date('d/m/Y') : '' }}</td>
+                    </tr>
+                    <tr>
+                        <th>Sin Costo</th>
+                        <td>{{ comprobante.sincostp ? 'Si' : 'No' }}</td>
+                    </tr>
+                    <tr>
+                        <th>Duplicado</th>
+                        <td>{{ comprobante.duplicado ? 'Si' : 'No' }}</td>
+                    </tr>
+                    <tr>
+                        <th>Importe</th>
+                        <td id="tdimporte">{{ comprobante.importe }}</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+
+    </div>
+{% endblock %}
+{% block jsadicional %}
+    <script>
+        $(function () {
+            $('.datetimepicker4').datetimepicker({
+                format: 'L',
+                locale: 'es' });
+        });
+        function updateDictamen() {
+
+            var ext = $('#comprobante_extension option:selected');
+            var servSpan =  $('#comp_serv');
+
+            var cad = 'Servicio ' + tipo.text() + ' de ' + servAmp.text() + ' ' + rama.text() + '. ' + ext.text()+'.';
+
+
+            $('#lotjuridicas_dictamen').val(cad);
+        }
+        $('#limitante').hide();
+        $('#limitante').keyup( function () {
+            updateDictamen();
+        });
+
+        $(document).ready(function(){
+            var aseg= {{ medio.aseguramiento ? '1':'0' }};
+            if( aseg===1){
+                $('#ext').hide();
+            }
+                var selects= $('#comprobante_extension').change(function f() {
+                    var servSpan =  $('#comp_serv');
+                    servSpan.text('{{ medio.servicio }}. '+ $('#comprobante_extension option:selected').text());
+                    var valor=tarifa(eval($('#comprobante_extension option:selected').val()));
+                    $('#valorimporte').text(valor);
+                    $('#tdimporte').text(valor);
+                    // $('#comprobante_importe').text(valor);
+                    $('#comprobante_importe').val(valor);
+                });
+                selects.change();
+
+            }
+        );
+        function tarifa(ext){
+            var tarif={{ tarifas | raw }} ;
+            return tarif.filter(tarifa =>tarifa.extension.id === ext && tarifa.concepto.includes('Comp')).shift().valor;
+        }
+    </script>
+{% endblock %}
+

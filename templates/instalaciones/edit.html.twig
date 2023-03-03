@@ -1,0 +1,23 @@
+{% extends 'base2.html.twig' %}
+
+{% block title %}Instalaciones{% endblock %}
+
+{% block body %}
+    <h1>Modificar datos de la Instalación</h1>
+    {{ include('instalaciones/_form.html.twig', {'button_label': 'Guardar Cambios'}) }}
+
+{% endblock %}
+{% block topnavlink %}
+    <li class="nav-item active">
+        <a class="nav-link"  href="{{ path('instalaciones_index') }}"><i class="fa fa-list"></i> Listar Todos</a>
+    </li>
+    <li class="nav-item">
+    {{ include('instalaciones/_delete_form.html.twig') }}
+    </li>
+{% endblock %}
+{% block jsadicional %}
+<script type="text/javascript" src="{{ asset('js/utilServInstalaciones.js') }}" ></script>
+<script type="text/javascript">
+    toprol();
+</script>
+{% endblock %}

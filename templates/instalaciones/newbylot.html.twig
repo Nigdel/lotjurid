@@ -1,0 +1,22 @@
+{% extends 'base2.html.twig' %}
+
+{% block title %}Instalaciones{% endblock %}
+
+{% block body %}
+    <h1>Nueva Instalacion - Lot: <a class="badge badge-pill badge-warning" href="{{ path('lotjuridicas_show', {'id': instalacione.lot.id}) }}">{{ instalacione.lot }}</a></h1>
+
+    {{ include('instalaciones/_formNewByLot.html.twig') }}
+
+
+{% endblock %}
+{% block topnavlink %}
+<li class="nav-item active">
+    <a class="nav-link" href="{{ path('instalaciones_index') }}"><i class="fa fa-list"></i> Listar Todas</a>
+</li>
+{% endblock %}
+{% block jsadicional %}
+    <script type="text/javascript" src="{{ asset('js/utilServInstalaciones.js') }}" ></script>
+    <script type="text/javascript">
+        toprol();
+    </script>
+{% endblock %}

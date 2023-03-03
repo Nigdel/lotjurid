@@ -1,0 +1,47 @@
+<div class="row mb-3">
+    <div class="col-6">
+        <div class="card">
+            <div class="card-header">
+                {{ user.nombreApellidos }} {% if user.id == app.user.id %} <a class="btn btn-sm btn-warning mx-1" href="{{ path('userperf_edit') }}"> <i class="fa fa-edit"></i></a> <a class="btn btn-sm btn-info mx-1" href="{{ path('user_chgpassw') }}"> <i class="fa fa-key"></i></a> {% endif %}
+            </div>
+            <div class="card-body">
+                <table class="table table-striped">
+                    <tr>
+                        <th>Email</th>
+                        <td>{{ user.email }}</td>
+                    </tr>
+                    <tr>
+                        <th>Carnet de Funcionario</th>
+                        <td>{{ user.carnetFuncionario }}</td>
+                    </tr>
+                    <tr>
+                        <th>Municipio</th>
+                        <td>{{ user.municipio }}</td>
+                    </tr>
+                    {%  if user.fechaContratacion %}
+                    <tr>
+                        <th>Fecha de Contrataci&oacute;n</th>
+                        <td> {{ user.fechaContratacion | date("d-m-Y") }}</td>
+                    </tr>
+                    {% endif %}
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="row mx-3">
+       <div class="card p-0">
+           <div class="card-header">
+               <img class="rounded" src="{{ asset('plantilla/300_25.jpg') }}" alt="Foto del Perfil" style="width: 200px; height: 200px;" />
+           </div>
+           <div class="card-body p-2 my-0">
+               <table class="table">
+                   <tr>
+                       <th>Tramites Realizados</th>
+                       <td>{{ user.tramites ? user.tramites |length :'0' }}</td>
+                   </tr>
+
+               </table>
+           </div>
+       </div>
+    </div>
+</div>

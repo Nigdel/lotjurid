@@ -1,0 +1,54 @@
+{% extends 'base2.html.twig' %}
+{% block body %}
+<h1 class="alert alert-primary">SNL-07-22 Informativo sobre Instalaciones con comprobantes <span class="badge badge-warning">{{ prov }}</span> </h1>
+    <div class="container">
+        <div class="card">
+            <div class="card-header"> <h1>Instalaciones con Comprobantes</h1> </div>
+            <div class="card-body">
+
+                <table class="table table-striped table-dark table-sm" id="lotsv">
+                    <tr class="text-primary">
+                        <th>Servicio a Prestar</th>
+                        <th>Publico</th>
+                        <th>Limitado</th>
+                        <th>Propio</th>
+                        <th>Total</th>
+                    </tr>
+
+                    {% for inst in instalaciones %}
+                        <tr>
+                            <td>{{ inst.nombreservicio }}</td>
+                            <td>{{ inst.Publicas }}</td>
+                            <td>{{ inst.Limitadas }}</td>
+                            <td>{{ inst.Propias }}</td>
+                            <td>{{ inst.total }}</td>
+                        </tr>
+
+                    {% else %}
+                        <tr><td colspan="5">No se obtuvieron resultados</td></tr>
+                    {% endfor %}
+                    <tr class="text-warning">
+                        <td >Totales</td>
+                        <td>{{ totales[0].tpublicas }}</td>
+                        <td>{{ totales[0].tlimitadas }}</td>
+                        <td>{{ totales[0].tpropias }}</td>
+                        <td>{{ totales[0].total }}</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+{% block topnavlink %}
+    <li class="nav-item">
+        <a class="nav nav-link" href="{{ path('estadisticaprov_SNL', {'id': '0701','prov': prov.id}) }}"><i class="fa fa-list"></i> SNL0701 </a>
+    </li>
+    <li class="nav-item">
+        <a class="nav nav-link" href="{{ path('estadisticaprov_SNL', {'id': '0702','prov': prov.id}) }}"><i class="fa fa-list"></i> SNL0702 </a>
+    </li>
+    <li class="nav-item">
+        <a class="nav nav-link" href="{{ path('estadisticaprov_SNL', {'id': '0703','prov': prov.id}) }}"><i class="fa fa-list"></i> SNL0703 </a>
+    </li>
+
+{% endblock %}

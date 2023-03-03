@@ -1,0 +1,11 @@
+{% extends 'base2.html.twig' %}
+
+{% block title %}New ServicioAmparado{% endblock %}
+
+{% block body %}
+    <h1>Create new ServicioAmparado</h1>
+
+    {{ include('servicio_amparado/_form.html.twig') }}
+
+    <a href="{{ path('servicio_amparado_index') }}">back to list</a>
+{% endblock %}

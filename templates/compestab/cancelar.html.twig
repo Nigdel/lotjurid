@@ -1,0 +1,41 @@
+{% extends 'base2.html.twig' %}
+{% block title %}Cancelar Comprobante{% endblock %}
+{% block body %}
+    {% include 'compestab/ComprobanteHeader.html.twig' with{ title : 'cancelar'} %}
+    <div class="m-3 border-light border p-3 rounded">
+        <form onsubmit="return confirm('Presione Aceptar para cancelar este comprobante?');" method="post" >
+            <div class="form-row col-md-4 pl-0">
+                <label for="fechacancel">Fecha de Cancelacion</label>
+                <input type="text" name="fechacancel" id="fechacancel" class="form-control datetimepicker4" required>
+            </div>
+            <div class="form-row">
+                <label for="causacancel">Causa de Cancelacion</label>
+                <select class="form-control mi-selector" id="causacancel" name="causacancel" required>
+                    {% for causa in causas %}
+                        <option value="{{ causa.id }}">{{ causa.Causa }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="form-row mt-2">
+                <input type="submit" class="btn btn-sm btn-danger" value="Cancelar Comprobante" />
+                <a href="{{ path('compestab_index') }}" class="btn btn-sm btn-info mx-3 px-2">Descartar</a>
+            </div>
+        </form>
+    </div>
+
+    {% include 'compestab/Detallesdelcomprobante.html.twig' %}
+
+{% endblock %}
+{% block jsadicional %}
+    <script type="text/javascript">
+        $(function () {
+            $('.datetimepicker4').datetimepicker({
+                format: 'L',
+                locale: 'es' });
+        });
+        $('.mi-selector').select2();
+        $('.select2').css('width','100%');
+        $('.select2-selection__rendered').addClass('select2-selection__rendered form-control');
+    </script>
+
+{% endblock %}

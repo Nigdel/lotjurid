@@ -1,0 +1,26 @@
+{% extends 'base2.html.twig' %}
+
+{% block title %}EstadoLot{% endblock %}
+
+{% block body %}
+    <h1>EstadoLot</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ estado_lot.id }}</td>
+            </tr>
+            <tr>
+                <th>NombreEstado</th>
+                <td>{{ estado_lot.nombreEstado }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('estado_lot_index') }}">back to list</a>
+
+    <a href="{{ path('estado_lot_edit', {'id': estado_lot.id}) }}">edit</a>
+
+    {{ include('estado_lot/_delete_form.html.twig') }}
+{% endblock %}

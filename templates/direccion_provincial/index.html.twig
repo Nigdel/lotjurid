@@ -1,0 +1,37 @@
+{% extends 'base2.html.twig' %}
+{% block body %}
+    {% if is_granted("ROLE_ADMIN") %}
+    <h3>Direcciones Provinciales <span class="badge badge-pill badge-danger">{{ direccion_provincials | length }}</span></h3>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Provincia</th>
+                <th>Direccion</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for direccion_provincial in direccion_provincials %}
+            <tr>
+                <td>{{ direccion_provincial.id }}</td>
+                <td>{{ direccion_provincial.provincia }}</td>
+                <td>{{ direccion_provincial.direccion }}</td>
+
+                <td>
+                    <a href="{{ path('direccion_provincial_show', {'id': direccion_provincial.id}) }}">show</a>
+                    <a href="{{ path('direccion_provincial_edit', {'id': direccion_provincial.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="4">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('direccion_provincial_new') }}">Create new</a>
+    {% endif %}
+{% endblock %}

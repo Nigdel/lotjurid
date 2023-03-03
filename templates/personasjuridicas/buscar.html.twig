@@ -1,0 +1,41 @@
+{% extends 'base2.html.twig' %}
+{% block body %}
+    <h1>Buscar Personas Juridicas</h1>
+    <form>
+        <fieldset class="form-group">
+            <div class="row">
+
+                <div class="col-3">
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios1" value="option1" checked>
+                        <label class="form-check-label" for="gridRadios1">
+                            Reup
+                        </label>
+                        <input class="form-control" type="text" placeholder="Reup">
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios2" value="option2">
+                        <label class="form-check-label" for="gridRadios2">
+                            Nombre
+                        </label>
+                        <input class="form-control" type="text" placeholder="Nombre">
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios3" value="option3" >
+                        <label class="form-check-label" for="gridRadios3">
+                            Municipio
+                        </label>
+                        <input class="form-control" type="text" placeholder="Municipio">
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios3" value="option4" >
+                        <label class="form-check-label" for="gridRadios3">
+                            Provincia
+                        </label>
+                        <input class="form-control" type="text" placeholder="Provincia">
+                    </div>
+                </div>
+            </div>
+        </fieldset>
+    </form>
+{% endblock %}

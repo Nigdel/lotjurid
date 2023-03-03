@@ -1,0 +1,9 @@
+<div class="row">
+    <div class="col-md-6">
+        {% include 'instalaciones/detalleinstalacion.html.twig' with{'instalacione':compestab.instalacion } %}
+        {% include 'lotjuridicas/detalleslot.html.twig' with {'lot': compestab.instalacion.lot } %}
+    </div>
+    <div class="col">
+        {% include 'compestab/detallesdelcomprobantemin.html.twig' %}
+    </div>
+</div>

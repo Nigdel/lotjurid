@@ -1,0 +1,374 @@
+body {
+  font-size: .875rem;
+  background-color: #F2F3F8;
+}
+
+.feather {
+  width: 16px;
+  height: 16px;
+  vertical-align: text-bottom;
+}
+
+/*
+ * Sidebar
+ */
+
+.sidebar {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 100; /* Behind the navbar */
+  padding: 48px 0 0; /* Height of navbar */
+  box-shadow: inset -1px 0 0 rgba(0, 0, 0, .1);
+}
+
+@media (max-width: 767.98px) {
+  .sidebar {
+    top: 5rem;
+  }
+}
+
+.sidebar-sticky {
+  position: relative;
+  top: 0;
+  height: calc(100vh - 48px);
+  padding-top: .5rem;
+  overflow-x: hidden;
+  overflow-y: auto; /* Scrollable contents if viewport is shorter than content. */
+  background-color: #242939;
+}
+
+@supports ((position: -webkit-sticky) or (position: sticky)) {
+  .sidebar-sticky {
+    position: -webkit-sticky;
+    position: sticky;
+  }
+}
+
+.sidebar .nav-link {
+  font-weight: 500;
+  color: #c0c4d1;
+}
+
+.sidebar .nav-link .feather {
+  margin-right: 2px;
+  color: #5867dd;
+}
+
+.sidebar .nav-link.active {
+  color: #5867dd;
+}
+
+.sidebar .nav-link:hover .feather,
+.sidebar .nav-link.active .feather {
+  color: inherit;
+}
+
+.sidebar-heading {
+  font-size: .75rem;
+  text-transform: uppercase;
+}
+
+/*
+ * Navbar
+ */
+
+.navbar-brand {
+  padding-top: .75rem;
+  padding-bottom: .75rem;
+  font-size: 1rem;
+  background-color: rgba(0, 0, 0, .25);
+  box-shadow: inset -1px 0 0 rgba(0, 0, 0, .25);
+}
+
+.navbar .navbar-toggler {
+  top: .25rem;
+  right: 1rem;
+}
+
+.navbar .form-control {
+  padding: .75rem 1rem;
+  border-width: 0;
+  border-radius: 0;
+}
+
+.form-control-dark {
+  color: #fff;
+  background-color: rgba(255, 255, 255, .1);
+  border-color: rgba(255, 255, 255, .1);
+}
+
+.form-control-dark:focus {
+  border-color: transparent;
+  box-shadow: 0 0 0 3px rgba(255, 255, 255, .25);
+}
+.accordion-triger:after{
+    content: '\2212';
+  }
+.accordion-triger.collapsed:after{
+  content: '\002B';
+  font-weight: bold;
+  float: right;
+  margin-left: 5px;
+}
+/* Estilo de los acordeons del menu lateral izq*/
+/* Style the buttons that are used to open and close the accordion panel */
+.accordion {
+  /*background-color: #eee;*/
+  /*color: #444;*/
+  cursor: pointer;
+  /*padding: 18px;*/
+  width: 100%;
+  text-align: left;
+  border: none;
+  outline: none;
+  transition: 0.4s;
+}
+
+/* Add a background color to the button if it is clicked on (add the .active class with JS), and when you move the mouse over it (hover) */
+/*.active, .accordion:hover {*/
+  /*background-color: #ccc;*/
+/*}*/
+
+/* Style the accordion panel. Note: hidden by default */
+.panel {
+  padding: 0 5px;
+  /*background-color: white;*/
+  /*display: none;*/
+  overflow: hidden;
+  max-height: 0;
+  transition: max-height 0.4s ease-in-out;
+}
+.panel ul {
+  padding-left: 0.5em;
+}
+
+.accordion:after {
+  content: '\02795'; /* Unicode character for "plus" sign (+) */
+  font-size: 13px;
+  color: #777;
+  float: right;
+  margin-left: 5px;
+}
+
+.accordion.active:after {
+  content: "\2796"; /* Unicode character for "minus" sign (-) */
+}
+.panel a:hover{
+  padding-left: 1.7em;
+  /*font-style: italic;*/
+  background-color: rgba(93, 108, 246, 0.57);
+}
+h1, h2, h3{
+  color: #c0c4d1;
+  background-color: #454d60;
+  border-color: #b8daff;
+  padding-left: 1.5rem !important;
+  padding-right: 1.5rem !important;
+  font-size: 1.75rem;
+  border-radius: 0.4rem !important;
+  padding-bottom: 0.2rem !important;
+  /*box-shadow: 5px 5px 5px 0 rgba(0,0,0,100);*/
+}
+/*****************************************************************************/
+.theme-dark {
+  --page-background: #36393e;
+  --color-text: #e0e0e0;
+  --color-muted: #777;
+  --color-error: #d43934;
+  --tab-background: #555;
+  --tab-color: #ccc;
+  --tab-active-background: #888;
+  --tab-active-color: #fafafa;
+  --tab-disabled-background: var(--page-background);
+  --tab-disabled-color: #777;
+  --metric-value-background: #555;
+  --metric-value-color: inherit;
+  --metric-unit-color: #999;
+  --metric-label-background: #777;
+  --metric-label-color: #e0e0e0;
+  --trace-selected-background: #71663acc;
+  --table-border: #444;
+  --table-background: #333;
+  --table-header: #555;
+  --info-background: rgba(79, 148, 195, 0.5);
+  --tree-active-background: var(--metric-label-background);
+  --exception-title-color: var(--base-2);
+  --shadow: 0px 0px 1px rgba(32, 32, 32, .2);
+  --border: 1px solid #666;
+  --background-error: #b0413e;
+  --highlight-comment: #dedede;
+  --highlight-default: var(--base-6);
+  --highlight-keyword: #ff413c;
+  --highlight-string: #70a6fd;
+  --base-0: #2e3136;
+  --base-1: #444;
+  --base-2: #666;
+  --base-3: #666;
+  --base-4: #666;
+  --base-5: #e0e0e0;
+  --base-6: #f5f5f5;
+  --card-label-background: var(--tab-active-background);
+  --card-label-color: var(--tab-active-color);
+}
+
+body {
+  background-color: var(--page-background);
+  color: var(--base-6);
+  display: flex;
+  flex-direction: column;
+  font-family: var(--font-sans-serif);
+  font-size: 14px;
+  line-height: 1.4;
+}
+html, body {
+  height: 100%;
+  width: 100%;
+}
+body {
+  margin: 0;
+}
+* {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+user agent stylesheet
+body {
+  display: block;
+  margin: 8px;
+}
+:root {
+  --font-sans-serif: Helvetica, Arial, sans-serif;
+  --page-background: #f9f9f9;
+  --color-text: #222;
+  --color-muted: #999;
+  --color-success: #4f805d;
+  --color-warning: #a46a1f;
+  --color-error: #b0413e;
+  --tab-background: #fff;
+  --tab-color: #444;
+  --tab-active-background: #666;
+  --tab-active-color: #fafafa;
+  --tab-disabled-background: #f5f5f5;
+  --tab-disabled-color: #999;
+  --metric-value-background: #fff;
+  --metric-value-color: inherit;
+  --metric-unit-color: #999;
+  --metric-label-background: #e0e0e0;
+  --metric-label-color: inherit;
+  --trace-selected-background: #F7E5A1;
+  --table-border: #e0e0e0;
+  --table-background: #fff;
+  --table-header: #e0e0e0;
+  --info-background: #ddf;
+  --tree-active-background: #F7E5A1;
+  --exception-title-color: var(--base-2);
+  --shadow: 0px 0px 1px rgba(128, 128, 128, .2);
+  --border: 1px solid #e0e0e0;
+  --background-error: var(--color-error);
+  --highlight-comment: #969896;
+  --highlight-default: #222222;
+  --highlight-keyword: #a71d5d;
+  --highlight-string: #183691;
+  --base-0: #fff;
+  --base-1: #f5f5f5;
+  --base-2: #e0e0e0;
+  --base-3: #ccc;
+  --base-4: #666;
+  --base-5: #444;
+  --base-6: #222;
+  --card-label-background: #eee;
+  --card-label-color: var(--base-6);
+}
+.jumbotron {
+  padding: 2rem 1rem;
+  margin-bottom: 1rem;
+  background-color: #555555;
+  border-radius: 0.3rem;
+  border: solid #444444;
+}
+.table {
+  background: var(--base-0);
+  border: var(--border);
+  box-shadow: var(--shadow);
+  margin: 1em 0;
+  width: 100%;
+  color: #c4d7d7;
+}
+.card{
+  position: relative;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  min-width: 0;
+  word-wrap: break-word;
+  background-color: inherit;
+  background-clip: border-box;
+  border: 1px solid rgba(0, 0, 0, 0.125);
+  border-radius: 0.25rem;
+}
+.lotmodal-dialog{
+  background: linear-gradient(45deg, #101460, #5c4add);
+}
+.modal-body { color: #1e2b55;}
+
+#izq {
+  float: left;
+  padding:95px 10px  10px 15px;
+  top: 10px;
+  width: 40%;
+  height: 93%;
+
+  /* background-color: #00aa88;*/
+}
+#der {
+  float: right;
+  padding: 10px;
+  top: 10px;
+  width: 46%;
+  height: 93%;
+  /*background-color: #00ccff;*/
+}
+
+.col-form-label{
+    color: #e4faff;
+}
+.modal-body label {
+    color: #e4faff ;
+}
+#tabpers.active {
+  color: #495057;
+  background-color: #242939;
+  border-color: #dee2e6 #dee2e6 #fff;
+}
+.export-file {
+ height: 2rem;
+}
+.loader {
+  position: fixed;
+  left: 0px;
+  top: 0px;
+  width: 100%;
+  height: 100%;
+  z-index: 9999;
+  background: url('../Images/blue-loading.gif') 50% 50% no-repeat rgb(1, 3, 2);
+  opacity: .8;
+}
+
+h1{
+  background-image:linear-gradient(to right,#00F260,#f79d00,#0575e6,#64f386);
+  -webkit-background-clip: text;
+  color:transparent;
+  background-size: 300%;
+  background-position: -100%;
+  animation: animatedText 5s infinite alternate-reverse;
+  
+}
+@keyframes animatedText{
+to {
+background-position: 100%;
+}
+}

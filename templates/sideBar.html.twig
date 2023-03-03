@@ -1,0 +1,330 @@
+<nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-dark sidebar collapse">
+    <div class="sidebar-sticky pt-3">
+        <ul class="nav flex-column">
+            {#pj#}
+            <li class="nav-item">
+                <a class="nav-link accordion" href="#">
+                    <!--Sincronizar icon <i class="fas fa-sync-alt fa-spin" style="color:#5867dd"></i>-->
+                    <i class="fas fa-address-book" style="color:#5867dd"></i>
+                    Personas Jur&iacute;dicas <span class="sr-only">(current)</span>
+                </a>
+                <div class="panel">
+                    <ul>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ path('personasjuridicas_index') }}">
+                                <i class="far fa-clone" style="color:#5867dd"></i>
+                                Listar</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#" data-toggle="modal" data-target="#personasjuridicasModal">
+                                <i class="fas fa-search" style="color:#5867dd"></i>
+                                Buscar</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ path('personasjuridicas_new') }}">
+                                <i class="fas fa-plus-circle" style="color:#48dd86"></i>
+                                Nueva</a>
+                        </li>
+
+                    </ul>
+                </div>
+            </li>
+            {#lots#}
+            <li class="nav-item">
+                <a class="nav-link accordion" href="#">
+                    <i class="fas fa-credit-card" style="color:#5867dd"></i>
+                    Lic. Operaci&oacute;n
+                </a>
+                <div class="panel">
+                    <ul>
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ path('lotjuridicas_index') }}">
+                                <i class="far fa-clone" style="color:#5867dd"></i>
+                                Listar</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#" data-toggle="modal" data-target="#lotjuridicasModal">
+                                <i class="fas fa-search" style="color:#5867dd"></i>
+                                Buscar</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ path('lotjuridicas_pteAprob') }}">
+                                <i class="fas fa-check-square" style="color:#5867dd"></i>
+                                Aprobaci&oacute;n</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ path('lotjuridicas_ptesimpresion') }}">
+                                <i class="fas fa-print" style="color:#5867dd"></i>
+                                Ptes de Impresion</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ path('lotjuridicas_ptesentrega') }}">
+                                <i class="fas fa-gifts" style="color:#5867dd"></i>
+                                Ptes de Entrega</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ path('lotjuridicas_canceladas') }}">
+                                <i class="fa fa-times-circle text-danger"></i>
+                                Canceladas</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ path('lotjuridicas_canceladasBasifAqui') }}">
+                                <i class="fa fa-times-circle text-warning"></i>
+                                Canceladas Basif aquí</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ path('lotjuridicas_trambyme') }}">
+                                <i class="fas fa-arrow-right" style="color:#48dd86"></i>
+                                Tramitadas por mí</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ path('lotjuridicas_aprobbyme') }}">
+                                <i class="fas fa-arrow-right" style="color:#48dd86"></i>
+                                Aprobadas por mí</a>
+                        </li>
+                    </ul>
+                </div>
+            </li>
+            {#instal#}
+            <li class="nav-item">
+                <a class="nav-link accordion" href="#">
+                    <i class="fas fa-hospital" style="color:#5867dd"></i>
+                    Instalaciones
+                </a>
+                <div class="panel">
+                    <ul>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ path('instalaciones_index') }}">
+                                <i class="far fa-clone" style="color:#5867dd"></i>
+                                Listar Inst</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ path('compestab_index') }}">
+                                <i class="far fa-clone" style="color:#5867dd"></i>
+                                Listar Comps</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#" data-toggle="modal" data-target="#estabModal">
+                                <i class="fas fa-search text-success"></i>
+                                Buscar Instalaciones</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ path('compestab_ptesimpress') }}">
+                                <i class="fas fa-print" style="color:#5867dd"></i>
+                                Comps Ptes Impress</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ path('compestab_ptesentrega') }}">
+                                <i class="fas fa-gifts" style="color:#5867dd"></i>
+                                Comps Ptes Entrega</a>
+                        </li>
+                    </ul>
+                </div>
+
+            </li>
+            {#basif#}
+            <li class="nav-item">
+                <a class="nav-link accordion" href="#">
+                    <i class="fas fa-bus" style="color:#5867dd"></i>
+                    Basificaciones
+                </a>
+                <div class="panel">
+                    <ul>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ path('basificacion_index') }}">
+                                <i class="far fa-clone" style="color:#5867dd"></i>
+                                Listar</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">
+                                <i class="fas fa-binoculars" style="color:#5867dd"></i>
+                                Buscar</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ path('basificacion_new') }}">
+                                <i class="fas fa-plus-circle" style="color:#48dd86"></i>
+                                Nueva</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">
+                                <i class="fas fa-trash " style="color:#dd5049"></i>
+                                Eliminar</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">
+                                <i class="fas fa-truck-pickup" style="color:#5867dd"></i>
+                                Automotor</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">
+                                <i class="fab fa-sticker-mule" style="color:#5867dd"></i>
+                                TAH</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">
+                                <i class="fas fa-water" style="color:#5867dd"></i>
+                                Mar&iacute;timo</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">
+                                <i class="fas fa-train" style="color:#5867dd"></i>
+                                Ferroviario</a>
+                        </li>
+                    </ul>
+                </div>
+            </li>
+            {#medios#}
+            <li class="nav-item">
+                <a class="nav-link accordion" href="#">
+                    <i class="fas fa-bus" style="color:#5867dd"></i>
+                    Medios de Transp
+                </a>
+                <div class="panel">
+                    <ul>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ path('medios_trans_index') }}">
+                                <i class="far fa-clone" style="color:#5867dd"></i>
+                                Listar</a>
+                        </li>
+                        {#<li class="nav-item">#}
+                            {#<a class="nav-link" href="{{ path('medios_trans_new') }}">#}
+                                {#<i class="fas fa-plus-circle" style="color:#48dd86"></i>#}
+                                {#Nuevo</a>#}
+                        {#</li>#}
+                        <li class="nav-item">
+                            <a class="nav-link" href="#" data-toggle="modal" data-target="#MediosModal">
+                                <i class="fas fa-search text-success "></i>
+                                Buscar</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">
+                                <i class="fas fa-truck-pickup" style="color:#5867dd"></i>
+                                Automotor</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">
+                                <i class="fab fa-sticker-mule" style="color:#5867dd"></i>
+                                TAH</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">
+                                <i class="fas fa-water" style="color:#5867dd"></i>
+                                Mar&iacute;timo</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">
+                                <i class="fas fa-train" style="color:#5867dd"></i>
+                                Ferroviario</a>
+                        </li>
+                    </ul>
+                </div>
+            </li>
+            {#comps#}
+            <li class="nav-item">
+                <a class="nav-link accordion" href="#">
+                    <i class="fas fa-newspaper" style="color:#5867dd"></i>
+                    Comprobantes
+                </a>
+                <div class="panel">
+                    <ul>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ path('comprobante_index') }}">
+                                <i class="far fa-clone" style="color:#5867dd"></i>
+                                Listar Todos</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#" data-toggle="modal" data-target="#CompModal">
+                                <i class="fas fa-search text-success "></i>
+                                Buscar</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ path('comprobante_ptesimpress') }}">
+                                <i class="fas fa-print" style="color:#93aedd"></i>
+                                Ptes de Impresion</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ path('comprobante_ptesentrega') }}">
+                                <i class="fas fa-gifts" style="color:#91b3dd"></i>
+                                Ptes de Entrega</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ path('comprobante_retirados') }}">
+                                <i class="fas fa-times" style="color:rgba(158,24,22,0.82)"></i>
+                                Retirados</a>
+                        </li>
+
+                    </ul>
+                </div>
+            </li>
+
+            <li>
+                <div class="dropdown-divider"></div>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link" href="{{ path('direccion_nacional_index') }}">
+                    <i class="fas fa-user" style="color:#5867dd"> </i>
+                    Direcci&oacute;n Nacional
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{ path('direccion_provincial_index') }}">
+                    <i class="fas fa-user" style="color:#5867dd"> </i>
+                    Direcci&oacute;n Provincial
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{ path('oficina_mcpal_index') }}">
+                    <i class="fas fa-user" style="color:#5867dd"> </i>
+                    Oficina Municipal
+                </a>
+            </li>
+            <li>
+                <div class="dropdown-divider"></div>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link animate-blink" href="{{ path('direccion_nacional_index') }}">
+                       <i class="fas fa-question text-warning"> </i>
+                       Ayuda
+                   </a>
+            </li>
+            {% if is_granted('ROLE_ADMIN') %}
+                <a class="nav-link accordion" href="#">
+                    <!--Sincronizar icon <i class="fas fa-sync-alt fa-spin" style="color:#5867dd"></i>-->
+                    <i class="fas fa-users" style="color:#5867dd"></i>
+                    Gestion de Usuarios <span class="sr-only">(current)</span>
+                </a>
+                <div class="panel">
+                    <ul>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ path('user_index') }}">
+                                <i class="far fa-clone" style="color:#5867dd"></i>
+                                Listar</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">
+                                <i class="fas fa-binoculars" style="color:#5867dd"></i>
+                                Buscar</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ path('register') }}">
+                                <i class="fas fa-plus-circle" style="color:#48dd86"></i>
+                                Nuevo</a>
+                        </li>
+                    </ul>
+                </div>
+
+
+
+            {% elseif is_granted('ROLE_ADMIN') %}
+                {# ... #}
+            {% endif %}
+
+
+        </ul>
+    </div>
+</nav>

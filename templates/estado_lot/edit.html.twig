@@ -1,0 +1,13 @@
+{% extends 'base2.html.twig' %}
+
+{% block title %}Edit EstadoLot{% endblock %}
+
+{% block body %}
+    <h1>Edit EstadoLot</h1>
+
+    {{ include('estado_lot/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('estado_lot_index') }}">back to list</a>
+
+    {{ include('estado_lot/_delete_form.html.twig') }}
+{% endblock %}

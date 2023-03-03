@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<HTML>
+<HEAD>
+    <TITLE>{{ title | default('comprobante') }}</TITLE>
+    <META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+    <link href="{{ asset('css/fontawesome5/css/all.css') }}" rel="stylesheet">
+    <style>
+        @media print {
+            body * {
+                visibility: hidden;
+
+            }
+            #section-to-print, #section-to-print * {
+                visibility: visible;
+            }
+            #section-to-print {
+                position: absolute;
+                left: 0;
+                top: 0;
+            }
+        }
+        @page {
+            margin:0px;
+            padding: 0px;
+            /*size:lot;*/
+        }
+        body {
+            font-size: 10pt;
+            font-family: sans-serif;
+            font-style: initial;
+
+        }
+        table{
+            font-size: 10pt;
+        }
+        #section-to-print {
+            size: auto ;
+            /*background-color: #0b2e13;*/
+            padding: 10px;
+            position: absolute;
+            align-content: center;
+        }
+        #izq {
+            float: left;
+            /*padding: 10px;*/
+            margin-left: 0.6cm;
+            top: 10px;
+            width: 6cm;
+            height: 9.3cm;
+            background-color: #00aa88;
+            position: absolute;
+        }
+        #der {
+            float: right;
+            margin-left: 7.62cm;
+            /*padding: 10px;*/
+            top: 10px;
+            width: 6cm;
+            height: 9.3cm;
+            background-color: #00ccff;
+            position: absolute;
+        }
+        #menu{
+            align-content: center;
+            /*position: absolute;*/
+            text-align: center;
+            background-color: #2b2b2b;
+            padding: 0.18cm;
+            border-radius: 0.1cm;
+            align-self: center;
+            /*width: 80%;*/
+
+        }
+        #menu button {
+            /*margin: 5pt;*/
+            /*color:#5f2dab;*/
+            /*align-self: center;*/
+            /* Para <button> */
+            font-family: inherit;
+            font-size: inherit;
+            line-height: inherit;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            /*border: none;*/
+            background: none;
+            cursor: pointer;
+            /*padding: 0;*/
+
+            /* Para <a> */
+            display: inline-block;
+            text-decoration: none;
+
+            /* Otros */
+            margin: 8px;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+            white-space: nowrap;
+            vertical-align: middle;
+            padding: 0.375rem 0.75rem;
+            border: 1px solid #8ab4f8;
+            border-radius: 0.25rem;
+            color: #8ab4f8;
+            transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out;
+            text-transform: uppercase;
+        }
+        #menu button:active, #menu button:hover, #menu button:focus
+        {
+            color: #fff;
+            background-color: #007bff;
+        }
+    </style>
+</HEAD>
+<BODY BGCOLOR=#FFFFFF LEFTMARGIN=0 TOPMARGIN=0 MARGINWIDTH=0 MARGINHEIGHT=0>
+<div id="menu">
+    <button onclick='window.open("{{ path('comprobante_descargar',{'id': comp.id, 'folio':comp.folio }) }}");'> <i class="fa fa-file-pdf"></i> Descargar como pdf</button>
+    <button onclick="window.print();"><i class="fa fa-print"></i> Imprimir</button>
+</div>
+<div style="align-content: center; padding: 3cm;">
+ {% include "comprobante/printable.html.twig" %}
+</div>
+{#<script type="text/javascript">#}
+{#</script>#}
+<script src="{{ asset('css/fontawesome5/js/all.js') }}"></script>
+</BODY>
+</HTML>

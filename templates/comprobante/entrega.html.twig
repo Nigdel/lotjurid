@@ -1,0 +1,30 @@
+{% extends 'base2.html.twig' %}
+
+{% block title %}Entrega{% endblock %}
+
+{% block body %}
+    {% include 'comprobante/comprobanteHeader.html.twig' %}
+    <div class="m-3 border-light border p-3 rounded">
+        <form method="post" class="m-3">
+            <div class="row">
+                <div class="col-4 mb-3">
+                    <label for="fechaaprob" >Fecha de Entrega</label>
+                    <input type="text" class="form-control datetimepicker4" name="fechaentrega" id="fechaentrega" required />
+                </div>
+            </div>
+            <button class="btn btn-primary btn-sm">Entregar</button>
+        </form>
+    </div>
+
+    {% include 'comprobante/DetallesComprobante.html.twig' %}
+
+{% endblock %}
+{% block jsadicional %}
+    <script>
+        $(function () {
+            $('.datetimepicker4').datetimepicker({
+                format: 'L',
+                locale: 'es' });
+        });
+    </script>
+{% endblock %}

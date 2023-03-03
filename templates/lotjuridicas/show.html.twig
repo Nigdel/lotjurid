@@ -1,0 +1,56 @@
+{% extends 'base2.html.twig' %}
+{% block body %}
+    {% from 'Sitio/utilidades.html.twig' import estadolot %}
+    <div class="jumbotron p-1">
+        <div class="container">
+            <h3 class="alert alert-success">
+                Licencia de Operacion de Transporte {{ lotjuridica | capitalize }} {% if not lotjuridica.Fimpresion %}  <a  href="{{ path('lotjuridicas_edit', {'id': lotjuridica.id }) }}"><i class="fa fa-edit"></i> </a>{% endif %} </h3>
+            <p>
+                La misma se encuentra: {{ estadolot(lotjuridica.idestado) }} y cuenta con <a href="#basificaciones" class="badge badge-light">{{ lotjuridica.basificaciones | length }} basificaciones</a>  y <a href="#instalaciones" class="badge badge-light">{{ lotjuridica.instalaciones | length }} Instalaciones</a> <br/>
+                Solicitada por la entidad <a class="badge badge-pill badge-success" href="{{ path('personasjuridicas_show', {'id': lotjuridica.identidad.id }) }}" >{{ lotjuridica.identidad }}</a>.<br/>
+                Servicio: <strong> {{ lotjuridica.dictamen }} </strong>
+            </p>
+        </div>
+    </div>
+    <div class="card-columns">
+        <div class="card" >
+            <div class="card-body">
+                {% include 'personasjuridicas/detallespj.html.twig' with {'pj': lotjuridica.identidad }  %}
+            </div>
+        </div>
+        <div class="card" id="basificaciones">
+            <div class="card-body">
+                {% include 'lotjuridicas/basificaciones.html.twig' with{ 'bases': lotjuridica.basificaciones }  %}
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-body">
+                {% include 'lotjuridicas/detalleslot.html.twig' with{ 'lot': lotjuridica }  %}
+            </div>
+        </div>
+        <div class="card" id="instalaciones">
+            <div class="card-body">
+                {% include 'lotjuridicas/instalaciones.html.twig' with{ 'instalaciones': lotjuridica.instalaciones }  %}
+
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block aditionalcss %}
+    <style>
+        .card-columns {column-count: 2;}
+    </style>
+{% endblock %}
+{% block topnavlink %}
+    <li class="nav-item">
+        <a class="nav-link text-primary" href="{{ path('lotjuridicas_index') }}"><i class="fa fa-list"></i> Listar Todas</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link text-warning" href="{{ path('lotjuridicas_edit', {'id': lotjuridica.id }) }}"><i class="fa fa-edit"></i> Editar</a>
+    </li>
+    {% if is_granted('ROLE_ADMIN') %}
+    <li class="nav-item">
+        {{ include('lotjuridicas/_delete_form.html.twig') }}
+    </li>
+    {% endif %}
+{% endblock %}

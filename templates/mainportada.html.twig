@@ -1,0 +1,203 @@
+{% extends 'base2.html.twig' %}
+{% block title %}Bienvenido al Sistema!{% endblock %}
+{% block body %}
+
+    <div class="card-columns">
+        <div class="card">
+            <img class="card-img-top" src="{{ asset('Images/expedientes.jpeg') }}" alt="Card image cap">
+            <div class="card-body">
+                <h5 class="card-title">Lots {{ alcance | default ('Municipio') }} {{ alcancevalor }} <span class="badge badge-primary">{{ datosEstLot[0].total }}</span></h5>
+                <table class="table table-striped table-dark table-sm">
+                    <tr>
+                        <th>Vigentes</th>
+                        <td>{{ datosEstLot[0].vigentes }}</td>
+                    </tr>
+                    <tr>
+                        <th><a class="text-light text-decoration-none" href="{{ path('lotjuridicas_canceladas') }}">Canceladas</a></th>
+                        <td>{{ datosEstLot[0].canceladas }}</td>
+                    </tr>
+                    <tr>
+                        <th>Suspendidas</th>
+                        <td>{{ datosEstLot[0].Suspendida }}</td>
+                    </tr>
+                    <tr>
+                        <th><a class="text-decoration-none text-light" href="{{ path('lotjuridicas_pteAprob') }}">
+                                Pendientes de Aprobacion</a></th>
+                        <td>{{ datosEstLot[0]["Pte Aprob"] }}</td>
+                    </tr>
+                    <tr>
+                        <th><a class="text-decoration-none text-light" href="{{ path('lotjuridicas_ptesimpresion') }}">
+                                Pendientes de Impresion</a></th>
+                        <td>{{ datosEstLot[0]["Pte Impresion"] }}</td>
+                    </tr>
+                    <tr>
+                        <th><a class="text-decoration-none text-light" href="{{ path('lotjuridicas_ptesentrega') }}">
+                                Pendientes de Entrega</a></th>
+                        <td>{{ datosEstLot[0]["Pte Entrega"] }}</td>
+                    </tr>
+                    <tr>
+                        <th>Pendientes de Renovacion</th>
+                        <td>{{ datosEstLot[0]["Pte Renovacion"] }}</td>
+                    </tr>
+                    <tr>
+                        <th>Destruidas</th>
+                        <td>{{ datosEstLot[0]["Destruido"] }}</td>
+                    </tr>
+                    <tr>
+                        <th>No Entregadas</th>
+                        <td>{{ datosEstLot[0]["No Entregada"] }}</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+
+        <div class="card">
+            <img class="card-img-top" src="{{ asset('Images/internacional.jpeg') }}" alt="Card image cap">
+            <div class="card-body">
+                <h5 class="card-title">Medios de Trasporte <span class="badge badge-primary">{{ mediosT | length }}</span> </h5>
+                <table class="table table-striped table-dark table-sm">
+                    <tr>
+                        <th>Aptos</th>
+                        <td>{{ aptos | length }}</td>
+                    </tr>
+                    <tr>
+                        <th>Con Comprobante Vigente</th>
+                        <td>{{ medioscomp[0]["vigente"] | default('0')  }}</td>
+                    </tr>
+                    <tr>
+                        <th>Con Comp. Suspendidos</th>
+                        <td>{{medioscomp[0]["suspendido"] |  default('0') }}</td>
+                    </tr>
+                    <tr>
+                        <th><a class="text-decoration-none text-light" href="{{ path('comprobante_ptesentrega') }}">
+                                <i class="fas fa-gifts" style="color:#91b3dd"></i>
+                                Con Comp Pte. de Entrega</a></th>
+                        <td>{{ medioscomp[0]["pteentrega"] |  default('0') }}</td>
+                    </tr>
+                    <tr>
+                        <th><a class="text-decoration-none text-light" href="{{ path('comprobante_ptesimpress') }}">
+                                <i class="fas fa-print" style="color:#93aedd"></i>
+                                Con Comp Pte. de Impresion</a></th>
+                        <td>{{ medioscomp[0]["pteimpres"] |  default('0') }}</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+
+        <div class="card">
+               <div class="card-body">
+                <h5 class="card-title">Ingresos Hoy </h5>
+                <table class="table table-striped table-dark table-sm">
+                    {% for ingreso in ingresos %}
+                        <tr>
+                            <th>{{ ingreso['concepto']  | capitalize}} <span class="badge badge-primary">{{ ingreso['cant'] }}</span></th>
+                            <td>{{ ingreso['importe'] | capitalize }}</td>
+                        </tr>
+                    {% endfor %}
+                </table>
+            </div>
+        </div>
+        <div class="card p-3 text-right">
+            <img class="card-img" src="{{ asset('Images/estadisticas.jpeg') }}" alt="Card image">
+            <blockquote class="blockquote mb-0">
+                <p>Estadisticas en Tiempo Real</p>
+                <div>
+                    <canvas id="myChart"></canvas>
+                </div>
+                <footer class="blockquote-footer">
+                    <small class="text-muted">
+                        Siga las principales modelos estadisticos en tiempo real <cite title="Source Title">Ver Mas</cite>
+                    </small>
+                </footer>
+            </blockquote>
+        </div>
+        <div class="card">
+            {% include "Sitio/notasdelaversion.html.twig" %}
+        </div>
+    
+
+    </div>
+    {{ nuevas is defined ? nuevas | length :''  }}
+    {#{{ nuevas[20].comprobante[0] }}#}
+
+
+{% endblock %}
+{% block jsadicional %}
+    <script src="{{ asset('chartjs/node_modules/chart.js/dist/chart.js') }}"></script>
+    {#<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>#}
+    <script>
+        const labels = [
+            'Enero',
+            'Febrero',
+            'Marzo',
+            'Abril',
+            'Mayo',
+            'Junio',
+        ];
+        const data = {
+            labels: labels,
+            datasets: [{
+                label: 'Tramites por Meses',
+                backgroundColor: 'rgb(255, 99, 132)',
+                borderColor: 'rgb(255, 99, 132)',
+                data: [0, 10, 5, 2, 20, 30, 45],
+            }]
+        };
+        const config = {
+            type: 'line',
+            data,
+            options: {}
+        };
+        var myChart = new Chart(
+            document.getElementById('myChart'),
+            config
+        );
+        // var ctx = document.getElementById('myChart');
+        // var myChart = new Chart(ctx, {
+        //     type: 'bar',
+        //     data: {
+        //         labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+        //         datasets: [{
+        //             label: '# of Votes',
+        //             data: [12, 19, 3, 5, 2, 3],
+        //             backgroundColor: [
+        //                 'rgba(255, 99, 132, 0.2)',
+        //                 'rgba(54, 162, 235, 0.2)',
+        //                 'rgba(255, 206, 86, 0.2)',
+        //                 'rgba(75, 192, 192, 0.2)',
+        //                 'rgba(153, 102, 255, 0.2)',
+        //                 'rgba(255, 159, 64, 0.2)'
+        //             ],
+        //             borderColor: [
+        //                 'rgba(255, 99, 132, 1)',
+        //                 'rgba(54, 162, 235, 1)',
+        //                 'rgba(255, 206, 86, 1)',
+        //                 'rgba(75, 192, 192, 1)',
+        //                 'rgba(153, 102, 255, 1)',
+        //                 'rgba(255, 159, 64, 1)'
+        //             ],
+        //             borderWidth: 1
+        //         }]
+        //     },
+        //     options: {
+        //         scales: {
+        //             y: {
+        //                 beginAtZero: true
+        //             }
+        //         }
+        //     }
+        // });
+    </script>
+
+{% endblock %}
+{% block friendsites %}
+    <a class="text-warning text-decoration-none" title="Cubadebate, contra el terrorismo mediático" lang="es" hreflang="Spanish" target="_blank" href="http://www.cubadebate.cu">
+        <img class="rounded-pill" src="{{ asset('Images/cubadebatelogo.png') }}" alt="Cubadebate" />
+    </a>
+    <a href="https://www.presidencia.gob.cu/es/"> <img src="{{ asset('Images/presidencia_logo.png') }}" alt="Sitio de la Presidencia"></a>
+    <a href="https://www.parlamentocubano.gob.cu/"> <img src="{{ asset('Images/ANPP_logo.png') }}" alt="Parlamento Cubano"></a>
+    <ul>
+        <li class="nav-link"><a class="text-warning text-decoration-none" href="https://www.gacetaoficial.gob.cu/es"> Gaceta Oficial de Cuba</a></li>
+        <li class="nav-link"><a class="text-warning text-decoration-none" title="Trámites y servicios en Cuba" lang="es" hreflang="Spanish" target="_blank" href="https://www.redisla.gob.cu/es/"> Portal del Ciudadano</a></li>
+    </ul>
+{% endblock %}

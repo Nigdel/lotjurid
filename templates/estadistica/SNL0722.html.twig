@@ -1,0 +1,43 @@
+{% extends 'base2.html.twig' %}
+{% block body %}
+<h1 class="alert alert-primary">SNL-07-22 Informativo sobre Instalaciones con comprobantes </h1>
+    <div class="container">
+        <div class="card">
+            <div class="card-header"> <h1>Instalaciones con Comprobantes</h1> </div>
+            <div class="card-body">
+
+                <table class="table table-striped table-dark table-sm" id="lotsv">
+                    <tr>
+                        <th>Servicio a Prestar</th>
+                        <th>Total</th>
+                        <th>Publico</th>
+                        <th>Limitado</th>
+                        <th>Propio</th>
+                    </tr>
+
+                    {% for inst in instalaciones %}
+                        <tr>
+                            <td>{{ inst.ServAuxCon }}</td>
+                            <td>{{ inst.Total }}</td>
+                            <td>{{ inst.Publica }}</td>
+                            <td>{{ inst.Limitada }}</td>
+                            <td>{{ inst.Propia }}</td>
+                        </tr>
+                    {% else %}
+                        <tr><td colspan="5">No se obtuvieron resultados</td></tr>
+                    {% endfor %}
+
+                </table>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+{% block topnavlink %}
+    <li class="nav-item">
+        <a class="nav-link text-primary" href="{{ path('estadistica_SNL',{'id':'0701'}) }}"><i class="fa fa-list"></i> SNL0701</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link text-primary" href="{{ path('estadistica_SNL',{'id':'0702'}) }}"><i class="fa fa-list"></i> SNL0702</a>
+    </li>
+{% endblock %}

@@ -1,0 +1,5 @@
+<form method="post" action="{{ path('lotjuridicas_delete', {'id': lotjuridica.id}) }}" onsubmit="return confirm('Para eliminar esta lot serciorese que no tenga instalaciones ni basificaciones asociadas. Esta seguro que desea continuar?');">
+    <input type="hidden" name="_method" value="DELETE">
+    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ lotjuridica.id) }}">
+    <button class="btn text-danger"><i class="fa fa-trash"></i> Eliminar</button>
+</form>

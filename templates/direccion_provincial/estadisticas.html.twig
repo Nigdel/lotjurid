@@ -1,0 +1,14 @@
+
+<ul>
+    <li><a class="text-warning text-decoration-none" href="{{ path('direccion_provincial_ingresos', {'dp': direccion_provincial.id}) }}"><i class="fa fa-balance-scale"></i> Ingresos </a></li>
+    <li><a href="{{ path('estadisticaprov_SNL', {'id': '0701','prov': direccion_provincial.provincia.id }) }}">SNL-7-01 </a></li>
+    <li><a href="{{ path('estadisticaprov_SNL', {'id': '0702','prov': direccion_provincial.provincia.id}) }}">SNL-7-02 </a></li>
+    <li><a href="{{ path('estadisticaprov_SNL', {'id': '0703','prov': direccion_provincial.provincia.id}) }}">SNL-7-03 </a></li>
+    <li><a href="{{ path('estadisticaprov_SNL', {'id': '0722','prov': direccion_provincial.provincia.id}) }}">SNL-7-22 </a></li>
+    <li><a class="text-warning text-decoration-none" id="upload" role="button" onclick="downloadFile('{{ path('estadistica_mediosprov', {'prov':direccion_provincial.provincia.id }) }}')">Medios.xls(lento)</a></li>
+    {#<li><a class="text-warning text-decoration-none" href="{{ path('estadistica_mediosprov', {'prov':direccion_provincial.provincia.id }) }}">Medios.xls</a></li>#}
+    <li><a class="text-warning text-decoration-none" id="upload" role="button" onclick="downloadFile('{{ path('estadistica_datosinstaprov', {'provincia': direccion_provincial.provincia.id}) }}')">Instalaciones.xls</a></li>
+    <li><a class="text-warning text-decoration-none" id="upload" role="button" onclick="downloadFile('{{ path('estadistica_modelo1prov', {'prov': direccion_provincial.provincia.id}) }}')">Modelo1.xls</a></li>
+    <li><a class="text-warning text-decoration-none" id="upload" role="button" onclick="downloadFile('{{ path('estadistica_modelo2prov', {'prov': direccion_provincial.provincia.id}) }}')">Modelo2.xls</a></li>
+
+</ul>

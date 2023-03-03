@@ -1,0 +1,218 @@
+{% extends 'base2.html.twig' %}
+
+{% block body %}
+    <div class="jumbotron p-2">
+        <div class="container">
+            <h3 class="alert alert-warning">Módulo Estadístico </h3>
+            <div class="row">
+                <div class="col-4">
+                    <strong class="badge alert-primary">{{ alcance | default ('Municipio') }} {{ alcancevalor }}</strong>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="card-img px-5">
+            <canvas id="myChart"></canvas>
+        </div>
+            <ul class="nav nav-tabs" id="myTab" role="tablist">
+                {% for key,value in datosEstLot %}
+                    <li class="nav-item" role="presentation">
+                        <a class="nav-link text-white" id="tabpers"  href="#a{{ value.idmun }}">{{ value.Municipios }}</a>
+                    </li>
+                {% endfor %}
+            </ul>
+            <div class="tab-content mt-2">
+                {% for key,value in datosEstLot %}
+                    <div id="a{{ value.idmun }}" class="tab-pane">
+
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title">Lots Municipio {{ value.Municipios }} <span class="badge badge-primary">{{ value.total }}</span>
+                                    <a href="#" class="text-decoration-none text-light"> <i class="fa fa-download"></i></a>
+                                </h5>
+                                <table class="table table-striped table-dark table-sm">
+                                    <tr>
+                                        <th>Vigentes</th>
+                                        <td>{{ value.vigentes }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Canceladas</th>
+                                        <td>{{ value.canceladas }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Suspendidas</th>
+                                        <td>{{ value.Suspendida }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Pendientes de Aprobacion</th>
+                                        <td>{{ value["Pte Aprob"] }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Pendientes de Impresion</th>
+                                        <td>{{value["Pte Impresion"] }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Pendientes de Entrega</th>
+                                        <td>{{ value["Pte Entrega"] }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Pendientes de Renovacion</th>
+                                        <td>{{ value["Pte Renovacion"] }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Destruidas</th>
+                                        <td>{{ value["Destruido"] }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>No Entregadas</th>
+                                        <td>{{ value["No Entregada"] }}</td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+    </div>
+{% endblock %}
+{% block jsadicional %}
+    <script src="{{ asset('chartjs/node_modules/chart.js/dist/chart.js') }}"></script>
+    {#<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>#}
+    <script>
+        const labels = [
+            {% for key,value in datosEstLot %}
+            '{{ value.Municipios }}',
+            {% endfor %}
+        ];
+        const data = {
+            labels: labels,
+            datasets: [{
+                label: 'Vigentes',
+                 backgroundColor: [
+                    '#2e2efe',
+                 ],
+                borderColor: [
+                    '#29298c',
+                ],
+                borderWidth: 0.1,
+                data: [
+                    {% for key,value in datosEstLot %}
+                    '{{ value.vigentes }}',
+                    {% endfor %}
+                ],
+            },
+                {#{#}
+                {#label: 'Canceladas',#}
+                {#backgroundColor: [#}
+                    {#'#fe1c1f',#}
+                {#],#}
+                {#borderColor: [#}
+                    {#'rgba(255, 255, 255, 0.5)',#}
+                {#],#}
+                {#borderWidth: 1,#}
+                {#data: [#}
+                    {#{% for key,value in datosEstLot %}#}
+                    {#'{{ value.canceladas }}',#}
+                    {#{% endfor %}#}
+                {#],#}
+            {#},#}
+
+                {
+                    label: 'Pte Renov',
+                    backgroundColor: [
+                        '#f1ff1d',
+                    ],
+                    borderColor: [
+                        '#909e1c',
+                    ],
+                    borderWidth: 1,
+                    data: [
+                        {% for key,value in datosEstLot %}
+                        '{{ value["Pte Renovacion"] }}',
+                        {% endfor %}
+
+                    ],
+                },
+                {
+                    label: 'Suspendidas',
+                    backgroundColor: [
+                        '#78fe85',
+                    ],
+                    borderColor: [
+                        'rgba(0, 0, 0, 1)',
+                    ],
+                    borderWidth: 1,
+                    data: [
+                        {% for key,value in datosEstLot %}
+                        '{{ value.Suspendida }}',
+                        {% endfor %}
+                    ],
+                },
+
+                {#{#}
+                    {#label: 'Pte Impresion',#}
+                    {#backgroundColor: [#}
+                        {#'#6c8725',#}
+                    {#],#}
+                    {#borderColor: [#}
+                        {#'#486223',#}
+                    {#],#}
+                    {#data: [#}
+                        {#{% for key,value in datosEstLot %}#}
+                        {#'{{ value["Pte Impresion"] }}',#}
+                        {#{% endfor %}#}
+
+                        {#{{ datosEstLot[0]["Pte Entrega"] }},#}
+                        {#{{ datosEstLot[0]["Pte Renovacion"] }},#}
+                        {#{{ datosEstLot[0]["Destruido"] }},#}
+                        {#{{ datosEstLot[0]["No Entregada"] }}#}
+                    {#],#}
+                {#}#}
+
+            ]
+        };
+        const plugin = {
+            id: 'custom_canvas_background_color',
+            beforeDraw: (chart) => {
+            const ctx = chart.canvas.getContext('2d');
+        ctx.save();
+        ctx.globalCompositeOperation = 'destination-over';
+        ctx.fillStyle = '#242939';
+        ctx.fillRect(0, 0, chart.width, chart.height);
+        ctx.restore();
+        }
+        };
+        const config = {
+            type: 'bar',
+            data: data,
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        position: 'top',
+                    },
+                    title: {
+                        display: true,
+                        text: 'Lots por Estado'
+                    }
+                }
+            },
+            plugins: [plugin],
+        };
+
+        var myChart = new Chart(
+            document.getElementById('myChart'),
+            config
+        );
+
+        $(document).ready(function(){
+            $('.nav-tabs a:first').tab('show');
+            $(".nav-tabs a").click(function(){
+                $(this).tab('show');
+                // $(this).css("background","#ffffff4a");
+            });
+        });
+
+    </script>
+{% endblock %}

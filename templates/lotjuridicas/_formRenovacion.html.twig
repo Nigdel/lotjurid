@@ -1,0 +1,52 @@
+{% use "form_div_layout.html.twig" %}
+{% from 'Sitio/utilidades.html.twig' import campo %}
+{{ form_start(form) }}
+<div class="form-group">
+    {{ form_errors(form) }}
+    <div class="form-row">
+        <div class="form-group col-md-2">
+            <div class="form-group">
+                <label for="exped" class="required">Expediente</label>
+                {{ campo('exped',lotjuridica.id,true)  }}
+            </div>
+        </div>
+        <div class="form-group col">
+            <div class="form-group">
+                <label for="Identidad" class="required">Entidad <a href="{{ path('personasjuridicas_show', {'id': lotjuridica.Identidad.id }) }}"><i class="fa fa-eye"></i></a>  </label>
+                {{ campo('Identidad',lotjuridica.Identidad,true)  }}
+            </div>
+        </div>
+        <div class="form-group col-md-2">
+            <div class="form-group">
+                <label for="aprobinic" class="required">Aprob. Inicial </label>
+                {{ campo('aprobinic',lotjuridica.fechaaprobinicial | date('d/m/Y'),true)  }}
+            </div>
+        </div>
+        <div class="form-group col-md-2">
+            <div class="form-group">
+                <label for="rama" class="required">Rama </label>
+                {{ campo('rama',lotjuridica.idrama ,true)  }}
+            </div>
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="form-group col-md-2">
+            {{ form_row(form.fechasolicitud) }}
+        </div>
+        <div class="form-group col-md-2">
+            {{ form_row(form.idtipo) }}
+        </div>
+        <div class="form-group col-md-2">
+            {{ form_row(form.idservicio) }}
+        </div>
+        <div class="form-group col-md-2">
+            {{ form_row(form.idextension) }}
+        </div>
+    </div>
+    <div class="d-none">
+        {{ form_widget(form) }}
+    </div>
+</div>
+    <button class="btn btn-sm btn-success">{{ button_label|default('Renovar') }}</button>
+    <a class="btn btn-sm btn-info" href="{{ path('lotjuridicas_index') }}">Listado de Lots</a>
+{{ form_end(form) }}

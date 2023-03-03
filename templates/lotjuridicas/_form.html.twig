@@ -1,0 +1,80 @@
+{% use "form_div_layout.html.twig" %}
+{{ form_start(form) }}
+<div class="form-group">
+    {{ form_errors(form) }}
+    <div class="form-row text-warning">
+        <div class="form-group col-md-2">
+            <span class="">Expediente</span> <br/>
+            <span class="form-control mt-2">{{ lotjuridica.id }}</span>
+        </div>
+        <div class="form-group col-md-4 disabled">
+            <span class="">Entidad</span> <br/>
+            <span class="form-control mt-2">{{ lotjuridica.identidad }}</span>
+        </div>
+        <div class="form-group col-md-3">
+            <span class="">Tramitada Por</span> <br/>
+            <span class="form-control mt-2">{{ lotjuridica.idtramitador }}</span>
+        </div>
+        <div class="form-group col-md-3">
+            <span class="">Modificada Por</span> <br/>
+            <span class="form-control mt-2">{{ app.User }}</span>
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="form-group col-md-2">
+            {{ form_row(form.fechasolicitud) }}
+        </div>
+        <div class="form-group col-md-2">
+            {{ form_row(form.idtipo) }}
+        </div>
+        <div class="form-group col-md-2">
+            {{ form_row(form.idservicio) }}
+        </div>
+        <div class="form-group col-md-2">
+            {{ form_row(form.idrama) }}
+        </div>
+        <div class="form-group col-md-2">
+            {{ form_row(form.idextension) }}
+        </div>
+    </div>
+    {#{{ form_row(form.servicioamparado) }}#}
+    <div class="form-row">
+        <div class="form-group col-md-3">
+            {{ form_row(form.presentada) }}
+        </div>
+        <div class="form-group col-md-3">
+            {{ form_row(form.aprobada) }}
+        </div>
+        <div class="form-group col-md-3">
+            {{ form_row(form.mediatarifa) }}
+        </div>
+        <div class="form-group col-md-3">
+            {{ form_row(form.duplicado) }}
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="form-group col-md-3">
+            {{ form_row(form.fechaaprobacion) }}
+        </div>
+        <div class="form-group col-md-3">
+            {{ form_row(form.fechaemision) }}
+        </div>
+        <div class="form-group col-md-3">
+            {{ form_row(form.fechaentrega) }}
+        </div>
+        <div class="form-group col-md-3">
+            {{ form_row(form.fechadecancelacion) }}
+        </div>
+
+        <div class="form-group col-md-3">
+            {{ form_row(form.fechaaprobinicial) }}
+        </div>
+    </div>
+    <div class="d-none">
+        {{ form_widget(form) }}
+    </div>
+
+</div>
+
+    <button class="btn">{{ button_label|default('Crear') }}</button>
+{{ form_end(form) }}

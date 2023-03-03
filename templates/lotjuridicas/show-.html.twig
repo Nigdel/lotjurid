@@ -1,0 +1,114 @@
+{% extends 'base2.html.twig' %}
+
+{% block title %}Lotjuridicas{% endblock %}
+
+{% block body %}
+    <h1>Lotjuridicas</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ lotjuridica.id }}</td>
+            </tr>
+            <tr>
+                <th>Fechasolicitud</th>
+                <td>{{ lotjuridica.fechasolicitud ? lotjuridica.fechasolicitud|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Presentada</th>
+                <td>{{ lotjuridica.presentada ? 'Yes' : 'No' }}</td>
+            </tr>
+            <tr>
+                <th>Aprobada</th>
+                <td>{{ lotjuridica.aprobada ? 'Yes' : 'No' }}</td>
+            </tr>
+            <tr>
+                <th>Fechaaprobacion</th>
+                <td>{{ lotjuridica.fechaaprobacion ? lotjuridica.fechaaprobacion|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Fechaemision</th>
+                <td>{{ lotjuridica.fechaemision ? lotjuridica.fechaemision|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Fechaentrega</th>
+                <td>{{ lotjuridica.fechaentrega ? lotjuridica.fechaentrega|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Limitacion</th>
+                <td>{{ lotjuridica.limitacion }}</td>
+            </tr>
+            <tr>
+                <th>Tpomedioamparado</th>
+                <td>{{ lotjuridica.tpomedioamparado }}</td>
+            </tr>
+            <tr>
+                <th>Duracion</th>
+                <td>{{ lotjuridica.duracion }}</td>
+            </tr>
+            <tr>
+                <th>Fechadecancelacion</th>
+                <td>{{ lotjuridica.fechadecancelacion ? lotjuridica.fechadecancelacion|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Fecharenov</th>
+                <td>{{ lotjuridica.fecharenov ? lotjuridica.fecharenov|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Posteada</th>
+                <td>{{ lotjuridica.posteada ? 'Yes' : 'No' }}</td>
+            </tr>
+            <tr>
+                <th>Mediatarifa</th>
+                <td>{{ lotjuridica.mediatarifa ? 'Yes' : 'No' }}</td>
+            </tr>
+            <tr>
+                <th>Medidadeltiempo</th>
+                <td>{{ lotjuridica.medidadeltiempo }}</td>
+            </tr>
+            <tr>
+                <th>Numfolio</th>
+                <td>{{ lotjuridica.numfolio }}</td>
+            </tr>
+            <tr>
+                <th>Fechaaprobinicial</th>
+                <td>{{ lotjuridica.fechaaprobinicial ? lotjuridica.fechaaprobinicial|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Tiposolicitud</th>
+                <td>{{ lotjuridica.tiposolicitud }}</td>
+            </tr>
+            <tr>
+                <th>Causadecancelacion</th>
+                <td>{{ lotjuridica.causadecancelacion }}</td>
+            </tr>
+            <tr>
+                <th>Dictamen</th>
+                <td>{{ lotjuridica.dictamen }}</td>
+            </tr>
+            <tr>
+                <th>C_negacion</th>
+                <td>{{ lotjuridica.cNegacion }}</td>
+            </tr>
+            <tr>
+                <th>Prorrogadoendias</th>
+                <td>{{ lotjuridica.prorrogadoendias }}</td>
+            </tr>
+            <tr>
+                <th>Fechadedestruccion</th>
+                <td>{{ lotjuridica.fechadedestruccion ? lotjuridica.fechadedestruccion|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Duplicado</th>
+                <td>{{ lotjuridica.duplicado ? 'Yes' : 'No' }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('lotjuridicas_index') }}">back to list</a>
+
+    <a href="{{ path('lotjuridicas_edit', {'id': lotjuridica.id}) }}">edit</a>
+
+    {{ include('lotjuridicas/_delete_form.html.twig') }}
+{% endblock %}

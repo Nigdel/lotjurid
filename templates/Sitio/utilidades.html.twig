@@ -1,0 +1,36 @@
+{% macro campo(nombre,valor, readonly,requerido, tipo, id, clase) %}
+    <input class="{{ clase| default('form-control') }}" type="{{ tipo|default('text') }}" name="{{ nombre }}" id="{{ id |default(nombre)}}" value="{{ valor }}" {{ requerido ? 'required="required"' :
+    '' }} {{ readonly ? 'readonly' : '' }} />
+{% endmacro %}
+{% macro campoForm(nombre,valor,readonly,colsize,requerido, tipo, id, clase) %}
+    <div class="form-group {{ colsize | default('col-md-2') }}">
+        <div class="form-group">
+            <label for="{{ nombre }}" class="required">{{ nombre | capitalize }}</label>
+            {{ _self.campo( nombre ,valor,readonly)  }}
+        </div>
+    </div>
+{% endmacro %}
+{% macro estadolot(estado) %}
+    {% if estado.id == 1 %}<span class="badge badge-info"><i class="fas fa-spinner fa-spin"></i> {{ estado.nombreEstado }}</span>{% endif %}
+    {% if estado.id == 2 %}<span class="badge badge-danger"><i class="fas fa-lock"></i> {{ estado.nombreEstado }}</span>{% endif %}
+    {% if estado.id == 3 %}<span class="badge badge-primary"><i class="fas fa-hourglass"></i> {{ estado.nombreEstado }}</span>{% endif %}
+    {% if estado.id == 4 %}<span class="badge badge-danger"><i class="fa fa-ticket"></i> {{ estado.nombreEstado }}</span>{% endif %}
+    {% if estado.id == 5 %}<span class="badge badge-primary"><i class="fa fa-check"></i> {{ estado.nombreEstado }}</span>{% endif %}
+    {% if estado.id == 6 %}<span class="badge badge-info"><i class="fas fa-file-signature"></i> {{ estado.nombreEstado }}</span>{% endif %}
+    {% if estado.id == 7 %}<span class="badge badge-warning"><i class="fas fa-retweet"></i> {{ estado.nombreEstado }}</span>{% endif %}
+    {% if estado.id == 8 %}<span class="badge badge-danger badge-pill"><i class="fas fa-ban"></i> {{ estado.nombreEstado }}</span>{% endif %}
+    {% if estado.id == 9 %}<span class="badge badge-primary"><i class="fa fa-ticket"></i> {{ estado.nombreEstado }}</span>{% endif %}
+    {% if estado.id == 10 %}<span class="badge badge-danger"><i class="fas fa-trash-alt"></i> {{ estado.nombreEstado }}</span>{% endif %}
+    {% if estado.id == 11 %}<span class="badge badge-warning"><i class="fas fa-print"></i> {{ estado.nombreEstado }}</span>{% endif %}
+    {% if estado.id == 12 %}<span class="badge badge-primary"><i class="fa fa-ticket"></i> {{ estado.nombreEstado }}</span>{% endif %}
+{% endmacro %}
+{% macro estadocomp(estado) %}
+    {% if estado.id == 1 %}<span class="badge badge-info"><i class="fas fa-spinner fa-spin"></i> {{ estado.nombreEstado }}</span>{% endif %}
+    {% if estado.id == 2 %}<span class="badge badge-warning"><i class="fas fa-print"></i> {{ estado.nombreEstado }}</span>{% endif %}
+    {% if estado.id == 3 %}<span class="badge badge-primary"><i class="fas fa-hourglass"></i> {{ estado.nombreEstado }}</span>{% endif %}
+    {% if estado.id == 4 %}<span class="badge badge-primary"><i class="fa fa-check"></i> {{ estado.nombreEstado }}</span>{% endif %}
+    {% if estado.id == 5 %}<span class="badge badge-danger"><i class="fas fa-trash-alt"></i> {{ estado.nombreEstado }}</span>{% endif %}
+    {% if estado.id == 6 %}<span class="badge badge-info"><i class="fas fa-file-signature"></i> {{ estado.nombreEstado }}</span>{% endif %}
+    {% if estado.id == 7 %}<span class="badge badge-warning"><i class="fas fa-retweet"></i> {{ estado.nombreEstado }}</span>{% endif %}
+    {% if estado.id == 8 %}<span class="badge badge-danger badge-pill"><i class="fas fa-ban"></i> {{ estado.nombreEstado }}</span>{% endif %}
+{% endmacro %}

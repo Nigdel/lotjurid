@@ -1,0 +1,35 @@
+{% extends 'base2.html.twig' %}
+
+{% block title %}TipoLot index{% endblock %}
+
+{% block body %}
+    <h1>TipoLot index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Tipodelot</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for tipo_lot in tipo_lots %}
+            <tr>
+                <td>{{ tipo_lot.id }}</td>
+                <td>{{ tipo_lot.tipodelot }}</td>
+                <td>
+                    <a href="{{ path('tipo_lot_show', {'id': tipo_lot.id}) }}">show</a>
+                    <a href="{{ path('tipo_lot_edit', {'id': tipo_lot.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="3">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('tipo_lot_new') }}">Create new</a>
+{% endblock %}
